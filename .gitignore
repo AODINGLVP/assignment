@@ -1,0 +1,29 @@
+# 忽略编译输出
+*.obj
+*.exe
+*.pdb
+*.lib
+*.dll
+*.ilk
+*.log
+*.png
+
+# 忽略临时文件
+*.tmp
+*.user
+*.suo
+*.cache
+*.ncb
+*.ipch
+
+# 忽略 Visual Studio 自动生成文件夹
+/.vs/
+/Debug/
+/Release/
+/x64/
+/x86/
+/ipch/
+
+# 忽略其他 IDE 的配置
+*.VC.db
+*.VC.opendb
