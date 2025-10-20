@@ -22,7 +22,7 @@ public:
         return rotation[0];
 
     }
-    float GetPositionY() {
+    float GetrotationY() {
         return rotation[1];
 
     }
