@@ -7,6 +7,7 @@ public:
 		y = 0;
 		w = 0;
 		h = 0;
+		istrigger = false;
 
 	};
 	void SetCollision(float x1, float y1, float w1,float h1) {
@@ -16,6 +17,9 @@ public:
 		h = h1;
 
 
+	}
+	void setistrigger(bool chose) {
+		istrigger = chose;
 	}
 	float getcollisionX() {
 		return x;
@@ -38,6 +42,7 @@ public:
 	}
 private:
 	float x, y, w, h;
+	bool istrigger;
 
 };
 

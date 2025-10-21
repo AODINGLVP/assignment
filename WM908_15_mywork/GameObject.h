@@ -1,8 +1,10 @@
+class GameObjectManager;
 #pragma once
 #include <string>
 #include "Transform.h"
 #include "Collision.h"
 #include "GamesEngineeringBase.h"
+
 
 
 using namespace std;
@@ -22,15 +24,20 @@ public:
 		Active = true;
 		Tag = "";
 		Layer = 0;
-		//GameObjectManager::getInstance().add(this);
+		registerobj(this);
 		
 
 
 
 	}
-	/*virtual int Update(float dt) {
-		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), image.width, image.height);
-	}*/
+	 virtual int Update(float dt) {
+		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), image.width, image.height); 
+			return 0;
+	}
+
+	void registerobj (GameObject* obj);
+	void removeobj(GameObject* obj);
+
 		 ~GameObject() {}
 private:
 	

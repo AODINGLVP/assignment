@@ -27,8 +27,11 @@ SOFTWARE.
 #include<fstream>
 #include<string>
 #include "GamesEngineeringBase.h" // Include the GamesEngineeringBase header
+#include"GameObjectManager.h"
+#include "Bulletmanager.h"
+#include "Bullet.h"
 bool scvtest=true;
-
+void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int count);
 void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image);
 void draw_entire_background(int **mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles);
 void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move);
@@ -41,9 +44,11 @@ int main() {
 	HRESULT hr = CoInitialize(NULL); //  初始化 COM
 
 	GamesEngineeringBase::Timer timer;
-	
+	GameObjectManager& gameobjectmanager=GameObjectManager::getInstance();
+	Bulletmanager& bulletmanager = Bulletmanager::getInstance();
 	ifstream file("../Resources/tiles.txt");
-	Hero hero;
+	Hero& hero = Hero::getInstance();
+	
 	float dt = timer.dt();
 	int move = hero.getMoveSpeed() * dt;
 
@@ -114,18 +119,24 @@ int main() {
 	bool running = true; // Variable to control the main loop's running state.
 	while (running)
 	{
+		dt = timer.dt();
+		
 		if (canvas.keyPressed(VK_ESCAPE)) break;
+		hero.shot(dt);
 		controlHero(hero, canvas, move);
+		move = hero.getMoveSpeed() * dt;
+		gameobjectmanager.UpdateAll(dt);
+		bulletmanager.updateAll(dt);
 		// Check for input (key presses or window events)
 		// Clear the window for the next frame rendering
 		canvas.clear();
 	
 		draw_entire_background(mapsave1, canvas, tiles);
-		draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
+		//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
+		draw_object( canvas, gameobjectmanager.getobjects(),gameobjectmanager.GetCount());
 		
 		draw_collision(hero, canvas);
-		float dt = timer.dt();
-		 move = hero.getMoveSpeed() * dt;
+		
 		
 		// Update game logic
 		// Draw();
@@ -139,7 +150,7 @@ void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEnginee
 
 	for ( int i = 0; i < image.height; i++) {
 		for ( int j = 0; j < image.width; j++) {
-			if(x + j >=0&&i+y>=0){
+			if(x + j >=0&&i+y>=0&&x+j<canvas.getWidth()&&i+y<canvas.getHeight()){
 				if (image.alphaAt(j, i)) {
 					canvas.draw(x + j, y + i, image.at(j, i));
 				}
@@ -151,20 +162,55 @@ void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEnginee
 	}
 	
 }
+void draw_object( GamesEngineeringBase::Window& canvas,GameObject** obj,int count) {//draw a pixil image at (x,y) position on the canvas
+
+	for (int o = 0; o < count; o++) {
+		if (obj[o]) {
+			for (int i = 0; i < obj[o]->image.height; i++) {
+				for (int j = 0; j < obj[o]->image.width; j++) {
+					if (obj[o]->transform.GetPositionX() + j >= 0 && i + obj[o]->transform.GetPositionY() >= 0 && obj[o]->transform.GetPositionX() + j < canvas.getWidth() && i + obj[o]->transform.GetPositionY() < canvas.getHeight()) {
+						if (obj[o]->image.alphaAt(j, i)) {
+							canvas.draw(obj[o]->transform.GetPositionX() + j, obj[o]->transform.GetPositionY() + i, obj[o]->image.at(j, i));
+						}
+						//cout << i + x <<"   "<< j + y<<endl;//only a little test can be used
+
+					}
+
+				}
+			}
+
+		}
+	}
+
+
+}
 void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas) {
 	for (int i = gameobject.collision.getcollisionX(); i < gameobject.collision.getcollisionX()+ gameobject.collision.getcollisionW(); i++) {
-		canvas.draw(i, gameobject.collision.getcollisionY(), 0, 0, 225);
-		if (scvtest)
-		cout << i << "   " << gameobject.collision.getcollisionY() << endl;
+		if (i >= 0 && gameobject.collision.getcollisionY() >= 0 && i < canvas.getWidth() &&  gameobject.collision.getcollisionY() < canvas.getHeight()) {
+			canvas.draw(i, gameobject.collision.getcollisionY(), 0, 0, 225);
+		}
 		
-		
-		
+	}
+	for (int i = gameobject.collision.getcollisionX(); i < gameobject.collision.getcollisionX() + gameobject.collision.getcollisionW(); i++) {
+		if (i >= 0 && gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH() >= 0 && i < canvas.getWidth() &&  gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH() < canvas.getHeight()) {
+			canvas.draw(i, gameobject.collision.getcollisionY()+gameobject.collision.getcollisionH(), 0, 0, 225);
+		}
+
+	}
+	
+	for (int i = gameobject.collision.getcollisionY(); i < gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH(); i++) {
+		if (gameobject.collision.getcollisionX() >= 0 && i  >= 0 && gameobject.collision.getcollisionX() < canvas.getWidth() && i < canvas.getHeight()) {
+			canvas.draw(gameobject.collision.getcollisionX(), i, 0, 0, 225);
+		}
 		
 	}
 	for (int i = gameobject.collision.getcollisionY(); i < gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH(); i++) {
-		canvas.draw(gameobject.collision.getcollisionX(),i , 0, 0, 225);
-		
+		if (gameobject.collision.getcollisionX()+ gameobject.collision.getcollisionH() >= 0 && i >= 0 && gameobject.collision.getcollisionX()+ gameobject.collision.getcollisionH() < canvas.getWidth() && i < canvas.getHeight()) {
+			canvas.draw(gameobject.collision.getcollisionX()+gameobject.collision.getcollisionW(), i, 0, 0, 225);
+		}
+
 	}
+	
 	scvtest = false;
 
 }
