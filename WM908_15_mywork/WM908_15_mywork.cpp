@@ -21,22 +21,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
+#include"GameObject.h"
+#include"Hero.h"
 #include<iostream>
 #include<fstream>
 #include<string>
 #include "GamesEngineeringBase.h" // Include the GamesEngineeringBase header
+bool scvtest=true;
 
 void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image);
 void draw_entire_background(int **mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles);
-
+void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move);
+void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas);
 
 using namespace std;
 
 int main() {
 	
 	HRESULT hr = CoInitialize(NULL); //  初始化 COM
+
+	GamesEngineeringBase::Timer timer;
+	
 	ifstream file("../Resources/tiles.txt");
+	Hero hero;
+	float dt = timer.dt();
+	int move = hero.getMoveSpeed() * dt;
+
 	int** mapsave1 = new int* [42];
 	for (int i = 0; i < 42; i++)
 		mapsave1[i] = new int[42];
@@ -91,6 +101,7 @@ int main() {
 
 	GamesEngineeringBase::Image image;
 	GamesEngineeringBase::Window canvas;
+
 	image.load("../Resources/A.png");
 	// Create a canvas window with dimensions 1024x768 and title “Tiles"
 	
@@ -103,12 +114,18 @@ int main() {
 	bool running = true; // Variable to control the main loop's running state.
 	while (running)
 	{
+		if (canvas.keyPressed(VK_ESCAPE)) break;
+		controlHero(hero, canvas, move);
 		// Check for input (key presses or window events)
 		// Clear the window for the next frame rendering
 		canvas.clear();
 	
 		draw_entire_background(mapsave1, canvas, tiles);
+		draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.heroimage);
 		
+		draw_collision(hero, canvas);
+		float dt = timer.dt();
+		 move = hero.getMoveSpeed() * dt;
 		
 		// Update game logic
 		// Draw();
@@ -122,14 +139,34 @@ void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEnginee
 
 	for ( int i = 0; i < image.height; i++) {
 		for ( int j = 0; j < image.width; j++) {
-			if(i+x>=0&&j+y>=0){
+			if(x + j >=0&&i+y>=0){
+				if (image.alphaAt(j, i)) {
+					canvas.draw(x + j, y + i, image.at(j, i));
+				}
 				//cout << i + x <<"   "<< j + y<<endl;//only a little test can be used
-				canvas.draw(x + j, y + i, image.at(j, i));
+				
 			}
 			
 		}
 	}
 	
+}
+void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas) {
+	for (int i = gameobject.collision.getcollisionX(); i < gameobject.collision.getcollisionX()+ gameobject.collision.getcollisionW(); i++) {
+		canvas.draw(i, gameobject.collision.getcollisionY(), 0, 0, 225);
+		if (scvtest)
+		cout << i << "   " << gameobject.collision.getcollisionY() << endl;
+		
+		
+		
+		
+	}
+	for (int i = gameobject.collision.getcollisionY(); i < gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH(); i++) {
+		canvas.draw(gameobject.collision.getcollisionX(),i , 0, 0, 225);
+		
+	}
+	scvtest = false;
+
 }
 void draw_entire_background(int **mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles) {
 	for (int i = 0; i < 42; i++) {
@@ -140,6 +177,29 @@ void draw_entire_background(int **mapsave1, GamesEngineeringBase::Window& canvas
 			}
 		}
 
+
+	}
+}
+void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas,float move) {
+	
+
+	if (canvas.keyPressed('W')) {
+		hero.transform.SetPosition(hero.transform.GetPositionX(),hero.transform.GetPositionY() - move);
+		cout << hero.transform.GetPositionY() << endl;
+		
+
+	}
+	if (canvas.keyPressed('S')) {
+		hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() + move);
+		cout << hero.transform.GetPositionY() << endl;
+
+	}
+	if (canvas.keyPressed('A')) {
+		hero.transform.SetPosition(hero.transform.GetPositionX()-move, hero.transform.GetPositionY() );
+
+	}
+	if (canvas.keyPressed('D')) {
+		hero.transform.SetPosition(hero.transform.GetPositionX() + move, hero.transform.GetPositionY());
 
 	}
 }
