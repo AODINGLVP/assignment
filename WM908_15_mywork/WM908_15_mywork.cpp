@@ -121,7 +121,7 @@ int main() {
 		canvas.clear();
 	
 		draw_entire_background(mapsave1, canvas, tiles);
-		draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.heroimage);
+		draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
 		
 		draw_collision(hero, canvas);
 		float dt = timer.dt();

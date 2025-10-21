@@ -2,11 +2,14 @@
 #include <string>
 #include "Transform.h"
 #include "Collision.h"
+#include "GamesEngineeringBase.h"
+
 
 using namespace std;
 class GameObject
 {
 public:
+	GamesEngineeringBase::Image image;
 	string Name;
 	bool Active;
 	string Tag;
@@ -19,13 +22,15 @@ public:
 		Active = true;
 		Tag = "";
 		Layer = 0;
+		//GameObjectManager::getInstance().add(this);
+		
 
 
 
 	}
-	void updata(float dt) {
-		collision.SetCollision()
-	}
+	/*virtual int Update(float dt) {
+		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), image.width, image.height);
+	}*/
 		 ~GameObject() {}
 private:
 	

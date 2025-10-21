@@ -4,11 +4,12 @@
 class Hero :public GameObject
 {
 public:
-	GamesEngineeringBase::Image heroimage;
+	
+	
 	Hero() {
 		
 		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), 80, 160);
-		heroimage.load("../Resources/Hero.png");
+		image.load("../Resources/Hero.png");
 		health = 100;
 		movespeed = 110.f;
 		pojectilespeed = 1.0f;
