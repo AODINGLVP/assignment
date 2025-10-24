@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include<iostream>
+using namespace std;
 
 
 class GameObjectManager {
@@ -31,10 +33,15 @@ public:
     void UpdateAll(float dt) {
         for (int i = 0; i < count; i++) {
             if (objects[i]) {
+                if (i == 1) {
+                    cout << objects[1]->collision.getcollisionX() << "    " << objects[1]->transform.GetPositionX() << "     " << objects[1]->collision.getcollisionoffestX() << endl;
+                }
                 objects[i]->Update(dt);
+                
                
             }
         }
+        
     }
      GameObject** getobjects() {
 		return objects;

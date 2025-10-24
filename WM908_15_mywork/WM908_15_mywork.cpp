@@ -125,8 +125,9 @@ int main() {
 		hero.shot(dt);
 		controlHero(hero, canvas, move);
 		move = hero.getMoveSpeed() * dt;
-		gameobjectmanager.UpdateAll(dt);
+		
 		bulletmanager.updateAll(dt);
+		gameobjectmanager.UpdateAll(dt);
 		// Check for input (key presses or window events)
 		// Clear the window for the next frame rendering
 		canvas.clear();
@@ -135,7 +136,7 @@ int main() {
 		//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
 		draw_object( canvas, gameobjectmanager.getobjects(),gameobjectmanager.GetCount());
 		
-		draw_collision(hero, canvas);
+		//draw_collision(hero, canvas);
 		
 		
 		// Update game logic
@@ -166,6 +167,8 @@ void draw_object( GamesEngineeringBase::Window& canvas,GameObject** obj,int coun
 
 	for (int o = 0; o < count; o++) {
 		if (obj[o]) {
+			
+			draw_collision(*obj[o], canvas);
 			for (int i = 0; i < obj[o]->image.height; i++) {
 				for (int j = 0; j < obj[o]->image.width; j++) {
 					if (obj[o]->transform.GetPositionX() + j >= 0 && i + obj[o]->transform.GetPositionY() >= 0 && obj[o]->transform.GetPositionX() + j < canvas.getWidth() && i + obj[o]->transform.GetPositionY() < canvas.getHeight()) {

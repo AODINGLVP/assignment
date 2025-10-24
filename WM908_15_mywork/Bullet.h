@@ -9,7 +9,9 @@ class Bullet:public GameObject
 	Bullet() {
 		movespeed = 300;
 		damage = 20;
+		collision.SetCollisionOffest(0.f, 0.f);
 		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), 30, 30);
+	
 		collision.setistrigger(true);
 		Tag = "bullet";
 		lifetime = 3.f;
@@ -23,7 +25,7 @@ class Bullet:public GameObject
 		transform.SetPosition((dt * movespeed * 1) + transform.GetPositionX(), (dt * movespeed * 1) + transform.GetPositionY());
 		
 	}
-
+	 
 	void updatelifetime(float dt) {
 		lifetime -= dt;
 		if(lifetime <= 0) {

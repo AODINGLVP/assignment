@@ -44,6 +44,9 @@ public:
 				bullets[i]->updatelifetime(dt);
 				bullets[i]->move(dt);
 			}
+			if (bullets[0] != nullptr) {
+				
+			}
 		}
 		
 
@@ -51,6 +54,7 @@ public:
 private:
 	Bulletmanager() {
 		bullets = new Bullet * [capacity]();
+		
 		
 	}
 		;

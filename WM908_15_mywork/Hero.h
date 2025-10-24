@@ -19,10 +19,7 @@ public:
 	float setHealth(int damage) { return health -= damage; }
 	float setMoveSpeed(float speed) { return movespeed = speed; }
 	float setProjectileSpeed(float speed) { return pojectilespeed = speed; }
-	int Update (float dt) override {
-		collision.SetCollision(transform.GetPositionX() + 15, transform.GetPositionY() + 10, 90, 120);
-			return 0;
-	}
+	
 	void shot(float dt) {
 		cooldown += dt;
 		cout << cooldown << endl;
@@ -39,8 +36,8 @@ public:
 	}
 private :
 	Hero() {
-
-		collision.SetCollision(transform.GetPositionX() + 15, transform.GetPositionY() + 10, 90, 120);
+		collision.SetCollisionOffest(15.f, 10.f);
+		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY() , 90, 120);
 		image.load("../Resources/Hero.png");
 		health = 100;
 		movespeed = 150.f;

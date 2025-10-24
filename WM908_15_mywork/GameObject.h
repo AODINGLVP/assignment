@@ -30,8 +30,9 @@ public:
 
 
 	}
-	 virtual int Update(float dt) {
-		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), image.width, image.height); 
+	  int Update(float dt) {
+		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY()); 
+	
 			return 0;
 	}
 
