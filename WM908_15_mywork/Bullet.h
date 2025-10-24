@@ -3,6 +3,7 @@ class Bulletmanager;
 #include<iostream>
 #include"GameObject.h"
 #include <random>
+
 class Bullet:public GameObject
 {public:
 
@@ -16,14 +17,23 @@ class Bullet:public GameObject
 		Tag = "bullet";
 		lifetime = 3.f;
 		regisetbulletmanager(this);
+		directX = 1.f;
+		directY = 1.f;
 		
 		
 		image.load("../resources/bullet.png");
 
 	}
 	void move(float dt) {
-		transform.SetPosition((dt * movespeed * 1) + transform.GetPositionX(), (dt * movespeed * 1) + transform.GetPositionY());
+		transform.SetPosition((dt * movespeed * directX) + transform.GetPositionX(), (dt * movespeed * directY) + transform.GetPositionY());
 		
+	}
+	void setdirection(float x, float y) {
+		directX = x;
+		directY = y;
+	}
+	void findenemy() {
+
 	}
 	 
 	void updatelifetime(float dt) {
@@ -38,6 +48,11 @@ class Bullet:public GameObject
 	}
 	void regisetbulletmanager(Bullet* bullet);
 	void removed(Bullet* bullet);
+	void suicide() {
+		removed(this);
+		removeobj(this);
+		delete this;
+	};
 	~Bullet() {
 
 	}
@@ -45,6 +60,32 @@ private:
 	float movespeed;
 	float damage;
 	float lifetime;
+	float directX;
+	float directY;
 
+	float getDirectionX(GameObject* A, GameObject* B) {
+		float x = B->transform.GetPositionX() - A->transform.GetPositionX();
+		float y = B->transform.GetPositionY() - A->transform.GetPositionY();
+		float length = sqrt(x * x + y * y);
+		return x / length;
+
+
+	}
+	float getDistance(GameObject* A, GameObject* B) {
+		float x = B->transform.GetPositionX() - A->transform.GetPositionX();
+		float y = B->transform.GetPositionY() - A->transform.GetPositionY();
+		float length = sqrt(x * x + y * y);
+		return length;
+
+
+	}
+	float getDirectionY(GameObject* A, GameObject* B) {
+		float x = B->transform.GetPositionX() - A->transform.GetPositionX();
+		float y = B->transform.GetPositionY() - A->transform.GetPositionY();
+		float length = sqrt(x * x + y * y);
+		return y / length;
+
+
+	}
 };
 

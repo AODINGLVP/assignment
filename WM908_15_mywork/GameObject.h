@@ -4,7 +4,7 @@ class GameObjectManager;
 #include "Transform.h"
 #include "Collision.h"
 #include "GamesEngineeringBase.h"
-
+#include "Rigidbody.h"
 
 
 using namespace std;
@@ -18,6 +18,9 @@ public:
 	int Layer;
 	Transform transform;
 	Collision collision;
+	
+	//Rigidbody rigidbody;
+
 
 	GameObject() {
 		Name = "";
@@ -25,6 +28,7 @@ public:
 		Tag = "";
 		Layer = 0;
 		registerobj(this);
+	
 		
 
 
@@ -38,6 +42,9 @@ public:
 
 	void registerobj (GameObject* obj);
 	void removeobj(GameObject* obj);
+
+	virtual void makedamage(float damage) {};
+	virtual void suicide() {};
 
 		 ~GameObject() {}
 private:

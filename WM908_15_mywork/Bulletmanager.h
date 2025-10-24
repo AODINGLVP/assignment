@@ -1,5 +1,7 @@
+class Hero;
 #pragma once
 #include "Bullet.h"
+
 class Bulletmanager
 {
 public:
@@ -41,12 +43,11 @@ public:
 
 		void updateAll(float dt) {
 			for (int i = 0; i < count; i++) {
-				bullets[i]->updatelifetime(dt);
 				bullets[i]->move(dt);
-			}
-			if (bullets[0] != nullptr) {
+				bullets[i]->updatelifetime(dt);
 				
 			}
+			
 		}
 		
 

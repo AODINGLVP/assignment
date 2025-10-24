@@ -130,9 +130,12 @@
     <ClCompile Include="Bulletmanager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="enemiesmanager.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="WM908_15_mywork.cpp" />
   </ItemGroup>
@@ -141,9 +144,12 @@
     <ClInclude Include="Bulletmanager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="enemiesmanager.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

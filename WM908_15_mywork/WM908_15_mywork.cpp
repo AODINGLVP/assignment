@@ -30,6 +30,7 @@ SOFTWARE.
 #include"GameObjectManager.h"
 #include "Bulletmanager.h"
 #include "Bullet.h"
+#include "enemiesmanager.h"
 bool scvtest=true;
 void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int count);
 void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image);
@@ -48,7 +49,7 @@ int main() {
 	Bulletmanager& bulletmanager = Bulletmanager::getInstance();
 	ifstream file("../Resources/tiles.txt");
 	Hero& hero = Hero::getInstance();
-	
+	enemiesmanager& enemymanager = enemiesmanager::getInstance();
 	float dt = timer.dt();
 	int move = hero.getMoveSpeed() * dt;
 
@@ -91,22 +92,17 @@ int main() {
 		linenumber++;
 		
 	}
-	for (int i = 0; i < 42; i++) {
-		for (int j = 0; j < 42; j++) {
-			cout<<mapsave1[i][j]<<"  ";
-		}
-		cout << endl;
-	}
+	
 	GamesEngineeringBase::Image tiles[24];
 	for (int i = 0; i < 24; i++) {
-		 cout<<tiles[i].load("../Resources/"+to_string(i)+".png")<<endl;
+		tiles[i].load("../Resources/" + to_string(i) + ".png");
 
 	}
 	
 
 	GamesEngineeringBase::Image image;
 	GamesEngineeringBase::Window canvas;
-
+	
 	image.load("../Resources/A.png");
 	// Create a canvas window with dimensions 1024x768 and title “Tiles"
 	
@@ -115,14 +111,16 @@ int main() {
 	unsigned int planeX = 300;  // Initial x-coordinate for the plane image.
 	unsigned int planeY = 300;
 
-	canvas.create(1920, 1920, "Tiles");
+	canvas.create(1344, 1344, "Tiles");
 	bool running = true; // Variable to control the main loop's running state.
+	cout << canvas.getWidth() << "   " << canvas.getHeight();
 	while (running)
 	{
 		dt = timer.dt();
 		
 		if (canvas.keyPressed(VK_ESCAPE)) break;
-		hero.shot(dt);
+		hero.shot(dt,hero);
+		enemymanager.updateall(dt);
 		controlHero(hero, canvas, move);
 		move = hero.getMoveSpeed() * dt;
 		
@@ -168,7 +166,7 @@ void draw_object( GamesEngineeringBase::Window& canvas,GameObject** obj,int coun
 	for (int o = 0; o < count; o++) {
 		if (obj[o]) {
 			
-			draw_collision(*obj[o], canvas);
+			draw_collision(*obj[o], canvas);//draw collision box for testing
 			for (int i = 0; i < obj[o]->image.height; i++) {
 				for (int j = 0; j < obj[o]->image.width; j++) {
 					if (obj[o]->transform.GetPositionX() + j >= 0 && i + obj[o]->transform.GetPositionY() >= 0 && obj[o]->transform.GetPositionX() + j < canvas.getWidth() && i + obj[o]->transform.GetPositionY() < canvas.getHeight()) {
@@ -195,7 +193,7 @@ void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas
 		
 	}
 	for (int i = gameobject.collision.getcollisionX(); i < gameobject.collision.getcollisionX() + gameobject.collision.getcollisionW(); i++) {
-		if (i >= 0 && gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH() >= 0 && i < canvas.getWidth() &&  gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH() < canvas.getHeight()) {
+		if (i >= 0 && gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH() >= 0 && i < canvas.getWidth() && gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH() < canvas.getHeight()) {
 			canvas.draw(i, gameobject.collision.getcollisionY()+gameobject.collision.getcollisionH(), 0, 0, 225);
 		}
 
@@ -208,7 +206,7 @@ void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas
 		
 	}
 	for (int i = gameobject.collision.getcollisionY(); i < gameobject.collision.getcollisionY() + gameobject.collision.getcollisionH(); i++) {
-		if (gameobject.collision.getcollisionX()+ gameobject.collision.getcollisionH() >= 0 && i >= 0 && gameobject.collision.getcollisionX()+ gameobject.collision.getcollisionH() < canvas.getWidth() && i < canvas.getHeight()) {
+		if (gameobject.collision.getcollisionX() + gameobject.collision.getcollisionW() >= 0 && i >= 0 && gameobject.collision.getcollisionX() + gameobject.collision.getcollisionW() < canvas.getWidth() && i < canvas.getHeight()) {
 			canvas.draw(gameobject.collision.getcollisionX()+gameobject.collision.getcollisionW(), i, 0, 0, 225);
 		}
 
@@ -234,13 +232,13 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas,float move) {
 
 	if (canvas.keyPressed('W')) {
 		hero.transform.SetPosition(hero.transform.GetPositionX(),hero.transform.GetPositionY() - move);
-		cout << hero.transform.GetPositionY() << endl;
+		
 		
 
 	}
 	if (canvas.keyPressed('S')) {
 		hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() + move);
-		cout << hero.transform.GetPositionY() << endl;
+		
 
 	}
 	if (canvas.keyPressed('A')) {
