@@ -1,11 +1,13 @@
 #pragma once
 #include "GameObject.h"
 #include<iostream>
+#include "Camera.h"
 using namespace std;
 
 
 class GameObjectManager {
 public:
+	int scvcount1 = 0;
     static GameObjectManager& getInstance() {
         static GameObjectManager instance;
         return instance;
@@ -33,12 +35,15 @@ public:
     }
 
     void UpdateAll(float dt) {
+        scvcount1++;
         for (int i = 0; i < count; i++) {
             if (objects[i]) {
                 if (i == 1) {
                   
                 }
-                objects[i]->Update(dt);
+                objects[i]->Update(dt, camera);
+                if(scvcount1==200)
+				cout << camera.GetX() << " " << camera.GetY() << endl;
                 
                
             }
@@ -102,7 +107,7 @@ private:
 
     GameObjectManager(const GameObjectManager&) = delete;
     GameObjectManager& operator=(const GameObjectManager&) = delete;
-
+	Camera& camera = Camera::GetCamera();
     GameObject** objects;
     int count = 0;
     int capacity = 100;

@@ -5,9 +5,7 @@ class Camera
 {
 public:
     // 获取唯一实例
-    Camera camera() {
-		
-  }
+    
     
 
     static Camera& GetCamera()
@@ -16,35 +14,36 @@ public:
         return camera;
     }
 
-   
+    Camera(const Camera&) = delete;
+    Camera& operator=(const Camera&) = delete;
 
     // 移动摄像机
-    void Move(int dx, int dy)
+    void Move(float dx, float dy)
     {
         offsetX += dx;
         offsetY += dy;
     }
 
     // 设置位置
-    void SetPosition(int x, int y)
+    void SetPosition(float x, float y)
     {
         offsetX = x;
         offsetY = y;
     }
 
     // 获取位置
-    int GetX() const { 
+    float GetX()  {
         return offsetX;
     }
-    int GetY() const { 
+    float GetY()  {
         return offsetY;
     }
 
 private:
-    Camera() {}             
+    Camera() : offsetX(0), offsetY(0) {}
     ~Camera() {}
    
 
-    int offsetX = 0;
-    int offsetY = 0;
+    float offsetX;
+    float offsetY;
 };

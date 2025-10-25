@@ -5,6 +5,7 @@ class GameObjectManager;
 #include "Collision.h"
 #include "GamesEngineeringBase.h"
 #include "Rigidbody.h"
+#include "Camera.h"
 
 
 using namespace std;
@@ -34,8 +35,9 @@ public:
 
 
 	}
-	  int Update(float dt) {
+	  int Update(float dt,Camera& camera) {
 		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY()); 
+		transform.SetPosition(transform.GetPositionX(), transform.GetPositionY() );
 	
 			return 0;
 	}
