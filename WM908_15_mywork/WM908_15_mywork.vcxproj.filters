@@ -51,6 +51,9 @@
     <ClCompile Include="Rigidbody.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Water.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -84,6 +87,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Rigidbody.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Water.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

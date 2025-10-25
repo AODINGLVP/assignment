@@ -137,6 +137,7 @@
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Water.cpp" />
     <ClCompile Include="WM908_15_mywork.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="Hero.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Water.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

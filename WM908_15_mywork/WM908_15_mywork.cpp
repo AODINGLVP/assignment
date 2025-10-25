@@ -123,7 +123,7 @@ int main() {
 	unsigned int planeX = 300;  // Initial x-coordinate for the plane image.
 	unsigned int planeY = 300;
 
-	canvas.create(1344, 1344, "Tiles");
+	canvas.create(1280, 1280, "Tiles");
 	hero.transform.SetPosition(canvas.getWidth() / 2, canvas.getHeight()/2);
 	bool running = true; // Variable to control the main loop's running state.
 	cout << canvas.getWidth() << "   " << canvas.getHeight();
@@ -161,7 +161,7 @@ int main() {
 void changemao(Hero& hero, int** mapmapoffestx,int** mapmapoffesty) {
 	int countx = ((int)hero.transform.GetPositionX()- 672)/ (42*32);
 	int county = ((int)hero.transform.GetPositionY() - 672) / (42 * 32);
-	int offestx = ((int)hero.transform.GetPositionX()-672)  % (42 * 32) / 32;
+	int offestx = ((int)hero.transform.GetPositionX()- 672)  % (42 * 32) / 32;
 	int offesty = ((int)hero.transform.GetPositionY() - 672) % (42 * 32) / 32;
 	cout << hero.transform.GetPositionX() << "   " << countx << "   " << offestx << endl;
 	for (int i = 0; i < 42; i++) {
