@@ -28,6 +28,8 @@ public:
 		Active = true;
 		Tag = "";
 		Layer = 0;
+		transform.SetPosition(0, 0);
+		collision.SetCollision(0, 0, 0, 0);
 		registerobj(this);
 	
 		
@@ -41,6 +43,10 @@ public:
 	
 			return 0;
 	}
+	  void Update() {
+		  collision.SetCollision(transform.GetPositionX(), transform.GetPositionY());
+		  transform.SetPosition(transform.GetPositionX(), transform.GetPositionY());
+	  }
 
 	void registerobj (GameObject* obj);
 	void removeobj(GameObject* obj);

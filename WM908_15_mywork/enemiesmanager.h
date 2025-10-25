@@ -50,6 +50,15 @@ public:
         for (int i = 0; i < count; i++) {
 
 			enemies[i]->transform.SetPosition(enemies[i]->transform.GetPositionX() +( getDirectionX(enemies[i], &Hero::getInstance())*dt*enemies[i]->getmovespeed()), enemies[i]->transform.GetPositionY() + (getDirectionY(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()));
+            for (int j = 0; j < count; j++) {
+                if (j != i) {
+                    enemies[i]->Update();
+                    if (enemies[i]->collision.isColliding(enemies[i]->collision, enemies[j]->collision)) {
+                        enemies[i]->transform.SetPosition(enemies[i]->transform.GetPositionX() - (getDirectionX(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()), enemies[i]->transform.GetPositionY() - (getDirectionY(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()));
+                        enemies[i]->Update();
+                    }
+                }
+            }
             if (enemies[i]->dead()) {
                 enemy* scv = enemies[i];
 

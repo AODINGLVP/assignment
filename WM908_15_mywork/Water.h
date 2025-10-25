@@ -6,7 +6,8 @@ public:
 	Water() {
 		image.load("../Resources/water.png");
 		Tag = "water";
-		
+		collision.SetCollision(0, 0, 0, 0);
+
 		
 	
 	}

@@ -33,7 +33,23 @@ public:
             }
         }
     }
+    bool checkwater() {
+        for (int i = 0; i < count; i++) {
+            if (objects[i]->Tag == "hero") {
+                for (int j = 0; j < count; j++) {
+                    if (objects[j]->Tag == "water") {
+                        if (objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
+                            return true;
+                        }
+                    }
 
+                }
+            }
+           
+        }
+        return false;
+    }
+   
     void UpdateAll(float dt) {
         scvcount1++;
         for (int i = 0; i < count; i++) {
@@ -42,14 +58,15 @@ public:
                   
                 }
                 objects[i]->Update(dt, camera);
-                if(scvcount1==200)
-				cout << camera.GetX() << " " << camera.GetY() << endl;
+               
                 
                
             }
         }
         for(int i=0;i<count;i++){
-
+            if (objects[i]->Tag == "water") {
+                continue;
+            }
             for (int j = 0; j < count; j++) {
                 if (objects[i]->Tag == "hero") {
                     if (objects[j]->Tag == "enemy") {

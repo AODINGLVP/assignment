@@ -33,10 +33,12 @@ int scvcount = 0;
 #include "Bulletmanager.h"
 #include "Bullet.h"
 #include "enemiesmanager.h"
+#include "Water.h"
+
 bool scvtest=true;
 void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int count);
 void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image);
-void draw_entire_background(int **mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles,int** offestmapx,int** offextmapy);
+void draw_entire_background(int **mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles,int** offestmapx,int** offextmapy,Water** watermap);
 void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move);
 void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas);
 void camera_draw(float x, float y, GamesEngineeringBase::Image& image, GamesEngineeringBase::Window& canvas, GameObject* obj);
@@ -44,6 +46,10 @@ void changemao(Hero& hero, int** mapmapoffestx,int** mapoffesty);
 using namespace std;
 
 int main() {
+	Water** watermap = new Water* [42]();
+	for (int i = 0; i < 42; i++) {
+		watermap[i] = new Water[42]();
+	}
 	int** mapoffestx = new int* [100]();
 	for(int i=0;i<100;i++)
 		mapoffestx[i] = new int[100]();
@@ -110,7 +116,14 @@ int main() {
 		tiles[i].load("../Resources/" + to_string(i) + ".png");
 
 	}
-	
+	for (int i = 0; i < 42; i++) {
+		for (int j = 0; j < 42; j++) {
+
+			if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+				watermap[i][j].collision.SetCollision(0, 0, 32, 32);
+			}
+		}
+	}
 
 	GamesEngineeringBase::Image image;
 	GamesEngineeringBase::Window canvas;
@@ -144,7 +157,7 @@ int main() {
 		// Clear the window for the next frame rendering
 		canvas.clear();
 	
-		draw_entire_background(mapsave1, canvas, tiles, mapoffestx,mapoffesty);
+		draw_entire_background(mapsave1, canvas, tiles, mapoffestx,mapoffesty,watermap);
 		//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
 		draw_object( canvas, gameobjectmanager.getobjects(),gameobjectmanager.GetCount());
 		
@@ -163,7 +176,7 @@ void changemao(Hero& hero, int** mapmapoffestx,int** mapmapoffesty) {
 	int county = ((int)hero.transform.GetPositionY() - 672) / (42 * 32);
 	int offestx = ((int)hero.transform.GetPositionX()- 672)  % (42 * 32) / 32;
 	int offesty = ((int)hero.transform.GetPositionY() - 672) % (42 * 32) / 32;
-	cout << hero.transform.GetPositionX() << "   " << countx << "   " << offestx << endl;
+
 	for (int i = 0; i < 42; i++) {
 		for (int j = 0; j < 42; j++) {
 			mapmapoffestx[i][j] = 0;
@@ -171,7 +184,7 @@ void changemao(Hero& hero, int** mapmapoffestx,int** mapmapoffesty) {
 		}
 	}
 	if (offestx < 0||countx<0) {
-		cout << "test" << endl;
+		
 		for (int i = 41; i >= 0; i--) {
 			for (int j = 41; j >=0; j--) {
 				if (j > 41 + offestx) {
@@ -299,7 +312,7 @@ void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas
 	scvtest = false;
 
 }
-void draw_entire_background(int **mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles,int** offestmapx,int** offestmapy) {
+void draw_entire_background(int **mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles,int** offestmapx,int** offestmapy,Water** watermap) {
 	for (int i = 0; i < canvas.getHeight(); i++) {
 		for(int j=0;j< canvas.getWidth(); j++) {
 			canvas.draw(j, i, 0, 0, 0);
@@ -309,12 +322,13 @@ void draw_entire_background(int **mapsave1, GamesEngineeringBase::Window& canvas
 	for (int i = 0; i < 42; i++) {
 		for (int j = 0; j < 42; j++) {
 			if (mapsave1[i][j] > -1 && mapsave1[i][j] < 24) {
+				if (mapsave1[i][j] >= 14&&mapsave1[i][j]<=22) {
+					watermap[i][j].transform.SetPosition((j * 32) + offestmapx[j][i], (i * 32) + offestmapy[j][i]);
+					watermap[i][j].Update(0, Camera::GetCamera());
+				}
 
 				draw_title((j * 32)-Camera::GetCamera().GetX()+ offestmapx[j][i], (i * 32) - Camera::GetCamera().GetY()+ offestmapy[j][i], canvas, tiles[mapsave1[i][j]]);
-				if (scvcount == 300) {
-					//cout << (j * 32) << "   " << (i * 32) << endl;
-					//cout << Camera::GetCamera().GetX() << "   " << Camera::GetCamera().GetY() << endl;
-				}
+				
 			}
 		}
 
@@ -325,22 +339,45 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas,float move) {
 	
 
 	if (canvas.keyPressed('W')) {
-		hero.transform.SetPosition(hero.transform.GetPositionX(),hero.transform.GetPositionY() - move);
+		cout << hero.transform.GetPositionY()<<endl;
 		
+		hero.transform.SetPosition(hero.transform.GetPositionX(),hero.transform.GetPositionY() - move);
+		hero.Update();
+		if (GameObjectManager::getInstance().checkwater()) {
+			hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() + move);
+			hero.Update();
+			cout << "what happend" << "   " << hero.transform.GetPositionY() << "   " << hero.transform.GetPositionY()<<endl;
+		}
 		
 
 	}
 	if (canvas.keyPressed('S')) {
 		hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() + move);
+		hero.Update();
+		if (GameObjectManager::getInstance().checkwater()) {
+			hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() - move);
+			hero.Update();
+			cout << "what happend" << "   " << hero.transform.GetPositionY() << "   " << hero.transform.GetPositionY() << endl;
+		}
 		
 
 	}
 	if (canvas.keyPressed('A')) {
 		hero.transform.SetPosition(hero.transform.GetPositionX()-move, hero.transform.GetPositionY() );
+		hero.Update();
+		if (GameObjectManager::getInstance().checkwater()) {
+			hero.transform.SetPosition(hero.transform.GetPositionX() + move, hero.transform.GetPositionY());
+			hero.Update();
+		}
 
 	}
 	if (canvas.keyPressed('D')) {
-		hero.transform.SetPosition(hero.transform.GetPositionX() + move, hero.transform.GetPositionY());
+		hero.transform.SetPosition(hero.transform.GetPositionX()+ move, hero.transform.GetPositionY());
+		hero.Update();
+		if (GameObjectManager::getInstance().checkwater()) {
+			hero.transform.SetPosition(hero.transform.GetPositionX() - move, hero.transform.GetPositionY());
+			hero.Update();
+		}
 
 	}
 }
