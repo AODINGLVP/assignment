@@ -132,6 +132,9 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="enemiesmanager.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemy_fastspeed.cpp" />
+    <ClCompile Include="enemy_moredamage.cpp" />
+    <ClCompile Include="enemy_morehealth.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="Hero.cpp" />
@@ -147,6 +150,9 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="enemiesmanager.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemy_fastspeed.h" />
+    <ClInclude Include="enemy_moredamage.h" />
+    <ClInclude Include="enemy_morehealth.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="Hero.h" />

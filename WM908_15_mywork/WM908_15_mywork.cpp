@@ -70,7 +70,8 @@ int main() {
 
 	float dt = timer.dt();
 	int move = hero.getMoveSpeed() * dt;
-
+	int fps = 0;
+	float fpsdtcount = 0;
 	int** mapsave1 = new int* [42];
 	for (int i = 0; i < 42; i++)
 		mapsave1[i] = new int[42];
@@ -142,8 +143,15 @@ int main() {
 	cout << canvas.getWidth() << "   " << canvas.getHeight();
 	while (running)
 	{
-		dt = timer.dt();
 		
+		dt = timer.dt();
+		fpsdtcount += dt;
+		fps++;
+		if(fpsdtcount >= 1.0f) {
+			cout << "FPS: " << fps << endl;
+			fps = 0;
+			fpsdtcount = 0;
+		}
 		if (canvas.keyPressed(VK_ESCAPE)) break;
 		hero.shot(dt,hero);
 		enemymanager.updateall(dt);

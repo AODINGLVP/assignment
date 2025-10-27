@@ -6,6 +6,9 @@ class Hero;
 #include "GameObjectManager.h"
 #include <cmath>
 #include <random>
+#include "enemy_fastspeed.h"
+#include "enemy_morehealth.h"
+#include "enemy_moredamage.h"
 using namespace std;
 
 class enemiesmanager
@@ -15,7 +18,14 @@ public:
         static enemiesmanager instance;
         return instance;
     }
+    void changecodwon(float cd) {
+        timecounttotal += cd;
+        if (timecounttotal >= 25.f) {
+            timecounttotal -= 25.f;
+				cooldown -= 0.3f;
+        }
 
+    }
     void add(enemy* obj) {
         if (count >= capacity)
             expand();
@@ -35,6 +45,9 @@ public:
         }
     }
     void createenemy(float x, float y, float speed, int health, int damage);
+	void createnemyfastmovespeed(float x, float y, float speed, int health, int damage);
+	void createnemymorehealth(float x, float y, float speed, int health, int damage);
+	void createnemymoredamage(float x, float y, float speed, int health, int damage);
     enemy** getenemies() {
         return enemies;
 	}
@@ -42,10 +55,24 @@ public:
         return count;
 	}
     void updateall(float dt) {
+		changecodwon(dt);
 		timecount += dt;
         if (timecount >= cooldown) {
+            creatcount++;
 			timecount -= cooldown;
-			createenemy(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 50.f, 100, 5);
+            if (creatcount % 3 == 0) {
+                createnemyfastmovespeed(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 1, 1, 1);
+            }
+            else if (creatcount % 3 == 1) {
+                createnemymorehealth(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 1, 1, 1);
+            }
+            else {
+                createnemymoredamage(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 1, 1, 1);
+            }
+
+
+           
+           // createenemy(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 50.f, 100, 5);
         }
         for (int i = 0; i < count; i++) {
 
@@ -71,10 +98,12 @@ public:
 	
     ~enemiesmanager() {};
 private:
+    int creatcount = 0;
 	int count;
 	int capacity;
     float timecount=0.f;
 	float cooldown = 3.f;
+    float timecounttotal = 0.f;
 	enemy** enemies;
 	enemiesmanager() {
 		capacity = 100;

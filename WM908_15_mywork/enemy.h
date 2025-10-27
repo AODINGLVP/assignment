@@ -17,6 +17,15 @@ public:
 		this->health = health;
 		this->damage = damage;
 	}
+	void setmovespeed(float speed) {
+		this->movespeed = speed;
+	}
+	void setdamage(float damage) {
+		this->damage = damage;
+	}
+	void sethealth(float health) {
+		this->health = health;
+	}
 	void makedamage(float damage) override{
 		health -= damage;
 		cout << "Enemy health: " << health << endl;
@@ -29,6 +38,12 @@ public:
 	}
 	float getmovespeed() {
 		return movespeed;
+	}
+	float gethealth() {
+		return health;
+	}
+	float getdamage() {
+		return damage;
 	}
 
 	

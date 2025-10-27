@@ -63,17 +63,22 @@ public:
                
             }
         }
-        for(int i=0;i<count;i++){
+        for (int i = 0; i<count; i++) {
             if (objects[i]->Tag == "water") {
                 continue;
             }
+            if (objects[i]->Tag == "enemy") {
+                continue;
+            }
             for (int j = 0; j < count; j++) {
+                if (objects[j]->Tag == "water") {
+                    continue;
+                }
                 if (objects[i]->Tag == "hero") {
                     if (objects[j]->Tag == "enemy") {
                         if(objects[i]->collision.isColliding(objects[i]->collision,objects[j]->collision)) {
                             objects[i]->makedamage(5);
-							cout << "hero hit" << endl;
-                            //something happed
+							
 						}
                       
                         //something happed
