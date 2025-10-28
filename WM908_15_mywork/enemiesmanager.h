@@ -50,6 +50,28 @@ public:
 	void createnemymorehealth(float x, float y, float speed, int health, int damage);
 	void createnemymoredamage(float x, float y, float speed, int health, int damage);
     void createnemyarchr(float x, float y, float speed, int health, int damage);
+    void killsomeenemies(int n) {
+        int maxhelath = -1;
+        int beenkilled=-1;
+        for (int i = 0; i < n; i++) {
+            maxhelath = -1;
+            for (int j = 0; j < count; j++) {
+                if(enemies[j]->gethealth() > maxhelath) {
+                    maxhelath = enemies[j]->gethealth();
+                    beenkilled = j;
+				}
+
+            }
+            if (beenkilled != -1) {
+                enemy* scv = enemies[beenkilled];
+
+                GameObjectManager::getInstance().remove(enemies[beenkilled]);
+                remove(enemies[beenkilled]);
+                delete scv;
+            }
+      }
+
+    }
     enemy** getenemies() {
         return enemies;
 	}

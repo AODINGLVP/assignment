@@ -24,7 +24,16 @@ public:
 		health -= damage;
 
 	}
-	
+	void updataability(float dt) {
+		abilitytimecount += dt;
+		
+	}
+	int getabilitymax() { return abilitymax; }
+	void setabilitymax(int max) { abilitymax = max; }
+	void setabilitycooldown(float cooldown) { abilitycooldown = cooldown; }
+	float getabilitycooldown() { return abilitycooldown; }
+	void setabilitytimecount(float timecount) { abilitytimecount = timecount; }
+	float getabilitytimecount() { return abilitytimecount; }
 	void shot(float dt,Hero &hero);
 private :
 	Hero() {
@@ -45,9 +54,9 @@ private :
 	float pojectilespeed;
 	int length;
 	int cloest;
-	float abilitycooldown;
-	float abilitytimecount;
-	float abilitymax;
+	float abilitycooldown=10.f;
+	float abilitytimecount=0.f;
+	int abilitymax=5;
 
 	
 	

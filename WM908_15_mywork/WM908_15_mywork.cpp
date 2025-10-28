@@ -145,6 +145,7 @@ int main() {
 	{
 		
 		dt = timer.dt();
+		hero.updataability(dt);
 		fpsdtcount += dt;
 		fps++;
 		if(fpsdtcount >= 1.0f) {
@@ -387,5 +388,12 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas,float move) {
 			hero.Update();
 		}
 
+	}
+	if (canvas.keyPressed('N')) {
+		if (Hero::getInstance().getabilitytimecount() >= 10.f) {
+			enemiesmanager::getInstance().killsomeenemies(Hero::getInstance().getabilitymax());
+			Hero::getInstance().setabilitytimecount(0.f);
+		}
+		
 	}
 }
