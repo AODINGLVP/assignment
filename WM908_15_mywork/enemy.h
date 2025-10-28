@@ -45,6 +45,7 @@ public:
 	float getdamage() {
 		return damage;
 	}
+	virtual void updatetime(float dt) {};
 
 	
 private:

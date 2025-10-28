@@ -27,6 +27,11 @@ void enemiesmanager::createnemymoredamage(float x, float y, float speed, int hea
 
     add(scv3);
 }
+void enemiesmanager::createnemyarchr(float x, float y, float speed, int health, int damage) {
+    enemy* scv3 = new Archr(getrandom(x), getrandom(y));
+
+    add(scv3);
+}
 
 
 

@@ -9,6 +9,7 @@ class Hero;
 #include "enemy_fastspeed.h"
 #include "enemy_morehealth.h"
 #include "enemy_moredamage.h"
+#include "Archr.h" 
 using namespace std;
 
 class enemiesmanager
@@ -18,7 +19,7 @@ public:
         static enemiesmanager instance;
         return instance;
     }
-    void changecodwon(float cd) {
+    void changecodwon(float cd) {//随着时间减少敌人刷新cd
         timecounttotal += cd;
         if (timecounttotal >= 25.f) {
             timecounttotal -= 25.f;
@@ -48,6 +49,7 @@ public:
 	void createnemyfastmovespeed(float x, float y, float speed, int health, int damage);
 	void createnemymorehealth(float x, float y, float speed, int health, int damage);
 	void createnemymoredamage(float x, float y, float speed, int health, int damage);
+    void createnemyarchr(float x, float y, float speed, int health, int damage);
     enemy** getenemies() {
         return enemies;
 	}
@@ -60,14 +62,17 @@ public:
         if (timecount >= cooldown) {
             creatcount++;
 			timecount -= cooldown;
-            if (creatcount % 3 == 0) {
+            if (creatcount % 4 == 0) {
                 createnemyfastmovespeed(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 1, 1, 1);
             }
-            else if (creatcount % 3 == 1) {
+            else if (creatcount % 4 == 1) {
                 createnemymorehealth(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 1, 1, 1);
             }
-            else {
+            else if(creatcount%4==2) {
                 createnemymoredamage(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 1, 1, 1);
+            }
+            else {
+                createnemyarchr(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 1, 1, 1);
             }
 
 
@@ -76,7 +81,17 @@ public:
         }
         for (int i = 0; i < count; i++) {
 
-			enemies[i]->transform.SetPosition(enemies[i]->transform.GetPositionX() +( getDirectionX(enemies[i], &Hero::getInstance())*dt*enemies[i]->getmovespeed()), enemies[i]->transform.GetPositionY() + (getDirectionY(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()));
+			if (enemies[i]->Tag != "Archr")
+            enemies[i]->transform.SetPosition(enemies[i]->transform.GetPositionX() +( getDirectionX(enemies[i], &Hero::getInstance())*dt*enemies[i]->getmovespeed()), enemies[i]->transform.GetPositionY() + (getDirectionY(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()));
+            else if(enemies[i]->Tag == "Archr") {
+                if (getDistance(enemies[i], &Hero::getInstance()) >= 800) {
+                    enemies[i]->transform.SetPosition(enemies[i]->transform.GetPositionX() + (getDirectionX(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()), enemies[i]->transform.GetPositionY() + (getDirectionY(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()));
+                }
+                else {
+                    enemies[i]->updatetime(dt);
+                }
+            }
+           
             for (int j = 0; j < count; j++) {
                 if (j != i) {
                     enemies[i]->Update();
@@ -131,6 +146,14 @@ private:
         float y = B->transform.GetPositionY() - A->transform.GetPositionY();
         float length = sqrt(x * x + y * y);
         return y / length;
+
+
+    }
+    float getDistance(GameObject* A, GameObject* B) {
+        float x = B->transform.GetPositionX() - A->transform.GetPositionX();
+        float y = B->transform.GetPositionY() - A->transform.GetPositionY();
+        float length = sqrt(x * x + y * y);
+        return length;
 
 
     }

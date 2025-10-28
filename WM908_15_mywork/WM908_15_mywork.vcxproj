@@ -126,12 +126,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archr.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Bulletmanager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="enemiesmanager.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="Enemybullet.cpp" />
     <ClCompile Include="enemy_fastspeed.cpp" />
     <ClCompile Include="enemy_moredamage.cpp" />
     <ClCompile Include="enemy_morehealth.cpp" />
@@ -144,12 +146,14 @@
     <ClCompile Include="WM908_15_mywork.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Archr.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Bulletmanager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="enemiesmanager.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="Enemybullet.h" />
     <ClInclude Include="enemy_fastspeed.h" />
     <ClInclude Include="enemy_moredamage.h" />
     <ClInclude Include="enemy_morehealth.h" />

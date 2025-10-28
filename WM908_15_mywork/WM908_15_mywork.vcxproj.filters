@@ -63,6 +63,12 @@
     <ClCompile Include="enemy_moredamage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Archr.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemybullet.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -108,6 +114,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="enemy_moredamage.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Archr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemybullet.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

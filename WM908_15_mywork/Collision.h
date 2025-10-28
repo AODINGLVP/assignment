@@ -2,11 +2,13 @@
 class Collision
 {
 public:
+	bool stopmove = false;
 	Collision() {
 		x = 0;
 		y = 0;
 		w = 0;
 		h = 0;
+
 		offestx = 0;
 		offesty = 0;
 		istrigger = false;
@@ -56,8 +58,10 @@ public:
 	bool isColliding(Collision& a,Collision& b) {
 		return !(a.x + a.w < b.x ||  b.x + b.w < a.x ||  a.y + a.h < b.y ||  b.y + b.h < a.y);   
 	}
+
 private:
 	float x, y, w, h, offestx, offesty;
+	
 	bool istrigger;
 
 };

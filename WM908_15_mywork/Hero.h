@@ -24,6 +24,7 @@ public:
 		health -= damage;
 
 	}
+	
 	void shot(float dt,Hero &hero);
 private :
 	Hero() {
@@ -44,6 +45,10 @@ private :
 	float pojectilespeed;
 	int length;
 	int cloest;
+	float abilitycooldown;
+	float abilitytimecount;
+	float abilitymax;
+
 	
 	
 	float getDirectionX(GameObject* A, GameObject* B) {
