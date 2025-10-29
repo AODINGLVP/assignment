@@ -16,6 +16,7 @@ public:
 		this->movespeed = movespeed;
 		this->health = health;
 		this->damage = damage;
+		enemyregister(this);
 	}
 	void setmovespeed(float speed) {
 		this->movespeed = speed;
@@ -46,6 +47,7 @@ public:
 		return damage;
 	}
 	virtual void updatetime(float dt) {};
+	void enemyregister(enemy* scv);
 
 	
 private:

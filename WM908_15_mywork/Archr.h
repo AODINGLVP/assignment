@@ -14,8 +14,12 @@ public:
 		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(),image.width,image.height);
 
 	}
+	void settimecount(float time) {
+		timecount = time;
+	}
+	
 	void fire(float dt) {
-		cout << "fire"<<endl;
+	
 		timecount += dt;
 		if(timecount>=cooldown) {
 			timecount = 0;
@@ -26,6 +30,23 @@ public:
 		}
 
 	}
+	void save(json& obj) override {
+		cout << "hahahahah";
+		obj.push_back({
+			{"Tag","Archr"},
+			{"position_x",transform.GetPositionX()},
+			{"position_y",transform.GetPositionY()},
+			{"health",gethealth() },
+			{"timecount",timecount}
+			});
+	}
+	void load(json& obj) override {
+		transform.SetPosition(obj["position_x"], obj["position_y"]);
+		sethealth(obj["health"]);
+		timecount = obj["timecount"];
+		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY());
+	}
+
 	void updatetime(float dt) override {
 		fire(dt);
 	}

@@ -34,11 +34,14 @@ int scvcount = 0;
 #include "Bullet.h"
 #include "enemiesmanager.h"
 #include "Water.h"
+#include <memory>
+using json = nlohmann::json;
 
+bool press = false;
 bool scvtest = true;
 void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int count);
 void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image);
-void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles, int** offestmapx, int** offextmapy, Water** watermap);
+void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles, int** offestmapx, int** offextmapy, Water*** watermap);
 void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move);
 void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas);
 void camera_draw(float x, float y, GamesEngineeringBase::Image& image, GamesEngineeringBase::Window& canvas, GameObject* obj);
@@ -46,11 +49,17 @@ void changemao(Hero& hero, int** mapmapoffestx, int** mapoffesty);
 using namespace std;
 
 int main() {
+	float presscount = 0.f;
 	int stage = 1;
-
-	Water** watermap = new Water * [42]();
+	json data;
+	Water*** watermap = new Water * *[42];
 	for (int i = 0; i < 42; i++) {
-		watermap[i] = new Water[42]();
+		watermap[i] = new Water * [42];
+		for (int j = 0; j < 42; j++) {
+			watermap[i][j] = new Water; // 初始化为空指针
+			watermap[i][j]->positionmap_x = i;
+			watermap[i][j]->positionmap_y = j;
+		}
 	}
 	int** mapoffestx = new int* [100]();
 	for (int i = 0; i < 100; i++)
@@ -113,6 +122,7 @@ int main() {
 		linenumber++;
 
 	}
+	file.close();
 
 	GamesEngineeringBase::Image tiles[24];
 	for (int i = 0; i < 24; i++) {
@@ -123,7 +133,7 @@ int main() {
 		for (int j = 0; j < 42; j++) {
 
 			if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
-				watermap[i][j].collision.SetCollision(0, 0, 32, 32);
+				watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
 			}
 		}
 	}
@@ -143,6 +153,9 @@ int main() {
 	hero.transform.SetPosition(canvas.getWidth() / 2, canvas.getHeight() / 2);
 	bool running = true; // Variable to control the main loop's running state.
 	cout << canvas.getWidth() << "   " << canvas.getHeight();
+	
+	
+
 	while (1) {
 		break;
 		if (stage == 1) {
@@ -172,7 +185,65 @@ int main() {
 	while (running)
 	{
 
+		if (canvas.keyPressed('O')&&!press) {
+			ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
+			press = true;
+			presscount = 0.5f;
+			GameObjectManager::getInstance().saveall(data);
+			loadfile << data.dump(4);
+			loadfile.close();
+			data = json();
+			
+		}
+		if (canvas.keyPressed('I')) {
+			for (int i = 0; i < 42; i++) {
+				for (int j = 0; j < 42; j++) {
+					cout << watermap[i][j]->transform.GetPositionX() << "     "  ;
+				}
+			}
+		}
+		if (canvas.keyPressed('P') && !press) {
+			std::ifstream in("../load/sava.json");
+			if (!in) {
+				std::cerr << "无法打开读取文件 ../load/sava.json\n";
+			}
+			else {
+				try {
+					in >> data; // 从文件反序列化到内存 json 对象
+				}
+				catch (nlohmann::json::parse_error& e) {
+					std::cerr << "JSON 解析错误: " << e.what() << '\n';
+					data = nlohmann::json(); // 可选：重置为空 json
+				}
+				in.close();
+				enemiesmanager::getInstance().delatemyself();
+				Bulletmanager::getInstance().delatemyself();
+				press = true;
+				presscount = 0.5f;
+				GameObjectManager::getInstance().loadall(data);
+				for (int i = 0; i <gameobjectmanager.GetCount(); i++) {
+					if (gameobjectmanager.getobjects()[i]->Tag == "water") {
+						watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
+						
+					}
+				}
+				for (int i = 0; i < 42; i++) {
+					for (int j = 0; j < 42; j++) {
+
+						if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+							watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+						}
+					}
+				}
+				continue;
+			}
+		}
+
 		dt = timer.dt();
+		presscount -= dt;
+		if (presscount <= 0.f) {
+			press = false;
+		}
 		hero.updataability(dt);
 		fpsdtcount += dt;
 		fps++;
@@ -349,7 +420,7 @@ void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas
 	scvtest = false;
 
 }
-void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles, int** offestmapx, int** offestmapy, Water** watermap) {
+void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles, int** offestmapx, int** offestmapy, Water*** watermap) {
 	for (int i = 0; i < canvas.getHeight(); i++) {
 		for (int j = 0; j < canvas.getWidth(); j++) {
 			canvas.draw(j, i, 0, 0, 0);
@@ -360,8 +431,9 @@ void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas
 		for (int j = 0; j < 42; j++) {
 			if (mapsave1[i][j] > -1 && mapsave1[i][j] < 24) {
 				if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
-					watermap[i][j].transform.SetPosition((j * 32) + offestmapx[j][i], (i * 32) + offestmapy[j][i]);
-					watermap[i][j].Update(0, Camera::GetCamera());
+					watermap[i][j]->transform.SetPosition((j * 32) + offestmapx[j][i], (i * 32) + offestmapy[j][i]);
+					watermap[i][j]->Update(0, Camera::GetCamera());
+					
 				}
 
 				draw_title((j * 32) - Camera::GetCamera().GetX() + offestmapx[j][i], (i * 32) - Camera::GetCamera().GetY() + offestmapy[j][i], canvas, tiles[mapsave1[i][j]]);
@@ -424,4 +496,5 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move) {
 		}
 
 	}
+	
 }

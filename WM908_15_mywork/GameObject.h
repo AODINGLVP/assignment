@@ -6,8 +6,8 @@ class GameObjectManager;
 #include "GamesEngineeringBase.h"
 #include "Rigidbody.h"
 #include "Camera.h"
-
-
+#include <json.hpp>
+using json = nlohmann::json;
 using namespace std;
 class GameObject
 {
@@ -50,11 +50,22 @@ public:
 
 	void registerobj (GameObject* obj);
 	void removeobj(GameObject* obj);
-
+	
 	virtual void makedamage(float damage) {};
 	virtual void suicide() {};
+	virtual void save(json& obj) {
+		
+	};
+	virtual void load(json& obj) {};
+	virtual int getmapx() {
+		return 0;
+	};
+	virtual int getmapy() {
+		return 0;
+	};
+	
+	~GameObject() {};
 
-		 ~GameObject() {}
 private:
 	
 	

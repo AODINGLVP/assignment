@@ -2,6 +2,18 @@
 #include "GameObject.h"
 #include<iostream>
 #include "Camera.h"
+#include <json.hpp>
+#include "Archr.h"
+#include "Bullet.h"
+#include "enemy.h"
+#include "Enemybullet.h"
+#include "enemy_fastspeed.h"
+#include "enemy_moredamage.h"
+#include "enemy_morehealth.h"
+#include "Water.h"
+#include "Hero.h"
+
+using json = nlohmann::json;
 using namespace std;
 
 
@@ -121,6 +133,74 @@ public:
 	}
 	int GetCount() {
 		return count;
+	}
+	void saveall(json& obj) {
+		for (int i = 0; i < count; i++) {
+			objects[i]->save(obj);
+		}
+		Camera::GetCamera().save(obj);
+	}
+	void loadall(json& obj) {
+		
+		for (int i = 0; i < count; i++) {
+
+			if (objects[i]->Tag == "hero") {
+				objects[0] = objects[i];
+				if (i != 0)
+					objects[i] = nullptr;
+		
+			}
+			else {
+				objects[i] = nullptr;
+			}
+			 
+			
+			
+
+		}
+		count = 1;
+		for (json e : obj) {
+			if (e["Tag"] == "Archr") {
+				GameObject* scv = new Archr(e["position_x"],e["position_y"]);
+				scv->load(e);
+			}
+			else if (e["Tag"] == "bullet") {
+				GameObject* scv = new Bullet();
+				scv->load(e);
+			}
+			else if (e["Tag"] == "Enemybullet") {
+				GameObject* scv = new Enemybullet();
+				scv->load(e);
+			}
+			else if (e["Tag"] == "enemy_morehealth") {
+				GameObject* scv = new enemy_morehealth(e["position_x"],e["position_y"]);
+				scv->load(e);
+			}
+			else if (e["Tag" ] == "enemy_moredamage") {
+				GameObject* scv = new enemy_moredamage(e["position_x"], e["position_y"]);
+				scv->load(e);
+			}
+			else if (e["Tag"] == "enemy_fastspeed") {
+				GameObject* scv = new enemy_fastspeed(e["position_x"], e["position_y"]);
+				scv->load(e);
+			}
+			else if (e["Tag"] == "water") {
+				GameObject* scv = new Water();
+				scv->load(e);
+			}
+			else if (e["Tag"] == "hero") {
+				
+				Hero::getInstance().load(e);
+			}
+			else if (e["Tag"] == "camera") {
+				
+				Camera::GetCamera().load(e);
+			}
+			
+
+		}
+		cout << Hero::getInstance().transform.GetPositionX();
+		
 	}
 
 private:

@@ -11,6 +11,19 @@ class enemy_fastspeed:public enemy
 			image.load("../Resources/goblin_100.png");
 			collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), image.width,image.height);
 		}
+		void save(json& obj) override {
+			obj.push_back({
+				{"Tag","enemy_fastspeed"},
+				{"position_x",transform.GetPositionX()},
+				{"position_y",transform.GetPositionY()},
+				{"health",gethealth() }
+				});
+		}
+		void load(json& obj) override {
+			transform.SetPosition(obj["position_x"], obj["position_y"]);
+			sethealth(obj["health"]);
+			collision.SetCollision(transform.GetPositionX(), transform.GetPositionY());
+		}
 	
 };
 

@@ -78,6 +78,12 @@ public:
     int getcount() {
         return count;
 	}
+    void delatemyself() {
+        
+            count = 0;
+
+        
+    }
     void updateall(float dt) {
 		changecodwon(dt);
 		timecount += dt;

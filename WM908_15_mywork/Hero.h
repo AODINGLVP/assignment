@@ -35,6 +35,31 @@ public:
 	void setabilitytimecount(float timecount) { abilitytimecount = timecount; }
 	float getabilitytimecount() { return abilitytimecount; }
 	void shot(float dt,Hero &hero);
+	void save(json& obj) override {
+		obj.push_back({
+			{"Tag","hero"},
+			{"position_x",transform.GetPositionX()},
+			{"position_y",transform.GetPositionY()},
+			{"health",health  },
+			{"movespeed",movespeed },
+			{"pojectilespeed",pojectilespeed },
+			{"abilitytimecount",abilitytimecount },
+			{"abilitymax",abilitymax },
+			{"abilitycooldown",abilitycooldown }
+			
+			});
+	}
+
+	void load(json& obj) override {
+		transform.SetPosition(obj["position_x"], obj["position_y"]);
+		health = obj["health"];
+		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY());
+		movespeed = obj["movespeed"];
+		pojectilespeed = obj["pojectilespeed"];
+		abilitytimecount = obj["abilitytimecount"];
+		abilitymax = obj["abilitymax"];
+		abilitycooldown = obj["abilitycooldown"];
+	}
 private :
 	Hero() {
 		collision.SetCollisionOffest(15.f, 10.f);

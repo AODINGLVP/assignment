@@ -7,30 +7,30 @@ void enemiesmanager::createenemy(float x, float y, float speed, int health, int 
     enemy* newEnemy = new enemy(getrandom(x), getrandom(y), speed, health, damage);
     
     cout << "Enemy created at (" << x << "," << y << ") with speed " << speed << ", health " << health << ", damage " << damage << endl;
-    add(newEnemy);
+  
 }
 void enemiesmanager::createnemyfastmovespeed(float x, float y, float speed, int health, int damage) {
     enemy* scv1 = new enemy_fastspeed(getrandom(x), getrandom(y));
     
    
     
-    add(scv1);
+ 
     
     
 }
 void enemiesmanager::createnemymorehealth(float x, float y, float speed, int health, int damage) {
     enemy* scv2 = new enemy_morehealth(getrandom(x), getrandom(y));
-    add(scv2);
+   
 }
 void enemiesmanager::createnemymoredamage(float x, float y, float speed, int health, int damage) {
     enemy* scv3 = new enemy_moredamage(getrandom(x), getrandom(y));
 
-    add(scv3);
+    
 }
 void enemiesmanager::createnemyarchr(float x, float y, float speed, int health, int damage) {
     enemy* scv3 = new Archr(getrandom(x), getrandom(y));
 
-    add(scv3);
+  
 }
 
 

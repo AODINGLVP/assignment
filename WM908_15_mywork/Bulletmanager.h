@@ -49,6 +49,12 @@ public:
 			}
 			
 		}
+		void delatemyself() {
+			
+				count = 0;
+
+			
+		}
 		
 
 	
