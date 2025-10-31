@@ -35,6 +35,7 @@ int scvcount = 0;
 #include "enemiesmanager.h"
 #include "Water.h"
 #include <memory>
+#include <windows.h>
 using json = nlohmann::json;
 
 bool press = false;
@@ -139,6 +140,11 @@ int main() {
 	}
 
 	GamesEngineeringBase::Image image;
+	GamesEngineeringBase::Image welcome_page;
+	GamesEngineeringBase::Image lose_page;
+	GamesEngineeringBase::Image load_page;
+	GamesEngineeringBase::Image save_page;
+	GamesEngineeringBase::Image chose_page;
 	GamesEngineeringBase::Window canvas;
 
 	image.load("../Resources/A.png");
@@ -153,36 +159,334 @@ int main() {
 	hero.transform.SetPosition(canvas.getWidth() / 2, canvas.getHeight() / 2);
 	bool running = true; // Variable to control the main loop's running state.
 	cout << canvas.getWidth() << "   " << canvas.getHeight();
+	welcome_page.load("../Resources/welcome_page.png");
+	lose_page.load("../Resources/lose_page.png");
+	load_page.load("../Resources/load_page.png");
+	save_page.load("../Resources/save_page.png");
+	chose_page.load("../Resources/welcome_page.png");
+
 	
-	
+
 
 	while (1) {
-		break;
-		if (stage == 1) {
-			
+		
+		if (stage == 1) {//welcome page
+			canvas.clear();
+			if (canvas.keyPressed('Q')) {
+				stage = 7;
+			}
+			if (canvas.keyPressed('W')) {
+				stage = 4;
+			}
+			if (canvas.keyPressed('E')) {
+				ExitProcess(0);
+			}
+
+			draw_title(0, 0, canvas, welcome_page);
+
+
+
+			canvas.present();
 
 		}
-		else if (stage == 2) {
+		else if (stage == 2) {//game over page
+			canvas.clear();
+			draw_title(0, 0,canvas, lose_page);
+			if (canvas.keyPressed('Q')) {
+				stage = 7;
+			}
+			if (canvas.keyPressed('W')) {
+				stage = 4;
+			}
+			if (canvas.keyPressed('E')) {
+				ExitProcess(0);
+			}
+			canvas.present();
 
 		}
-		else if (stage == 3) {
+		else if (stage == 3) {//load page
+			canvas.clear();
+			draw_title(0, 0, canvas, load_page);
+			if (canvas.keyPressed('Q')) {
+				
+				
+			}
+			if (canvas.keyPressed('W')) {
+				
+			}
+			if (canvas.keyPressed('E')) {
+				
+			}
+			if (canvas.keyPressed('R')) {
+				ExitProcess(0);
+			}
+			canvas.present();
 
 		}
-		else if (stage == 4) {
+		else if (stage == 4) {//save page
+			canvas.clear();
+			draw_title(0, 0,canvas, save_page);
+			if (canvas.keyPressed('Q')) {
+
+			}
+			if (canvas.keyPressed('W')) {
+
+			}
+			if (canvas.keyPressed('E')) {
+
+			}
+			if (canvas.keyPressed('R')) {
+				ExitProcess(0);
+			}
+			canvas.present();
+		}
+		else if (stage == 5) {//infinity map 
+			while (running)//fixed map stage 5
+			{
+
+				if (canvas.keyPressed('O') && !press) {
+					ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
+					press = true;
+					presscount = 0.5f;
+					GameObjectManager::getInstance().saveall(data);
+					loadfile << data.dump(4);
+					loadfile.close();
+					data = json();
+
+				}
+				if (canvas.keyPressed('I')) {
+					for (int i = 0; i < 42; i++) {
+						for (int j = 0; j < 42; j++) {
+
+						}
+					}
+				}
+				if (canvas.keyPressed('P') && !press) {
+					std::ifstream in("../load/sava.json");
+					if (!in) {
+						std::cerr << "无法打开读取文件 ../load/sava.json\n";
+					}
+					else {
+						try {
+							in >> data; // 从文件反序列化到内存 json 对象
+						}
+						catch (nlohmann::json::parse_error& e) {
+							std::cerr << "JSON 解析错误: " << e.what() << '\n';
+							data = nlohmann::json(); // 可选：重置为空 json
+						}
+						in.close();
+						enemiesmanager::getInstance().delatemyself();
+						Bulletmanager::getInstance().delatemyself();
+						press = true;
+						presscount = 0.5f;
+						GameObjectManager::getInstance().loadall(data);
+						for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
+							if (gameobjectmanager.getobjects()[i]->Tag == "water") {
+								watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
+
+							}
+						}
+						for (int i = 0; i < 42; i++) {
+							for (int j = 0; j < 42; j++) {
+
+								if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+									watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+								}
+							}
+						}
+						continue;
+					}
+				}
+
+				dt = timer.dt();
+				presscount -= dt;
+				if (presscount <= 0.f) {
+					press = false;
+				}
+				hero.updataability(dt);
+				fpsdtcount += dt;
+				fps++;
+				if (fpsdtcount >= 1.0f) {
+					cout << "FPS: " << fps << endl;
+					cout << "FPS: " << fps << endl;
+					cout << "hero.max" << hero.getabilitymax() << endl;
+					cout << "hero.cooldown" << hero.getabilitycooldown() << endl;
+					cout << "hero.bulletspeed" << hero.getbulletmovespeed() << endl;
+					cout << "cooldown" << hero.getcooldown() << endl;
+					fps = 0;
+					fpsdtcount = 0;
+				}
+				if (canvas.keyPressed(VK_ESCAPE)) break;
+				hero.shot(dt, hero);
+				enemymanager.updateall(dt);
+				move = hero.getMoveSpeed() * dt;
+				controlHero(hero, canvas, move);
+				changemao(hero, mapoffestx, mapoffesty);
+				camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
+				bulletmanager.updateAll(dt);
+				gameobjectmanager.UpdateAll(dt);
+				if (hero.getHealth() < 0) {
+					stage = 2;
+				}
+				// Check for input (key presses or window events)
+				// Clear the window for the next frame rendering
+				canvas.clear();
+
+				draw_entire_background(mapsave1, canvas, tiles, mapoffestx, mapoffesty, watermap);
+				//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
+				draw_object(canvas, gameobjectmanager.getobjects(), gameobjectmanager.GetCount());
+
+				//draw_collision(hero, canvas);
+
+
+				// Update game logic
+				// Draw();
+				// Display the frame on the screen. This must be called once the frameis finished in order to display the frame.
+				canvas.present();
+			}
+		}
+		else if (stage == 6) {//fixed map
+			while (running)//fixed map stage 6
+			{
+
+				if (canvas.keyPressed('O') && !press) {
+					ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
+					press = true;
+					presscount = 0.5f;
+					GameObjectManager::getInstance().saveall(data);
+					loadfile << data.dump(4);
+					loadfile.close();
+					data = json();
+
+				}
+				if (canvas.keyPressed('I')) {
+					for (int i = 0; i < 42; i++) {
+						for (int j = 0; j < 42; j++) {
+
+						}
+					}
+				}
+				if (canvas.keyPressed('P') && !press) {
+					std::ifstream in("../load/sava.json");
+					if (!in) {
+						std::cerr << "无法打开读取文件 ../load/sava.json\n";
+					}
+					else {
+						try {
+							in >> data; // 从文件反序列化到内存 json 对象
+						}
+						catch (nlohmann::json::parse_error& e) {
+							std::cerr << "JSON 解析错误: " << e.what() << '\n';
+							data = nlohmann::json(); // 可选：重置为空 json
+						}
+						in.close();
+						enemiesmanager::getInstance().delatemyself();
+						Bulletmanager::getInstance().delatemyself();
+						press = true;
+						presscount = 0.5f;
+						GameObjectManager::getInstance().loadall(data);
+						for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
+							if (gameobjectmanager.getobjects()[i]->Tag == "water") {
+								watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
+
+							}
+						}
+						for (int i = 0; i < 42; i++) {
+							for (int j = 0; j < 42; j++) {
+
+								if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+									watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+								}
+							}
+						}
+						continue;
+					}
+				}
+
+				dt = timer.dt();
+				presscount -= dt;
+				if (presscount <= 0.f) {
+					press = false;
+				}
+				hero.updataability(dt);
+				fpsdtcount += dt;
+				fps++;
+				if (fpsdtcount >= 1.0f) {
+					cout << "FPS: " << fps << endl;
+					cout << "hero.max" << hero.getabilitymax() << endl;
+					cout << "hero.cooldown" << hero.getabilitycooldown() << endl;
+					cout << "hero.bulletspeed" << hero.getbulletmovespeed() << endl;
+					cout << "cooldown" << hero.getcooldown() << endl;
+					fps = 0;
+					fpsdtcount = 0;
+				}
+				if (canvas.keyPressed(VK_ESCAPE)) break;
+				hero.shot(dt, hero);
+				enemymanager.updateall(dt);
+				move = hero.getMoveSpeed() * dt;
+				controlHero(hero, canvas, move);
+				if (hero.transform.GetPositionX() <= -10) {
+					hero.transform.SetPositionX(-10);
+				}
+				if (hero.transform.GetPositionY() <= -10) {
+					hero.transform.SetPositionY(-10);
+				}
+				if (hero.transform.GetPositionX() >= canvas.getWidth() - 32) {
+					hero.transform.SetPositionX(canvas.getWidth() - 32);
+				}
+				if (hero.transform.GetPositionY() >= canvas.getHeight() - 32) {
+					hero.transform.SetPositionY(canvas.getHeight() - 32);
+				}
+				//changemao(hero, mapoffestx, mapoffesty);
+
+				//camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
+				if (hero.transform.GetPositionX() - (canvas.getWidth() / 2) >= 0) {
+					camera.SetPositionX(min(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 64));
+				}
+				else {
+					camera.SetPositionX(max(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 0));
+				}
+
+
+				if (hero.transform.GetPositionY() - (canvas.getHeight() / 2) >= 0) {
+					camera.SetPositionY(min(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 64));
+				}
+				else {
+					camera.SetPositionY(max(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 0));
+				}
+
+
+				bulletmanager.updateAll(dt);
+				gameobjectmanager.UpdateAll(dt);
+				if (hero.getHealth() < 0) {
+					stage = 2;
+				}
+				// Check for input (key presses or window events)
+				// Clear the window for the next frame rendering
+				canvas.clear();
+
+				draw_entire_background(mapsave1, canvas, tiles, mapoffestx, mapoffesty, watermap);
+				//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
+				draw_object(canvas, gameobjectmanager.getobjects(), gameobjectmanager.GetCount());
+
+				//draw_collision(hero, canvas);
+
+
+				// Update game logic
+				// Draw();
+				// Display the frame on the screen. This must be called once the frameis finished in order to display the frame.
+				canvas.present();
+			}
 
 		}
-		else if (stage == 5) {
-		}
-		else if (stage == 6) {
-		}
-		else if (stage == 7) {
-
+		else if (stage == 7) {//chose map page
+			stage = 5;
 		}
 	}
 
 
 
-	/*while (running)
+	/*while (running)//fixed map stage 5
 	{
 
 		if (canvas.keyPressed('O')&&!press) {
@@ -193,12 +497,12 @@ int main() {
 			loadfile << data.dump(4);
 			loadfile.close();
 			data = json();
-			
+
 		}
 		if (canvas.keyPressed('I')) {
 			for (int i = 0; i < 42; i++) {
 				for (int j = 0; j < 42; j++) {
-					
+
 				}
 			}
 		}
@@ -224,7 +528,7 @@ int main() {
 				for (int i = 0; i <gameobjectmanager.GetCount(); i++) {
 					if (gameobjectmanager.getobjects()[i]->Tag == "water") {
 						watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
-						
+
 					}
 				}
 				for (int i = 0; i < 42; i++) {
@@ -249,6 +553,11 @@ int main() {
 		fps++;
 		if (fpsdtcount >= 1.0f) {
 			cout << "FPS: " << fps << endl;
+			cout << "FPS: " << fps << endl;
+		cout << "hero.max" << hero.getabilitymax() << endl;
+		cout << "hero.cooldown" << hero.getabilitycooldown() << endl;
+		cout << "hero.bulletspeed" << hero.getbulletmovespeed() << endl;
+		cout << "cooldown" << hero.getcooldown() << endl;
 			fps = 0;
 			fpsdtcount = 0;
 		}
@@ -279,139 +588,139 @@ int main() {
 	}*/
 
 
-while (running)
-{//fixed map
+	while (running)//fixed map stage 6
+	{
 
-	if (canvas.keyPressed('O') && !press) {
-		ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
-		press = true;
-		presscount = 0.5f;
-		GameObjectManager::getInstance().saveall(data);
-		loadfile << data.dump(4);
-		loadfile.close();
-		data = json();
-
-	}
-	if (canvas.keyPressed('I')) {
-		for (int i = 0; i < 42; i++) {
-			for (int j = 0; j < 42; j++) {
-				
-			}
-		}
-	}
-	if (canvas.keyPressed('P') && !press) {
-		std::ifstream in("../load/sava.json");
-		if (!in) {
-			std::cerr << "无法打开读取文件 ../load/sava.json\n";
-		}
-		else {
-			try {
-				in >> data; // 从文件反序列化到内存 json 对象
-			}
-			catch (nlohmann::json::parse_error& e) {
-				std::cerr << "JSON 解析错误: " << e.what() << '\n';
-				data = nlohmann::json(); // 可选：重置为空 json
-			}
-			in.close();
-			enemiesmanager::getInstance().delatemyself();
-			Bulletmanager::getInstance().delatemyself();
+		if (canvas.keyPressed('O') && !press) {
+			ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
 			press = true;
 			presscount = 0.5f;
-			GameObjectManager::getInstance().loadall(data);
-			for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
-				if (gameobjectmanager.getobjects()[i]->Tag == "water") {
-					watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
+			GameObjectManager::getInstance().saveall(data);
+			loadfile << data.dump(4);
+			loadfile.close();
+			data = json();
 
-				}
-			}
+		}
+		if (canvas.keyPressed('I')) {
 			for (int i = 0; i < 42; i++) {
 				for (int j = 0; j < 42; j++) {
 
-					if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
-						watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
-					}
 				}
 			}
-			continue;
 		}
-	}
+		if (canvas.keyPressed('P') && !press) {
+			std::ifstream in("../load/sava.json");
+			if (!in) {
+				std::cerr << "无法打开读取文件 ../load/sava.json\n";
+			}
+			else {
+				try {
+					in >> data; // 从文件反序列化到内存 json 对象
+				}
+				catch (nlohmann::json::parse_error& e) {
+					std::cerr << "JSON 解析错误: " << e.what() << '\n';
+					data = nlohmann::json(); // 可选：重置为空 json
+				}
+				in.close();
+				enemiesmanager::getInstance().delatemyself();
+				Bulletmanager::getInstance().delatemyself();
+				press = true;
+				presscount = 0.5f;
+				GameObjectManager::getInstance().loadall(data);
+				for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
+					if (gameobjectmanager.getobjects()[i]->Tag == "water") {
+						watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
 
-	dt = timer.dt();
-	presscount -= dt;
-	if (presscount <= 0.f) {
-		press = false;
-	}
-	hero.updataability(dt);
-	fpsdtcount += dt;
-	fps++;
-	if (fpsdtcount >= 1.0f) {
-		cout << "FPS: " << fps << endl;
-		cout << "hero.max" << hero.getabilitymax() << endl;
-		cout << "hero.cooldown" << hero.getabilitycooldown() << endl;
-		cout << "hero.bulletspeed" << hero.getbulletmovespeed() << endl;
-		cout << "cooldown" << hero.getcooldown() << endl;
-		fps = 0;
-		fpsdtcount = 0;
-	}
-	if (canvas.keyPressed(VK_ESCAPE)) break;
-	hero.shot(dt, hero);
-	enemymanager.updateall(dt);
-	move = hero.getMoveSpeed() * dt;
-	controlHero(hero, canvas, move);
-	if (hero.transform.GetPositionX() <= -10) {
-		hero.transform.SetPositionX(-10);
-	}
-	if (hero.transform.GetPositionY() <= -10) {
-		hero.transform.SetPositionY(-10);
-	}
-	if (hero.transform.GetPositionX() >= canvas.getWidth() - 32) {
-		hero.transform.SetPositionX(canvas.getWidth() - 32);
-	}
-	if (hero.transform.GetPositionY() >= canvas.getHeight() - 32) {
-		hero.transform.SetPositionY(canvas.getHeight() - 32);
-	}
-	//changemao(hero, mapoffestx, mapoffesty);
-	
-	//camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
-	if (hero.transform.GetPositionX() - (canvas.getWidth() / 2) >= 0) {
-		camera.SetPositionX(min(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 64));
-	}
-	else {
-		camera.SetPositionX(max(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 0));
-	}
+					}
+				}
+				for (int i = 0; i < 42; i++) {
+					for (int j = 0; j < 42; j++) {
+
+						if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+							watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+						}
+					}
+				}
+				continue;
+			}
+		}
+
+		dt = timer.dt();
+		presscount -= dt;
+		if (presscount <= 0.f) {
+			press = false;
+		}
+		hero.updataability(dt);
+		fpsdtcount += dt;
+		fps++;
+		if (fpsdtcount >= 1.0f) {
+			cout << "FPS: " << fps << endl;
+			cout << "hero.max" << hero.getabilitymax() << endl;
+			cout << "hero.cooldown" << hero.getabilitycooldown() << endl;
+			cout << "hero.bulletspeed" << hero.getbulletmovespeed() << endl;
+			cout << "cooldown" << hero.getcooldown() << endl;
+			fps = 0;
+			fpsdtcount = 0;
+		}
+		if (canvas.keyPressed(VK_ESCAPE)) break;
+		hero.shot(dt, hero);
+		enemymanager.updateall(dt);
+		move = hero.getMoveSpeed() * dt;
+		controlHero(hero, canvas, move);
+		if (hero.transform.GetPositionX() <= -10) {
+			hero.transform.SetPositionX(-10);
+		}
+		if (hero.transform.GetPositionY() <= -10) {
+			hero.transform.SetPositionY(-10);
+		}
+		if (hero.transform.GetPositionX() >= canvas.getWidth() - 32) {
+			hero.transform.SetPositionX(canvas.getWidth() - 32);
+		}
+		if (hero.transform.GetPositionY() >= canvas.getHeight() - 32) {
+			hero.transform.SetPositionY(canvas.getHeight() - 32);
+		}
+		//changemao(hero, mapoffestx, mapoffesty);
+
+		//camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
+		if (hero.transform.GetPositionX() - (canvas.getWidth() / 2) >= 0) {
+			camera.SetPositionX(min(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 64));
+		}
+		else {
+			camera.SetPositionX(max(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 0));
+		}
 
 
-	if (hero.transform.GetPositionY() - (canvas.getHeight() / 2) >= 0) {
-		camera.SetPositionY(min(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 64));
+		if (hero.transform.GetPositionY() - (canvas.getHeight() / 2) >= 0) {
+			camera.SetPositionY(min(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 64));
+		}
+		else {
+			camera.SetPositionY(max(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 0));
+		}
+
+
+		bulletmanager.updateAll(dt);
+		gameobjectmanager.UpdateAll(dt);
+		// Check for input (key presses or window events)
+		// Clear the window for the next frame rendering
+		canvas.clear();
+
+		draw_entire_background(mapsave1, canvas, tiles, mapoffestx, mapoffesty, watermap);
+		//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
+		draw_object(canvas, gameobjectmanager.getobjects(), gameobjectmanager.GetCount());
+
+		//draw_collision(hero, canvas);
+
+
+		// Update game logic
+		// Draw();
+		// Display the frame on the screen. This must be called once the frameis finished in order to display the frame.
+		canvas.present();
 	}
-	else {
-		camera.SetPositionY(max(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 0));
-	}
-	
-	
-	bulletmanager.updateAll(dt);
-	gameobjectmanager.UpdateAll(dt);
-	// Check for input (key presses or window events)
-	// Clear the window for the next frame rendering
-	canvas.clear();
-
-	draw_entire_background(mapsave1, canvas, tiles, mapoffestx, mapoffesty, watermap);
-	//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
-	draw_object(canvas, gameobjectmanager.getobjects(), gameobjectmanager.GetCount());
-
-	//draw_collision(hero, canvas);
-
-
-	// Update game logic
-	// Draw();
-	// Display the frame on the screen. This must be called once the frameis finished in order to display the frame.
-	canvas.present();
-}
 
 
 	return 0;
 }
-void changemao(Hero& hero, int** mapmapoffestx, int** mapmapoffesty) {
+void changemao(Hero& hero, int** mapmapoffestx, int** mapmapoffesty) {//change map offest
 	int countx = ((int)hero.transform.GetPositionX() - 672) / (42 * 32);
 	int county = ((int)hero.transform.GetPositionY() - 672) / (42 * 32);
 	int offestx = ((int)hero.transform.GetPositionX() - 672) % (42 * 32) / 32;
@@ -483,7 +792,7 @@ void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEnginee
 				if (image.alphaAt(j, i)) {
 					canvas.draw(x + j, y + i, image.at(j, i));
 				}
-				
+
 
 			}
 
@@ -504,7 +813,7 @@ void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int cou
 							camera_draw(j, i, obj[o]->image, canvas, obj[o]);
 							//canvas.draw(obj[o]->transform.GetPositionX() + j-Camera::GetCamera().GetX(), obj[o]->transform.GetPositionY() + i - Camera::GetCamera().GetY(), obj[o]->image.at(j, i));
 						}
-					
+
 
 					}
 
@@ -565,7 +874,7 @@ void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas
 				if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
 					watermap[i][j]->transform.SetPosition((j * 32) + offestmapx[j][i], (i * 32) + offestmapy[j][i]);
 					watermap[i][j]->Update(0, Camera::GetCamera());
-					
+
 				}
 
 				draw_title((j * 32) - Camera::GetCamera().GetX() + offestmapx[j][i], (i * 32) - Camera::GetCamera().GetY() + offestmapy[j][i], canvas, tiles[mapsave1[i][j]]);
@@ -580,14 +889,14 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move) {
 
 
 	if (canvas.keyPressed('W')) {
-	
+
 
 		hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() - move);
 		hero.Update();
 		if (GameObjectManager::getInstance().checkwater()) {
 			hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() + move);
 			hero.Update();
-		
+
 		}
 
 
@@ -598,7 +907,7 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move) {
 		if (GameObjectManager::getInstance().checkwater()) {
 			hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() - move);
 			hero.Update();
-			
+
 		}
 
 
@@ -628,5 +937,5 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move) {
 		}
 
 	}
-	
+
 }
