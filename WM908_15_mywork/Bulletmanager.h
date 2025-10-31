@@ -22,7 +22,7 @@ public:
 				for(int j=i; j < count - 1; j++) {
 					bullets[j] = bullets[j + 1];
 				}
-				//cout << "Removing bullet at index " << i << endl;
+				
 				bullets[count - 1] = nullptr;
 				count--;
 				

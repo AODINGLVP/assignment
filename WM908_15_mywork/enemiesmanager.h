@@ -119,8 +119,8 @@ public:
                     enemies[i]->updatetime(dt);
                 }
             }
-           
-            for (int j = 0; j < count; j++) {
+            enemies[i]->Update();
+           /*for (int j = 0; j < count; j++) {
                 if (j != i) {
                     enemies[i]->Update();
                     if (enemies[i]->collision.isColliding(enemies[i]->collision, enemies[j]->collision)) {
@@ -128,7 +128,7 @@ public:
                         enemies[i]->Update();
                     }
                 }
-            }
+            }*/
             if (enemies[i]->dead()) {
                 enemy* scv = enemies[i];
 

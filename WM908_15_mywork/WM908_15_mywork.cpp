@@ -182,7 +182,7 @@ int main() {
 
 
 
-	while (running)
+	/*while (running)
 	{
 
 		if (canvas.keyPressed('O')&&!press) {
@@ -198,7 +198,7 @@ int main() {
 		if (canvas.keyPressed('I')) {
 			for (int i = 0; i < 42; i++) {
 				for (int j = 0; j < 42; j++) {
-					cout << watermap[i][j]->transform.GetPositionX() << "     "  ;
+					
 				}
 			}
 		}
@@ -276,7 +276,139 @@ int main() {
 		// Draw();
 		// Display the frame on the screen. This must be called once the frameis finished in order to display the frame.
 		canvas.present();
+	}*/
+
+
+while (running)
+{//fixed map
+
+	if (canvas.keyPressed('O') && !press) {
+		ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
+		press = true;
+		presscount = 0.5f;
+		GameObjectManager::getInstance().saveall(data);
+		loadfile << data.dump(4);
+		loadfile.close();
+		data = json();
+
 	}
+	if (canvas.keyPressed('I')) {
+		for (int i = 0; i < 42; i++) {
+			for (int j = 0; j < 42; j++) {
+				
+			}
+		}
+	}
+	if (canvas.keyPressed('P') && !press) {
+		std::ifstream in("../load/sava.json");
+		if (!in) {
+			std::cerr << "无法打开读取文件 ../load/sava.json\n";
+		}
+		else {
+			try {
+				in >> data; // 从文件反序列化到内存 json 对象
+			}
+			catch (nlohmann::json::parse_error& e) {
+				std::cerr << "JSON 解析错误: " << e.what() << '\n';
+				data = nlohmann::json(); // 可选：重置为空 json
+			}
+			in.close();
+			enemiesmanager::getInstance().delatemyself();
+			Bulletmanager::getInstance().delatemyself();
+			press = true;
+			presscount = 0.5f;
+			GameObjectManager::getInstance().loadall(data);
+			for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
+				if (gameobjectmanager.getobjects()[i]->Tag == "water") {
+					watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
+
+				}
+			}
+			for (int i = 0; i < 42; i++) {
+				for (int j = 0; j < 42; j++) {
+
+					if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+						watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+					}
+				}
+			}
+			continue;
+		}
+	}
+
+	dt = timer.dt();
+	presscount -= dt;
+	if (presscount <= 0.f) {
+		press = false;
+	}
+	hero.updataability(dt);
+	fpsdtcount += dt;
+	fps++;
+	if (fpsdtcount >= 1.0f) {
+		cout << "FPS: " << fps << endl;
+		cout << "hero.max" << hero.getabilitymax() << endl;
+		cout << "hero.cooldown" << hero.getabilitycooldown() << endl;
+		cout << "hero.bulletspeed" << hero.getbulletmovespeed() << endl;
+		cout << "cooldown" << hero.getcooldown() << endl;
+		fps = 0;
+		fpsdtcount = 0;
+	}
+	if (canvas.keyPressed(VK_ESCAPE)) break;
+	hero.shot(dt, hero);
+	enemymanager.updateall(dt);
+	move = hero.getMoveSpeed() * dt;
+	controlHero(hero, canvas, move);
+	if (hero.transform.GetPositionX() <= -10) {
+		hero.transform.SetPositionX(-10);
+	}
+	if (hero.transform.GetPositionY() <= -10) {
+		hero.transform.SetPositionY(-10);
+	}
+	if (hero.transform.GetPositionX() >= canvas.getWidth() - 32) {
+		hero.transform.SetPositionX(canvas.getWidth() - 32);
+	}
+	if (hero.transform.GetPositionY() >= canvas.getHeight() - 32) {
+		hero.transform.SetPositionY(canvas.getHeight() - 32);
+	}
+	//changemao(hero, mapoffestx, mapoffesty);
+	
+	//camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
+	if (hero.transform.GetPositionX() - (canvas.getWidth() / 2) >= 0) {
+		camera.SetPositionX(min(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 64));
+	}
+	else {
+		camera.SetPositionX(max(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 0));
+	}
+
+
+	if (hero.transform.GetPositionY() - (canvas.getHeight() / 2) >= 0) {
+		camera.SetPositionY(min(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 64));
+	}
+	else {
+		camera.SetPositionY(max(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 0));
+	}
+	
+	
+	bulletmanager.updateAll(dt);
+	gameobjectmanager.UpdateAll(dt);
+	// Check for input (key presses or window events)
+	// Clear the window for the next frame rendering
+	canvas.clear();
+
+	draw_entire_background(mapsave1, canvas, tiles, mapoffestx, mapoffesty, watermap);
+	//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
+	draw_object(canvas, gameobjectmanager.getobjects(), gameobjectmanager.GetCount());
+
+	//draw_collision(hero, canvas);
+
+
+	// Update game logic
+	// Draw();
+	// Display the frame on the screen. This must be called once the frameis finished in order to display the frame.
+	canvas.present();
+}
+
+
 	return 0;
 }
 void changemao(Hero& hero, int** mapmapoffestx, int** mapmapoffesty) {
@@ -351,7 +483,7 @@ void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEnginee
 				if (image.alphaAt(j, i)) {
 					canvas.draw(x + j, y + i, image.at(j, i));
 				}
-				//cout << i + x <<"   "<< j + y<<endl;//only a little test can be used
+				
 
 			}
 
@@ -372,7 +504,7 @@ void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int cou
 							camera_draw(j, i, obj[o]->image, canvas, obj[o]);
 							//canvas.draw(obj[o]->transform.GetPositionX() + j-Camera::GetCamera().GetX(), obj[o]->transform.GetPositionY() + i - Camera::GetCamera().GetY(), obj[o]->image.at(j, i));
 						}
-						//cout << i + x <<"   "<< j + y<<endl;//only a little test can be used
+					
 
 					}
 
@@ -448,14 +580,14 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move) {
 
 
 	if (canvas.keyPressed('W')) {
-		cout << hero.transform.GetPositionY() << endl;
+	
 
 		hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() - move);
 		hero.Update();
 		if (GameObjectManager::getInstance().checkwater()) {
 			hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() + move);
 			hero.Update();
-			cout << "what happend" << "   " << hero.transform.GetPositionY() << "   " << hero.transform.GetPositionY() << endl;
+		
 		}
 
 
@@ -466,7 +598,7 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move) {
 		if (GameObjectManager::getInstance().checkwater()) {
 			hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() - move);
 			hero.Update();
-			cout << "what happend" << "   " << hero.transform.GetPositionY() << "   " << hero.transform.GetPositionY() << endl;
+			
 		}
 
 

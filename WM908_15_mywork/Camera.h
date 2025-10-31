@@ -31,6 +31,12 @@ public:
         offsetX = x;
         offsetY = y;
     }
+    void SetPositionX(float x) {
+        offsetX = x;
+    }
+    void SetPositionY(float x) {
+        offsetY = x;
+    }
 
     // ªÒ»°Œª÷√
     float GetX()  {

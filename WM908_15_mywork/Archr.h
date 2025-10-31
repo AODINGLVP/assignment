@@ -5,7 +5,7 @@
 class Archr:public enemy
 {
 public:
-	float cooldown =1.f;
+	float cooldown =6.f;
 	float timecount = 0;
 	Archr(float x,float y) :enemy(x,x, 50, 100, 0) {
 		
@@ -31,7 +31,7 @@ public:
 
 	}
 	void save(json& obj) override {
-		cout << "hahahahah";
+		
 		obj.push_back({
 			{"Tag","Archr"},
 			{"position_x",transform.GetPositionX()},

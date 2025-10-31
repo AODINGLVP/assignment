@@ -69,6 +69,12 @@
     <ClCompile Include="Enemybullet.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="powerup_lineattack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="powerup_maxnumber.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -120,6 +126,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Enemybullet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="powerup_lineattack.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="powerup_maxnumber.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

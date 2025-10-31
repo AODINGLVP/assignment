@@ -1,8 +1,11 @@
 class enemiesmanager;
+#include <random>
 #pragma once
 #include <iostream>
 using namespace std;
 #include "gameobject.h"
+#include "powerup_lineattack.h"
+#include "powerup_maxnumber.h"
 class enemy: public GameObject
 {
 public:
@@ -33,6 +36,17 @@ public:
 	}
 	bool dead() {
 		if(health <= 0) {
+			std::random_device rd;  // 真随机种子（来自硬件）
+			std::mt19937 gen(rd()); // Mersenne Twister 伪随机数引擎
+			std::uniform_int_distribution<> dist(0, 10); // 均匀分布 [0,9]
+			int r = dist(gen);
+			if (r == 3) {
+				powerup_lineattack* scv = new powerup_lineattack(transform.GetPositionX(), transform.GetPositionY());
+
+			}
+			if (r == 4) {
+				powerup_maxnumber* scv = new powerup_maxnumber(transform.GetPositionX(), transform.GetPositionY());
+			}
 			return true;
 		}
 		return false;

@@ -30,6 +30,12 @@ public:
         position[0] = x;
         position[1] = y;
 	}
+    void SetPositionX(float x) {
+        position[0] = x;
+    }
+    void SetPositionY(float x) {
+        position[1] = x;
+    }
     void SetRotation(float x, float y) {
 		rotation[0] = x;
 		rotation[1] = y;

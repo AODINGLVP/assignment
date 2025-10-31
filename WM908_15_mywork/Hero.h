@@ -13,7 +13,12 @@ public:
 							  // Instantiated on first use.
 		return instance;
 	}
-	
+	void changecooldown(float x) {
+		cooldown = cooldown * (1 - x);
+	}
+	void changemax(int x) {
+		abilitymax = abilitymax + x;
+	}
 	float getMoveSpeed() { return movespeed; }
 	float getProjectileSpeed() { return pojectilespeed; }
 	float getHealth() { return health; }
@@ -35,6 +40,18 @@ public:
 	void setabilitytimecount(float timecount) { abilitytimecount = timecount; }
 	float getabilitytimecount() { return abilitytimecount; }
 	void shot(float dt,Hero &hero);
+	float getshottimecount() {
+		return shottimecount;
+	}
+	float getcooldown() {
+		return cooldown;
+	}
+	void addbulletmovespeed(float x) {
+		bulletmovespeed += x;
+	}
+	float getbulletmovespeed() {
+		return bulletmovespeed;
+	}
 	void save(json& obj) override {
 		obj.push_back({
 			{"Tag","hero"},
@@ -45,10 +62,17 @@ public:
 			{"pojectilespeed",pojectilespeed },
 			{"abilitytimecount",abilitytimecount },
 			{"abilitymax",abilitymax },
-			{"abilitycooldown",abilitycooldown }
+			{"abilitycooldown",abilitycooldown },
+			{"bulletmovespeed",bulletmovespeed},
+			{"cooldown",cooldown},
+			{"shottimecount",shottimecount}
 			
 			});
 	}
+	float getdamage() {
+		return bulletdamage;
+	}
+	
 
 	void load(json& obj) override {
 		transform.SetPosition(obj["position_x"], obj["position_y"]);
@@ -59,6 +83,9 @@ public:
 		abilitytimecount = obj["abilitytimecount"];
 		abilitymax = obj["abilitymax"];
 		abilitycooldown = obj["abilitycooldown"];
+		bulletmovespeed = obj["bulletmovespeed"];
+		cooldown = obj["cooldown"];
+		shottimecount = obj["shottimecount"];
 	}
 private :
 	Hero() {
@@ -68,11 +95,16 @@ private :
 		health = 100;
 		length = 10000;
 		movespeed = 150.f;
+		bulletmovespeed = 300.f;
 		pojectilespeed = 1.0f;
 		Tag = "hero";
-		cooldown = 0;
+		cooldown = 0.5f;
+		shottimecount = 0.f;
+		bulletdamage = 30.f;
 
 	};
+	float shottimecount;
+	float bulletdamage;
 	float cooldown;
 	float health;
 	float movespeed;
@@ -82,6 +114,7 @@ private :
 	float abilitycooldown=10.f;
 	float abilitytimecount=0.f;
 	int abilitymax=5;
+	float bulletmovespeed = 300.f;
 
 	
 	

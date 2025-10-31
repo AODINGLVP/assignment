@@ -79,7 +79,8 @@ class Bullet:public GameObject
 			{"dirextion_x",getdirectionX()},
 			{"direction_y",getdirectionY()},
 			{"damage",getdamage() },
-			{"lifetime",this->getlifetime()}
+			{"lifetime",this->getlifetime()},
+			{"movespeed",movespeed}
 			
 			});
 	}
@@ -88,7 +89,11 @@ class Bullet:public GameObject
 		setdirection(obj["dirextion_x"], obj["direction_y"]);
 		setdamage(obj["damage"]);
 		setlifetime(obj["lifetime"]);
+		movespeed = { obj["movespeed"] };
 		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY());
+	}
+	void setmovespeed(float x) {
+		movespeed = x;
 	}
 	~Bullet() {
 

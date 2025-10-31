@@ -141,6 +141,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="powerup_lineattack.cpp" />
+    <ClCompile Include="powerup_maxnumber.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Water.cpp" />
@@ -161,6 +163,8 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="Hero.h" />
+    <ClInclude Include="powerup_lineattack.h" />
+    <ClInclude Include="powerup_maxnumber.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Water.h" />

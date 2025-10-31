@@ -12,6 +12,8 @@
 #include "enemy_morehealth.h"
 #include "Water.h"
 #include "Hero.h"
+#include "powerup_lineattack.h"
+#include "powerup_maxnumber.h"
 
 using json = nlohmann::json;
 using namespace std;
@@ -84,6 +86,27 @@ public:
 					continue;
 				}
 				if (objects[i]->Tag == "hero") {
+					if (objects[j]->Tag == "powerup_maxnumber" && objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
+						Hero::getInstance().changemax(1);
+						remove(objects[j]);
+						if (objects[j] == nullptr) {//在object被删除后判断他是不是最后一个obj，如过不是跳过这个循环并从原来的位置继续
+							break;
+						}
+						else {
+							j--;
+						}
+					}
+					if (objects[j]->Tag == "powerup_lineattack" && objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
+						Hero::getInstance().changecooldown(0.1);
+						Hero::getInstance().addbulletmovespeed(50);
+						remove(objects[j]);
+						if (objects[j] == nullptr) {//在object被删除后判断他是不是最后一个obj，如过不是跳过这个循环并从原来的位置继续
+							break;
+						}
+						else {
+							j--;
+						}
+					}
 					if (objects[j]->Tag == "Enemybullet") {
 						if (objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
 							objects[i]->makedamage(5);
@@ -109,7 +132,7 @@ public:
 				if (objects[i]->Tag == "bullet") {
 					if (objects[j]->Tag == "enemy" || objects[j]->Tag == "Archr") {
 						if (objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
-							objects[j]->makedamage(5);
+							objects[j]->makedamage(Hero::getInstance().getdamage());
 							objects[i]->suicide();
 							if (objects[i] == nullptr) {//在子弹被删除后判断他是不是最后一个obj，如过不是跳过这个循环并从原来的位置继续
 								break;
@@ -184,6 +207,14 @@ public:
 				GameObject* scv = new enemy_fastspeed(e["position_x"], e["position_y"]);
 				scv->load(e);
 			}
+			else if (e["Tag" == "powerup_maxnumber"]) {
+				GameObject* scv = new powerup_maxnumber(e["position_x"], e["position_y"]);
+
+			}
+			else if (e["Tag" == "powerup_lineattack"]) {
+				GameObject* scv = new powerup_lineattack(e["position_x"], e["position_y"]);
+
+			}
 			else if (e["Tag"] == "water") {
 				GameObject* scv = new Water();
 				scv->load(e);
@@ -197,9 +228,10 @@ public:
 				Camera::GetCamera().load(e);
 			}
 			
+			
 
 		}
-		cout << Hero::getInstance().transform.GetPositionX();
+		
 		
 	}
 
