@@ -15,6 +15,7 @@ using namespace std;
 class enemiesmanager
 {
 public:
+    int credit = 0;
     static enemiesmanager& getInstance() {
         static enemiesmanager instance;
         return instance;
@@ -34,6 +35,7 @@ public:
     }
 
     void remove(enemy* obj) {
+        credit += 5;
         for (int i = 0; i < count; i++) {
             if (enemies[i] == obj) {
                 // 移动数组元素覆盖删除对象

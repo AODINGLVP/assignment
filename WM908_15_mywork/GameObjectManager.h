@@ -181,7 +181,7 @@ public:
 		}
 		count = 1;
 	}
-	int loadall(json& obj) {
+	int loadall(json& obj,int &credit) {
 		int mapchose;
 		
 		for (int i = 0; i < count; i++) {
@@ -249,6 +249,9 @@ public:
 			}
 			else if (e["Tag"] == "mapchose") {
 				mapchose = e["loadpagechose"];
+			}
+			else if (e["Tag"] == "credit") {
+				credit = e["credit"];
 			}
 			
 			

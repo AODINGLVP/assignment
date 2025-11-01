@@ -56,7 +56,7 @@ void timecountthread() {
 
 }
 
-
+void draw_numbers(float x, float y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image, int number);
 bool scvtest = true;
 void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int count);
 void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image);
@@ -68,7 +68,6 @@ void changemao(Hero& hero, int** mapmapoffestx, int** mapoffesty);
 using namespace std;
 
 int main() {
-
 	thread t(timecountthread);
 	int loadpagechose = 3;
 	bool goload = false;
@@ -100,6 +99,10 @@ int main() {
 	GamesEngineeringBase::Image load_page;
 	GamesEngineeringBase::Image save_page;
 	GamesEngineeringBase::Image chose_page;
+	GamesEngineeringBase::Image number;
+	GamesEngineeringBase::Image Creditsshow;
+	GamesEngineeringBase::Image FPSshow;
+	GamesEngineeringBase::Image healthshow;
 	GamesEngineeringBase::Window canvas;
 
 	image.load("../Resources/A.png");
@@ -118,7 +121,11 @@ int main() {
 	lose_page.load("../Resources/lose_page.png");
 	load_page.load("../Resources/load_page.png");
 	save_page.load("../Resources/save_page.png");
-	chose_page.load("../Resources/welcome_page.png");
+	chose_page.load("../Resources/chosepage.png");
+	number.load("../Resources/number.png");
+	Creditsshow.load("../Resources/Credits.png");
+	FPSshow.load("../Resources/FPS.png");
+	healthshow.load("../Resources/health.png");
 
 
 
@@ -126,7 +133,9 @@ int main() {
 	while (1) {
 
 		if (stage == 1) {//welcome page
+			
 			canvas.clear();
+			
 			if (canvas.keyPressed('Q') && !press) {
 				
 				presscount = 0.2f;
@@ -147,8 +156,7 @@ int main() {
 			}
 
 			draw_title(0, 0, canvas, welcome_page);
-
-
+			
 
 			canvas.present();
 
@@ -219,7 +227,7 @@ int main() {
 			bulletmanager.delatemyself();
 			enemymanager.delatemyself();
 			
-
+			int showfps = 20;
 			hero.setHealth(100);
 			Water*** watermap = new Water * *[42];
 			for (int i = 0; i < 42; i++) {
@@ -372,10 +380,12 @@ int main() {
 							data.push_back({
 								{"Tag","mapchose"},
 								{"loadpagechose",loadpagechose}
-
-
 								});
-
+							data.push_back({
+								{"Tag","credit"},
+								{"credit",enemymanager.credit}
+								});
+							
 							loadfile << data.dump(4);
 							loadfile.close();
 							data = json();
@@ -392,6 +402,10 @@ int main() {
 								{"loadpagechose",loadpagechose}
 
 
+								});
+							data.push_back({
+								{"Tag","credit"},
+								{"credit",enemymanager.credit}
 								});
 							loadfile << data.dump(4);
 							loadfile.close();
@@ -411,6 +425,10 @@ int main() {
 								{"loadpagechose",loadpagechose}
 
 
+								});
+							data.push_back({
+								{"Tag","credit"},
+								{"credit",enemymanager.credit}
 								});
 							loadfile << data.dump(4);
 							loadfile.close();
@@ -468,7 +486,7 @@ int main() {
 								enemiesmanager::getInstance().delatemyself();
 								Bulletmanager::getInstance().delatemyself();
 								
-								loadpagechose = GameObjectManager::getInstance().loadall(data);
+								loadpagechose = GameObjectManager::getInstance().loadall(data,enemymanager.credit);
 								if (loadpagechose == 1 || loadpagechose == 3) {
 									ifstream file("../Resources/tiles.txt");
 									
@@ -574,7 +592,7 @@ int main() {
 								in.close();
 								enemiesmanager::getInstance().delatemyself();
 								Bulletmanager::getInstance().delatemyself();
-								loadpagechose = GameObjectManager::getInstance().loadall(data);
+								loadpagechose = GameObjectManager::getInstance().loadall(data, enemymanager.credit);
 								if (loadpagechose == 1 || loadpagechose == 3) {
 									ifstream file("../Resources/tiles.txt");
 									
@@ -682,7 +700,7 @@ int main() {
 								enemiesmanager::getInstance().delatemyself();
 								Bulletmanager::getInstance().delatemyself();
 								
-								loadpagechose = GameObjectManager::getInstance().loadall(data);
+								loadpagechose = GameObjectManager::getInstance().loadall(data, enemymanager.credit);
 								if (loadpagechose == 1 || loadpagechose == 3) {
 									ifstream file("../Resources/tiles.txt");
 									
@@ -801,7 +819,7 @@ int main() {
 						Bulletmanager::getInstance().delatemyself();
 						press = true;
 						presscount = 0.5f;
-						GameObjectManager::getInstance().loadall(data);
+						GameObjectManager::getInstance().loadall(data, enemymanager.credit);
 						for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
 							if (gameobjectmanager.getobjects()[i]->Tag == "water") {
 								watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
@@ -835,6 +853,7 @@ int main() {
 					cout << "hero.cooldown" << hero.getabilitycooldown() << endl;
 					cout << "hero.bulletspeed" << hero.getbulletmovespeed() << endl;
 					cout << "cooldown" << hero.getcooldown() << endl;
+					showfps = fps;
 					fps = 0;
 					fpsdtcount = 0;
 				}
@@ -898,6 +917,12 @@ int main() {
 				draw_entire_background(mapsave1, canvas, tiles, mapoffestx, mapoffesty, watermap);
 				//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
 				draw_object(canvas, gameobjectmanager.getobjects(), gameobjectmanager.GetCount());
+				draw_title(0, 0, canvas, healthshow);
+				draw_numbers(healthshow.width + 10, 0, canvas,number,hero.getHealth());
+				draw_title(0, 50, canvas, Creditsshow);
+				draw_numbers(Creditsshow.width + 10, 50, canvas, number, enemymanager.credit);
+				draw_title(0, 100, canvas, FPSshow);
+				draw_numbers(FPSshow.width + 10, 100, canvas, number, showfps);
 
 				//draw_collision(hero, canvas);
 
@@ -1118,7 +1143,7 @@ int main() {
 						Bulletmanager::getInstance().delatemyself();
 						press = true;
 						presscount = 0.5f;
-						GameObjectManager::getInstance().loadall(data);
+						GameObjectManager::getInstance().loadall(data, enemymanager.credit);
 						for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
 							if (gameobjectmanager.getobjects()[i]->Tag == "water") {
 								watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
@@ -1225,7 +1250,7 @@ int main() {
 		else if (stage == 7) {//chose map page
 			
 			canvas.clear();
-
+			draw_title(0, 0, canvas, chose_page);
 				if (canvas.keyPressed('Q') && !press) {
 					presscount = 0.2f;
 					press = true;
@@ -1659,6 +1684,40 @@ void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas
 
 	}
 }
+void draw_numbers(float x, float y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image, int number) {
+	int numbernow;
+	int count = 0;
+	int numbers[10];
+	if (number == 0) {
+		for (int i = 0; i < 39; i++) {
+			for (int j = 0; j < 50; j++) {
+				if (image.alphaAt(i , j)) {
+					canvas.draw(i + x, j + y, image.at(i , j));
+				}
+			}
+		}
+	}
+	while (number >0) {
+		numbers[count] = number % 10;
+		count++;
+		number = number / 10;
+		
+	}
+	for (int u = count-1; u >= 0;u-- ) {
+		for (int i = 0; i < 39; i++) {
+			for (int j = 0; j < 50; j++) {
+				if (image.alphaAt(i + (numbers[u] * 39), j)) {
+					canvas.draw(i + (count - u) * 39 + x, j + y, image.at(i + (numbers[u] * 39), j));
+				}
+			}
+		}
+	}
+	
+	
+}
+
+
+
 void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move) {
 
 

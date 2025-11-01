@@ -3,15 +3,15 @@
         "Tag": "hero",
         "abilitycooldown": 10.0,
         "abilitymax": 5,
-        "abilitytimecount": 2.335009813308716,
+        "abilitytimecount": 15.461438179016113,
         "bulletmovespeed": 300.0,
         "cooldown": 0.5,
         "health": 100.0,
         "movespeed": 150.0,
         "pojectilespeed": 1.0,
-        "position_x": 672.0,
-        "position_y": 622.0,
-        "shottimecount": 0.27344000339508057
+        "position_x": 646.0,
+        "position_y": 620.0,
+        "shottimecount": 0.0
     },
     {
         "Active": false,
@@ -14126,52 +14126,105 @@
         "positionmap_y": 41
     },
     {
-        "Tag": "bullet",
-        "damage": 20.0,
-        "direction_y": 1.0,
-        "dirextion_x": 1.0,
-        "lifetime": 1.1198116540908813,
-        "movespeed": 300.0,
-        "position_x": 1244.056640625,
-        "position_y": 1258.056640625
+        "Tag": "enemy_morehealth",
+        "health": 200.0,
+        "position_x": -871.4086303710938,
+        "position_y": -1032.9920654296875
+    },
+    {
+        "Tag": "enemy_moredamage",
+        "health": 100.0,
+        "position_x": 1500.0433349609375,
+        "position_y": -399.1313781738281
+    },
+    {
+        "Tag": "powerup_lineattack",
+        "position_x": 589.2716674804688,
+        "position_y": 589.2716674804688
+    },
+    {
+        "Tag": "enemy_fastspeed",
+        "health": 60.0,
+        "position_x": 180.08383178710938,
+        "position_y": -2223.9814453125
     },
     {
         "Tag": "bullet",
         "damage": 20.0,
-        "direction_y": 1.0,
-        "dirextion_x": 1.0,
-        "lifetime": 1.6620240211486816,
+        "direction_y": -0.7664551138877869,
+        "dirextion_x": 0.6422978043556213,
+        "lifetime": 0.4183584749698639,
         "movespeed": 300.0,
-        "position_x": 1093.392578125,
-        "position_y": 1095.392578125
+        "position_x": 1183.4549560546875,
+        "position_y": 86.38629150390625
     },
     {
         "Tag": "bullet",
         "damage": 20.0,
-        "direction_y": 1.0,
-        "dirextion_x": 1.0,
-        "lifetime": 2.1678905487060547,
+        "direction_y": -0.7664550542831421,
+        "dirextion_x": 0.6422979235649109,
+        "lifetime": 0.8793937563896179,
         "movespeed": 300.0,
-        "position_x": 941.632568359375,
-        "position_y": 898.632568359375
+        "position_x": 1094.6180419921875,
+        "position_y": 192.395263671875
     },
     {
         "Tag": "bullet",
         "damage": 20.0,
-        "direction_y": 1.0,
-        "dirextion_x": 1.0,
-        "lifetime": 2.681302070617676,
+        "direction_y": -0.7664551138877869,
+        "dirextion_x": 0.6422979235649109,
+        "lifetime": 1.4248170852661133,
         "movespeed": 300.0,
-        "position_x": 807.6092529296875,
-        "position_y": 777.6092529296875
+        "position_x": 989.52099609375,
+        "position_y": 317.80792236328125
+    },
+    {
+        "Tag": "bullet",
+        "damage": 20.0,
+        "direction_y": -0.7664551138877869,
+        "dirextion_x": 0.6422978639602661,
+        "lifetime": 1.934943437576294,
+        "movespeed": 300.0,
+        "position_x": 891.22509765625,
+        "position_y": 435.1046142578125
+    },
+    {
+        "Tag": "bullet",
+        "damage": 20.0,
+        "direction_y": -0.7664551138877869,
+        "dirextion_x": 0.6422978639602661,
+        "lifetime": 2.4423961639404297,
+        "movespeed": 300.0,
+        "position_x": 793.4443359375,
+        "position_y": 551.7864990234375
+    },
+    {
+        "Tag": "enemy_morehealth",
+        "health": 200.0,
+        "position_x": -465.4549865722656,
+        "position_y": -1307.8133544921875
+    },
+    {
+        "Tag": "bullet",
+        "damage": 20.0,
+        "direction_y": -0.7664551734924316,
+        "dirextion_x": 0.6422978639602661,
+        "lifetime": 2.953441619873047,
+        "movespeed": 300.0,
+        "position_x": 694.9713134765625,
+        "position_y": 669.2944946289063
     },
     {
         "Tag": "camera",
-        "offestX": 32.0,
-        "offestY": -18.0
+        "offestX": 6.0,
+        "offestY": -20.0
     },
     {
         "Tag": "mapchose",
-        "loadpagechose": 2
+        "loadpagechose": 1
+    },
+    {
+        "Tag": "credit",
+        "credit": 5
     }
 ]
