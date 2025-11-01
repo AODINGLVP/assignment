@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 int scvcount = 0;
+#include <thread>
 #include"GameObject.h"
 #include"Hero.h"
 #include<iostream>
@@ -38,7 +39,24 @@ int scvcount = 0;
 #include <windows.h>
 using json = nlohmann::json;
 
+
+float presscount = 0.f;
 bool press = false;
+void timecountthread() {
+	GamesEngineeringBase::Timer scv;
+	while (1) {
+		presscount -= scv.dt();
+		if (presscount <= -1.5f && press) {
+			press = false;
+		}
+
+	}
+
+
+
+}
+
+
 bool scvtest = true;
 void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int count);
 void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image);
@@ -50,16 +68,20 @@ void changemao(Hero& hero, int** mapmapoffestx, int** mapoffesty);
 using namespace std;
 
 int main() {
-	float presscount = 0.f;
+
+	thread t(timecountthread);
+	int loadpagechose = 3;
+	bool goload = false;
+
 	int stage = 1;
 	json data;
-	
+
 	HRESULT hr = CoInitialize(NULL); //  初始化 COM
 
-	
+
 	GameObjectManager& gameobjectmanager = GameObjectManager::getInstance();
 	Bulletmanager& bulletmanager = Bulletmanager::getInstance();
-	
+
 	Hero& hero = Hero::getInstance();
 
 	enemiesmanager& enemymanager = enemiesmanager::getInstance();
@@ -70,7 +92,7 @@ int main() {
 		tiles[i].load("../Resources/" + to_string(i) + ".png");
 
 	}
-	
+
 
 	GamesEngineeringBase::Image image;
 	GamesEngineeringBase::Image welcome_page;
@@ -89,7 +111,7 @@ int main() {
 	unsigned int planeY = 300;
 
 	canvas.create(1280, 1280, "Tiles");
-	
+
 	bool running = true; // Variable to control the main loop's running state.
 	cout << canvas.getWidth() << "   " << canvas.getHeight();
 	welcome_page.load("../Resources/welcome_page.png");
@@ -98,20 +120,27 @@ int main() {
 	save_page.load("../Resources/save_page.png");
 	chose_page.load("../Resources/welcome_page.png");
 
-	
+
 
 
 	while (1) {
-		
+
 		if (stage == 1) {//welcome page
 			canvas.clear();
-			if (canvas.keyPressed('Q')) {
+			if (canvas.keyPressed('Q') && !press) {
+				
+				presscount = 0.2f;
+				press = true;
 				stage = 7;
-				
+
 			}
-			if (canvas.keyPressed('W')) {
-				stage = 4;
-				
+			if (canvas.keyPressed('W') && !press) {
+				presscount = 0.2f;
+				press = true;
+
+				stage = 5;
+				goload = true;
+
 			}
 			if (canvas.keyPressed('E')) {
 				ExitProcess(0);
@@ -126,16 +155,23 @@ int main() {
 		}
 		else if (stage == 2) {//game over page
 			canvas.clear();
-			draw_title(0, 0,canvas, lose_page);
-			if (canvas.keyPressed('Q')) {
+			draw_title(0, 0, canvas, lose_page);
+			if (canvas.keyPressed('Q') && !press) {
+				presscount = 0.2f;
+				press = true;
 				stage = 7;
-				
+
 			}
-			if (canvas.keyPressed('W')) {
-				stage = 4;
-				
+			if (canvas.keyPressed('W') && !press) {
+				presscount = 0.2f;
+				press = true;
+				stage = 5;
+				goload = true;
+
 			}
-			if (canvas.keyPressed('E')) {
+			if (canvas.keyPressed('E') && !press) {
+				presscount = 0.2f;
+				press = true;
 				ExitProcess(0);
 			}
 			canvas.present();
@@ -145,14 +181,14 @@ int main() {
 			canvas.clear();
 			draw_title(0, 0, canvas, load_page);
 			if (canvas.keyPressed('Q')) {
-				
-				
+
+
 			}
 			if (canvas.keyPressed('W')) {
-				
+
 			}
 			if (canvas.keyPressed('E')) {
-				
+
 			}
 			if (canvas.keyPressed('R')) {
 				ExitProcess(0);
@@ -160,9 +196,9 @@ int main() {
 			canvas.present();
 
 		}
-		else if (stage == 4) {//save page
+		else if (stage == 4) {//save page useless
 			canvas.clear();
-			draw_title(0, 0,canvas, save_page);
+			draw_title(0, 0, canvas, save_page);
 			if (canvas.keyPressed('Q')) {
 
 			}
@@ -182,8 +218,8 @@ int main() {
 			gameobjectmanager.delatemyself();
 			bulletmanager.delatemyself();
 			enemymanager.delatemyself();
-			float presscount = 0.f;
-		
+			
+
 			hero.setHealth(100);
 			Water*** watermap = new Water * *[42];
 			for (int i = 0; i < 42; i++) {
@@ -200,71 +236,114 @@ int main() {
 			int** mapoffesty = new int* [100]();
 			for (int i = 0; i < 100; i++)
 				mapoffesty[i] = new int[100]();
-			
+			int** mapsave1 = new int* [42];
+			for (int i = 0; i < 42; i++)
+				mapsave1[i] = new int[42];
 
 			GamesEngineeringBase::Timer timer;
-			
-			ifstream file("../Resources/tiles.txt");
+
+
+			if (loadpagechose == 1 || loadpagechose == 3) {
+				ifstream file("../Resources/tiles.txt");
+				
+				string line;
+				for (int linenumber = 0; getline(file, line);) {
+					if (linenumber >= 6) {
+						int columnline = 0;
+						int stack = -1;
+						for (int i = 0; i < line.size(); i++) {
+							if (line[i] == ',') {
+								mapsave1[linenumber - 6][columnline] = stack;
+								columnline++;
+								stack = -1;
+							}
+							else {
+								if (stack == -1) {
+									stack = line[i] - '0';
+								}
+								else {
+									stack = stack * 10 + (line[i] - '0');
+								}
+							}
+
+						}
+					}
+					linenumber++;
+
+				}
+				file.close();
+				for (int i = 0; i < 42; i++) {
+					for (int j = 0; j < 42; j++) {
+
+						if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+							watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+						}
+						else {
+							watermap[i][j]->collision.SetCollision(0, 0, 0, 0);
+							watermap[i][j]->Active = false;
+						}
+					}
+				}
+			}
+			else {
+				ifstream file("../Resources/tiles1.txt");
+				
+				string line;
+				for (int linenumber = 0; getline(file, line);) {
+					if (linenumber >= 6) {
+						int columnline = 0;
+						int stack = -1;
+						for (int i = 0; i < line.size(); i++) {
+							if (line[i] == ',') {
+								mapsave1[linenumber - 6][columnline] = stack;
+								columnline++;
+								stack = -1;
+							}
+							else {
+								if (stack == -1) {
+									stack = line[i] - '0';
+								}
+								else {
+									stack = stack * 10 + (line[i] - '0');
+								}
+							}
+
+						}
+					}
+					linenumber++;
+
+				}
+				file.close();
+				for (int i = 0; i < 42; i++) {
+					for (int j = 0; j < 42; j++) {
+
+						if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+							watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+						}
+						else {
+							watermap[i][j]->collision.SetCollision(0, 0, 0, 0);
+							watermap[i][j]->Active = false;
+						}
+					}
+				}
+			}
+
 			Hero& hero = Hero::getInstance();
 			hero.transform.SetPosition(canvas.getWidth() / 2, canvas.getHeight() / 2);
-			
+
 			camera.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY());
 
 			float dt = timer.dt();
 			int move = hero.getMoveSpeed() * dt;
 			int fps = 0;
 			float fpsdtcount = 0;
-			int** mapsave1 = new int* [42];
-			for (int i = 0; i < 42; i++)
-				mapsave1[i] = new int[42];
-			
 
-			string line;
-			for (int linenumber = 0; getline(file, line);) {
 
-				if (linenumber >= 6) {
 
-					int columnline = 0;
-					int stack = -1;
-					for (int i = 0; i < line.size(); i++) {
-						if (line[i] == ',') {
-							mapsave1[linenumber - 6][columnline] = stack;
 
-							columnline++;
-							stack = -1;
-						}
-						else {
-							if (stack == -1) {
-								stack = line[i] - '0';
-							}
-							else {
-								stack = stack * 10 + (line[i] - '0');
-							}
-						}
 
-					}
-				}
-				linenumber++;
 
-			}
-			file.close();
 
-			
-			for (int i = 0; i < 42; i++) {
-				for (int j = 0; j < 42; j++) {
-
-					if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
-						watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
-					}
-					else {
-						watermap[i][j]->collision.SetCollision(0, 0, 0, 0);
-						watermap[i][j]->Active = false;
-					}
-				}
-			}
-
-		
-			
 			// Create a canvas window with dimensions 1024x768 and title “Tiles"
 
 
@@ -272,11 +351,80 @@ int main() {
 			unsigned int planeX = 300;  // Initial x-coordinate for the plane image.
 			unsigned int planeY = 300;
 
-			
+
 
 			while (running)//infinity map stage 5
 			{
+				if (canvas.keyPressed('T') && !press) {
+					press = true;
+					presscount = 0.2f;
+					while (1) {
 
+						dt = timer.dt();
+						canvas.clear();
+						draw_title(0, 0, canvas, save_page);
+						if (canvas.keyPressed('Q') && !press) {
+							press = true;
+							presscount = 0.2f;
+							ofstream loadfile("../load/sava1.json", std::ios::out | std::ios::trunc);
+
+							GameObjectManager::getInstance().saveall(data);
+							data.push_back({
+								{"Tag","mapchose"},
+								{"loadpagechose",loadpagechose}
+
+
+								});
+
+							loadfile << data.dump(4);
+							loadfile.close();
+							data = json();
+							break;
+						}
+						if (canvas.keyPressed('W') && !press) {
+							press = true;
+							presscount = 0.2f;
+							ofstream loadfile("../load/sava2.json", std::ios::out | std::ios::trunc);
+
+							GameObjectManager::getInstance().saveall(data);
+							data.push_back({
+								{"Tag","mapchose"},
+								{"loadpagechose",loadpagechose}
+
+
+								});
+							loadfile << data.dump(4);
+							loadfile.close();
+							data = json();
+							break;
+
+						}
+						if (canvas.keyPressed('E') && !press) {
+							press = true;
+							presscount = 0.2f;
+							ofstream loadfile("../load/sava3.json", std::ios::out | std::ios::trunc);
+
+
+							GameObjectManager::getInstance().saveall(data);
+							data.push_back({
+								{"Tag","mapchose"},
+								{"loadpagechose",loadpagechose}
+
+
+								});
+							loadfile << data.dump(4);
+							loadfile.close();
+							data = json();
+							break;
+
+						}
+						if (canvas.keyPressed('R')) {
+							ExitProcess(0);
+						}
+						canvas.present();
+					}
+
+				}
 				if (canvas.keyPressed('O') && !press) {
 					ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
 					press = true;
@@ -294,7 +442,348 @@ int main() {
 						}
 					}
 				}
+				if (canvas.keyPressed('Y') || goload) {
+					goload = false;
+					while (1) {
+						canvas.clear();
+						draw_title(0, 0, canvas, load_page);
+						if (canvas.keyPressed('Q') && !press) {
+							presscount = 0.2f;
+							press = true;
+
+
+							std::ifstream in("../load/sava1.json");
+							if (!in) {
+								std::cerr << "无法打开读取文件 ../load/sava.json\n";
+							}
+							else {
+								try {
+									in >> data; // 从文件反序列化到内存 json 对象
+								}
+								catch (nlohmann::json::parse_error& e) {
+									std::cerr << "JSON 解析错误: " << e.what() << '\n';
+									data = nlohmann::json(); // 可选：重置为空 json
+								}
+								in.close();
+								enemiesmanager::getInstance().delatemyself();
+								Bulletmanager::getInstance().delatemyself();
+								
+								loadpagechose = GameObjectManager::getInstance().loadall(data);
+								if (loadpagechose == 1 || loadpagechose == 3) {
+									ifstream file("../Resources/tiles.txt");
+									
+									string line;
+									for (int linenumber = 0; getline(file, line);) {
+
+										if (linenumber >= 6) {
+
+											int columnline = 0;
+											int stack = -1;
+											for (int i = 0; i < line.size(); i++) {
+												if (line[i] == ',') {
+													mapsave1[linenumber - 6][columnline] = stack;
+													columnline++;
+													stack = -1;
+												}
+												else {
+													if (stack == -1) {
+														stack = line[i] - '0';
+													}
+													else {
+														stack = stack * 10 + (line[i] - '0');
+													}
+												}
+
+											}
+										}
+										linenumber++;
+
+									}
+									file.close();
+								}
+								else if (loadpagechose == 2 || loadpagechose == 4) {
+									ifstream file("../Resources/tiles1.txt");
+									
+									string line;
+									for (int linenumber = 0; getline(file, line);) {
+
+										if (linenumber >= 6) {
+
+											int columnline = 0;
+											int stack = -1;
+											for (int i = 0; i < line.size(); i++) {
+												if (line[i] == ',') {
+													mapsave1[linenumber - 6][columnline] = stack;
+													columnline++;
+													stack = -1;
+												}
+												else {
+													if (stack == -1) {
+														stack = line[i] - '0';
+													}
+													else {
+														stack = stack * 10 + (line[i] - '0');
+													}
+												}
+
+											}
+										}
+										linenumber++;
+
+									}
+									file.close();
+								}
+								for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
+									if (gameobjectmanager.getobjects()[i]->Tag == "water") {
+										watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
+
+									}
+								}
+								for (int i = 0; i < 42; i++) {
+									for (int j = 0; j < 42; j++) {
+
+										if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+											watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+										}
+										else {
+											watermap[i][j]->Active = false;
+										}
+									}
+								}
+
+							}
+
+							break;
+
+						}
+						if (canvas.keyPressed('W') && !press) {
+							presscount = 0.2f;
+							press = true;
+							std::ifstream in("../load/sava2.json");
+							if (!in) {
+								std::cerr << "无法打开读取文件 ../load/sava.json\n";
+							}
+							else {
+								try {
+									in >> data; // 从文件反序列化到内存 json 对象
+								}
+								catch (nlohmann::json::parse_error& e) {
+									std::cerr << "JSON 解析错误: " << e.what() << '\n';
+									data = nlohmann::json(); // 可选：重置为空 json
+								}
+								in.close();
+								enemiesmanager::getInstance().delatemyself();
+								Bulletmanager::getInstance().delatemyself();
+								loadpagechose = GameObjectManager::getInstance().loadall(data);
+								if (loadpagechose == 1 || loadpagechose == 3) {
+									ifstream file("../Resources/tiles.txt");
+									
+									string line;
+									for (int linenumber = 0; getline(file, line);) {
+
+										if (linenumber >= 6) {
+
+											int columnline = 0;
+											int stack = -1;
+											for (int i = 0; i < line.size(); i++) {
+												if (line[i] == ',') {
+													mapsave1[linenumber - 6][columnline] = stack;
+													columnline++;
+													stack = -1;
+												}
+												else {
+													if (stack == -1) {
+														stack = line[i] - '0';
+													}
+													else {
+														stack = stack * 10 + (line[i] - '0');
+													}
+												}
+
+											}
+										}
+										linenumber++;
+
+									}
+									file.close();
+								}
+								else if (loadpagechose == 2 || loadpagechose == 4) {
+									ifstream file("../Resources/tiles1.txt");
+									
+									string line;
+									for (int linenumber = 0; getline(file, line);) {
+
+										if (linenumber >= 6) {
+
+											int columnline = 0;
+											int stack = -1;
+											for (int i = 0; i < line.size(); i++) {
+												if (line[i] == ',') {
+													mapsave1[linenumber - 6][columnline] = stack;
+													columnline++;
+													stack = -1;
+												}
+												else {
+													if (stack == -1) {
+														stack = line[i] - '0';
+													}
+													else {
+														stack = stack * 10 + (line[i] - '0');
+													}
+												}
+
+											}
+										}
+										linenumber++;
+
+									}
+									file.close();
+								}
+								for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
+									if (gameobjectmanager.getobjects()[i]->Tag == "water") {
+										watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
+
+									}
+								}
+								for (int i = 0; i < 42; i++) {
+									for (int j = 0; j < 42; j++) {
+
+										if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+											watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+										}
+										else {
+											watermap[i][j]->Active = false;
+										}
+									}
+								}
+
+							}
+
+							break;
+
+						}
+						if (canvas.keyPressed('E') && !press) {
+							presscount = 0.2f;
+							press = true;
+
+							std::ifstream in("../load/sava3.json");
+							if (!in) {
+								std::cerr << "无法打开读取文件 ../load/sava.json\n";
+							}
+							else {
+								try {
+									in >> data; // 从文件反序列化到内存 json 对象
+								}
+								catch (nlohmann::json::parse_error& e) {
+									std::cerr << "JSON 解析错误: " << e.what() << '\n';
+									data = nlohmann::json(); // 可选：重置为空 json
+								}
+								in.close();
+								enemiesmanager::getInstance().delatemyself();
+								Bulletmanager::getInstance().delatemyself();
+								
+								loadpagechose = GameObjectManager::getInstance().loadall(data);
+								if (loadpagechose == 1 || loadpagechose == 3) {
+									ifstream file("../Resources/tiles.txt");
+									
+									string line;
+									for (int linenumber = 0; getline(file, line);) {
+
+										if (linenumber >= 6) {
+
+											int columnline = 0;
+											int stack = -1;
+											for (int i = 0; i < line.size(); i++) {
+												if (line[i] == ',') {
+													mapsave1[linenumber - 6][columnline] = stack;
+													columnline++;
+													stack = -1;
+												}
+												else {
+													if (stack == -1) {
+														stack = line[i] - '0';
+													}
+													else {
+														stack = stack * 10 + (line[i] - '0');
+													}
+												}
+
+											}
+										}
+										linenumber++;
+
+									}
+									file.close();
+								}
+								else if (loadpagechose == 2 || loadpagechose == 4) {
+									ifstream file("../Resources/tiles1.txt");
+									
+									string line;
+									for (int linenumber = 0; getline(file, line);) {
+
+										if (linenumber >= 6) {
+
+											int columnline = 0;
+											int stack = -1;
+											for (int i = 0; i < line.size(); i++) {
+												if (line[i] == ',') {
+													mapsave1[linenumber - 6][columnline] = stack;
+													columnline++;
+													stack = -1;
+												}
+												else {
+													if (stack == -1) {
+														stack = line[i] - '0';
+													}
+													else {
+														stack = stack * 10 + (line[i] - '0');
+													}
+												}
+
+											}
+										}
+										linenumber++;
+
+									}
+									file.close();
+								}
+								for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
+									if (gameobjectmanager.getobjects()[i]->Tag == "water") {
+										watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
+
+									}
+								}
+								for (int i = 0; i < 42; i++) {
+									for (int j = 0; j < 42; j++) {
+
+										if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+											watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+										}
+										else {
+											watermap[i][j]->Active = false;
+										}
+									}
+								}
+
+							}
+
+							break;
+
+						}
+						if (canvas.keyPressed('R')) {
+							ExitProcess(0);
+						}
+						canvas.present();
+					}
+				}
 				if (canvas.keyPressed('P') && !press) {
+
+
+
+
+
+
+
 					std::ifstream in("../load/sava.json");
 					if (!in) {
 						std::cerr << "无法打开读取文件 ../load/sava.json\n";
@@ -335,10 +824,7 @@ int main() {
 				}
 
 				dt = timer.dt();
-				presscount -= dt;
-				if (presscount <= 0.f) {
-					press = false;
-				}
+				
 				hero.updataability(dt);
 				fpsdtcount += dt;
 				fps++;
@@ -352,13 +838,48 @@ int main() {
 					fps = 0;
 					fpsdtcount = 0;
 				}
-				
+
 				hero.shot(dt, hero);
 				enemymanager.updateall(dt);
 				move = hero.getMoveSpeed() * dt;
 				controlHero(hero, canvas, move);
-				changemao(hero, mapoffestx, mapoffesty);
-				camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
+				if (loadpagechose == 3 || loadpagechose == 4) {
+					if (hero.transform.GetPositionX() <= -10) {
+						hero.transform.SetPositionX(-10);
+					}
+					if (hero.transform.GetPositionY() <= -10) {
+						hero.transform.SetPositionY(-10);
+					}
+					if (hero.transform.GetPositionX() >= canvas.getWidth() - 32) {
+						hero.transform.SetPositionX(canvas.getWidth() - 32);
+					}
+					if (hero.transform.GetPositionY() >= canvas.getHeight() - 32) {
+						hero.transform.SetPositionY(canvas.getHeight() - 32);
+					}
+					//changemao(hero, mapoffestx, mapoffesty);
+
+					//camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
+					if (hero.transform.GetPositionX() - (canvas.getWidth() / 2) >= 0) {
+						camera.SetPositionX(min(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 64));
+					}
+					else {
+						camera.SetPositionX(max(hero.transform.GetPositionX() - (canvas.getWidth() / 2), 0));
+					}
+
+
+					if (hero.transform.GetPositionY() - (canvas.getHeight() / 2) >= 0) {
+						camera.SetPositionY(min(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 64));
+					}
+					else {
+						camera.SetPositionY(max(hero.transform.GetPositionY() - (canvas.getHeight() / 2), 0));
+					}
+
+				}
+				else if (loadpagechose == 1 || loadpagechose == 2) {
+					changemao(hero, mapoffestx, mapoffesty);
+					camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
+				}
+
 				bulletmanager.updateAll(dt);
 				gameobjectmanager.UpdateAll(dt);
 				if (hero.getHealth() < 0) {
@@ -469,7 +990,7 @@ int main() {
 						watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
 					}
 					else {
-						watermap[i][j]->Active=false;
+						watermap[i][j]->Active = false;
 					}
 
 				}
@@ -516,7 +1037,51 @@ int main() {
 			while (running)//fixed map stage 6
 			{
 
+				if (canvas.keyPressed('T')) {
+					while (1) {
 
+						dt = timer.dt();
+						canvas.clear();
+						draw_title(0, 0, canvas, save_page);
+						if (canvas.keyPressed('Q') && !press) {
+							ofstream loadfile("../load/sava1.json", std::ios::out | std::ios::trunc);
+							press = true;
+							presscount = 0.5f;
+							GameObjectManager::getInstance().saveall(data);
+							loadfile << data.dump(4);
+							loadfile.close();
+							data = json();
+							break;
+						}
+						if (canvas.keyPressed('W')) {
+							ofstream loadfile("../load/sava2.json", std::ios::out | std::ios::trunc);
+							press = true;
+							presscount = 0.5f;
+							GameObjectManager::getInstance().saveall(data);
+							loadfile << data.dump(4);
+							loadfile.close();
+							data = json();
+							break;
+
+						}
+						if (canvas.keyPressed('E')) {
+							ofstream loadfile("../load/sava3.json", std::ios::out | std::ios::trunc);
+							press = true;
+							presscount = 0.5f;
+							GameObjectManager::getInstance().saveall(data);
+							loadfile << data.dump(4);
+							loadfile.close();
+							data = json();
+							break;
+
+						}
+						if (canvas.keyPressed('R')) {
+							ExitProcess(0);
+						}
+						canvas.present();
+					}
+
+				}
 
 				if (canvas.keyPressed('O') && !press) {
 					ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
@@ -658,8 +1223,39 @@ int main() {
 
 		}
 		else if (stage == 7) {//chose map page
-			stage = 5;
-		}
+			
+			canvas.clear();
+
+				if (canvas.keyPressed('Q') && !press) {
+					presscount = 0.2f;
+					press = true;
+					loadpagechose = 1;
+					stage = 5;
+
+				}
+				if (canvas.keyPressed('W') && !press) {
+					presscount = 0.2f;
+					press = true;
+					loadpagechose = 2;
+					stage = 5;
+				}
+				if (canvas.keyPressed('E') && !press) {
+					presscount = 0.2f;
+					press = true;
+					loadpagechose = 3;
+					stage = 5;
+
+				}
+				if (canvas.keyPressed('R') && !press) {
+					presscount = 0.2f;
+					press = true;
+					loadpagechose = 4;
+					stage = 5;
+
+				}
+				canvas.present();
+			}
+		
 	}
 
 

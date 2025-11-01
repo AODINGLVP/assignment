@@ -181,7 +181,8 @@ public:
 		}
 		count = 1;
 	}
-	void loadall(json& obj) {
+	int loadall(json& obj) {
+		int mapchose;
 		
 		for (int i = 0; i < count; i++) {
 
@@ -200,6 +201,7 @@ public:
 
 		}
 		count = 1;
+		mapchose = 1;
 		for (json e : obj) {
 			if (e["Tag"] == "Archr") {
 				GameObject* scv = new Archr(e["position_x"],e["position_y"]);
@@ -225,11 +227,11 @@ public:
 				GameObject* scv = new enemy_fastspeed(e["position_x"], e["position_y"]);
 				scv->load(e);
 			}
-			else if (e["Tag" == "powerup_maxnumber"]) {
+			else if (e["Tag"] == "powerup_maxnumber") {
 				GameObject* scv = new powerup_maxnumber(e["position_x"], e["position_y"]);
 
 			}
-			else if (e["Tag" == "powerup_lineattack"]) {
+			else if (e["Tag"] == "powerup_lineattack") {
 				GameObject* scv = new powerup_lineattack(e["position_x"], e["position_y"]);
 
 			}
@@ -245,12 +247,15 @@ public:
 				
 				Camera::GetCamera().load(e);
 			}
+			else if (e["Tag"] == "mapchose") {
+				mapchose = e["loadpagechose"];
+			}
 			
 			
 
 		}
 		
-		
+		return mapchose;
 	}
 
 private:
