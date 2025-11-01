@@ -103,6 +103,9 @@ int main() {
 	GamesEngineeringBase::Image Creditsshow;
 	GamesEngineeringBase::Image FPSshow;
 	GamesEngineeringBase::Image healthshow;
+	GamesEngineeringBase::Image aoeshow;
+	GamesEngineeringBase::Image Tshow;
+	GamesEngineeringBase::Image Yshow;
 	GamesEngineeringBase::Window canvas;
 
 	image.load("../Resources/A.png");
@@ -126,6 +129,9 @@ int main() {
 	Creditsshow.load("../Resources/Credits.png");
 	FPSshow.load("../Resources/FPS.png");
 	healthshow.load("../Resources/health.png");
+	aoeshow.load("../Resources/aoeshow.png");
+	Tshow.load("../Resources/Tshow.png");
+	Yshow.load("../Resources/Yshow.png");
 
 
 
@@ -862,6 +868,13 @@ int main() {
 				enemymanager.updateall(dt);
 				move = hero.getMoveSpeed() * dt;
 				controlHero(hero, canvas, move);
+				if (canvas.keyPressed('N')) {
+					if (Hero::getInstance().getabilitytimecount() >= 10.f) {
+						enemiesmanager::getInstance().killsomeenemies(Hero::getInstance().getabilitymax());
+						Hero::getInstance().setabilitytimecount(0.f);
+					}
+
+				}
 				if (loadpagechose == 3 || loadpagechose == 4) {
 					if (hero.transform.GetPositionX() <= -10) {
 						hero.transform.SetPositionX(-10);
@@ -917,12 +930,17 @@ int main() {
 				draw_entire_background(mapsave1, canvas, tiles, mapoffestx, mapoffesty, watermap);
 				//draw_title((int)floorf(hero.transform.GetPositionX()), (int)floorf(hero.transform.GetPositionY()), canvas, hero.image);
 				draw_object(canvas, gameobjectmanager.getobjects(), gameobjectmanager.GetCount());
-				draw_title(0, 0, canvas, healthshow);
-				draw_numbers(healthshow.width + 10, 0, canvas,number,hero.getHealth());
-				draw_title(0, 50, canvas, Creditsshow);
-				draw_numbers(Creditsshow.width + 10, 50, canvas, number, enemymanager.credit);
-				draw_title(0, 100, canvas, FPSshow);
-				draw_numbers(FPSshow.width + 10, 100, canvas, number, showfps);
+				draw_title(0, 10, canvas, healthshow);
+				draw_numbers(healthshow.width + 10, 10, canvas,number,hero.getHealth());
+				draw_title(0, 60, canvas, Creditsshow);
+				draw_numbers(Creditsshow.width + 10, 60, canvas, number, enemymanager.credit);
+				draw_title(0, 110, canvas, FPSshow);
+				draw_numbers(FPSshow.width + 10, 110, canvas, number, showfps);
+				if (Hero::getInstance().getabilitytimecount() >= 10.f) {
+					draw_title(450, 10, canvas, aoeshow);
+				}
+				draw_title(900, 10, canvas, Tshow);
+				draw_title(900, 60, canvas, Yshow);
 
 				//draw_collision(hero, canvas);
 
@@ -1187,6 +1205,13 @@ int main() {
 				enemymanager.updateall(dt);
 				move = hero.getMoveSpeed() * dt;
 				controlHero(hero, canvas, move);
+				if (canvas.keyPressed('N')) {
+					if (Hero::getInstance().getabilitytimecount() >= 10.f) {
+						enemiesmanager::getInstance().killsomeenemies(Hero::getInstance().getabilitymax());
+						Hero::getInstance().setabilitytimecount(0.f);
+					}
+
+				}
 				if (hero.transform.GetPositionX() <= -10) {
 					hero.transform.SetPositionX(-10);
 				}
@@ -1763,12 +1788,6 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move) {
 		}
 
 	}
-	if (canvas.keyPressed('N')) {
-		if (Hero::getInstance().getabilitytimecount() >= 10.f) {
-			enemiesmanager::getInstance().killsomeenemies(Hero::getInstance().getabilitymax());
-			Hero::getInstance().setabilitytimecount(0.f);
-		}
-
-	}
+	
 
 }
