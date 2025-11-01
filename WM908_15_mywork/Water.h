@@ -27,7 +27,8 @@ public:
 			{"position_x",transform.GetPositionX()},
 			{"position_y",transform.GetPositionY()},
 			{"positionmap_x",positionmap_x},
-			{"positionmap_y",positionmap_y}
+			{"positionmap_y",positionmap_y},
+			{"Active",this->Active}
 			});
 	}
 	void load(json& obj) override {
@@ -35,6 +36,7 @@ public:
 		
 		positionmap_x = obj["positionmap_x"];
 		positionmap_y = obj["positionmap_y"];
+		this->Active = obj["Active"];
 	}
 	
 private:

@@ -53,91 +53,24 @@ int main() {
 	float presscount = 0.f;
 	int stage = 1;
 	json data;
-	Water*** watermap = new Water * *[42];
-	for (int i = 0; i < 42; i++) {
-		watermap[i] = new Water * [42];
-		for (int j = 0; j < 42; j++) {
-			watermap[i][j] = new Water; // 初始化为空指针
-			watermap[i][j]->positionmap_x = i;
-			watermap[i][j]->positionmap_y = j;
-		}
-	}
-	int** mapoffestx = new int* [100]();
-	for (int i = 0; i < 100; i++)
-		mapoffestx[i] = new int[100]();
-	int** mapoffesty = new int* [100]();
-	for (int i = 0; i < 100; i++)
-		mapoffesty[i] = new int[100]();
+	
 	HRESULT hr = CoInitialize(NULL); //  初始化 COM
 
-	GamesEngineeringBase::Timer timer;
+	
 	GameObjectManager& gameobjectmanager = GameObjectManager::getInstance();
 	Bulletmanager& bulletmanager = Bulletmanager::getInstance();
-	ifstream file("../Resources/tiles.txt");
+	
 	Hero& hero = Hero::getInstance();
 
 	enemiesmanager& enemymanager = enemiesmanager::getInstance();
 	Camera& camera = Camera::GetCamera();
 	camera.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY());
-
-	float dt = timer.dt();
-	int move = hero.getMoveSpeed() * dt;
-	int fps = 0;
-	float fpsdtcount = 0;
-	int** mapsave1 = new int* [42];
-	for (int i = 0; i < 42; i++)
-		mapsave1[i] = new int[42];
-	/*int mapsave1[42][42];
-	for (int i = 0; i < 42; i++) {
-		for (int j = 0; j < 42; j++) {
-			mapsave1[i][j] = -1;
-		}
-	}*/
-
-
-	string line;
-	for (int linenumber = 0; getline(file, line);) {
-
-		if (linenumber >= 6) {
-
-			int columnline = 0;
-			int stack = -1;
-			for (int i = 0; i < line.size(); i++) {
-				if (line[i] == ',') {
-					mapsave1[linenumber - 6][columnline] = stack;
-
-					columnline++;
-					stack = -1;
-				}
-				else {
-					if (stack == -1) {
-						stack = line[i] - '0';
-					}
-					else {
-						stack = stack * 10 + (line[i] - '0');
-					}
-				}
-
-			}
-		}
-		linenumber++;
-
-	}
-	file.close();
-
 	GamesEngineeringBase::Image tiles[24];
 	for (int i = 0; i < 24; i++) {
 		tiles[i].load("../Resources/" + to_string(i) + ".png");
 
 	}
-	for (int i = 0; i < 42; i++) {
-		for (int j = 0; j < 42; j++) {
-
-			if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
-				watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
-			}
-		}
-	}
+	
 
 	GamesEngineeringBase::Image image;
 	GamesEngineeringBase::Image welcome_page;
@@ -156,7 +89,7 @@ int main() {
 	unsigned int planeY = 300;
 
 	canvas.create(1280, 1280, "Tiles");
-	hero.transform.SetPosition(canvas.getWidth() / 2, canvas.getHeight() / 2);
+	
 	bool running = true; // Variable to control the main loop's running state.
 	cout << canvas.getWidth() << "   " << canvas.getHeight();
 	welcome_page.load("../Resources/welcome_page.png");
@@ -174,9 +107,11 @@ int main() {
 			canvas.clear();
 			if (canvas.keyPressed('Q')) {
 				stage = 7;
+				
 			}
 			if (canvas.keyPressed('W')) {
 				stage = 4;
+				
 			}
 			if (canvas.keyPressed('E')) {
 				ExitProcess(0);
@@ -194,9 +129,11 @@ int main() {
 			draw_title(0, 0,canvas, lose_page);
 			if (canvas.keyPressed('Q')) {
 				stage = 7;
+				
 			}
 			if (canvas.keyPressed('W')) {
 				stage = 4;
+				
 			}
 			if (canvas.keyPressed('E')) {
 				ExitProcess(0);
@@ -241,7 +178,103 @@ int main() {
 			canvas.present();
 		}
 		else if (stage == 5) {//infinity map 
-			while (running)//fixed map stage 5
+
+			gameobjectmanager.delatemyself();
+			bulletmanager.delatemyself();
+			enemymanager.delatemyself();
+			float presscount = 0.f;
+		
+			hero.setHealth(100);
+			Water*** watermap = new Water * *[42];
+			for (int i = 0; i < 42; i++) {
+				watermap[i] = new Water * [42];
+				for (int j = 0; j < 42; j++) {
+					watermap[i][j] = new Water; // 初始化为空指针
+					watermap[i][j]->positionmap_x = i;
+					watermap[i][j]->positionmap_y = j;
+				}
+			}
+			int** mapoffestx = new int* [100]();
+			for (int i = 0; i < 100; i++)
+				mapoffestx[i] = new int[100]();
+			int** mapoffesty = new int* [100]();
+			for (int i = 0; i < 100; i++)
+				mapoffesty[i] = new int[100]();
+			
+
+			GamesEngineeringBase::Timer timer;
+			
+			ifstream file("../Resources/tiles.txt");
+			Hero& hero = Hero::getInstance();
+			hero.transform.SetPosition(canvas.getWidth() / 2, canvas.getHeight() / 2);
+			
+			camera.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY());
+
+			float dt = timer.dt();
+			int move = hero.getMoveSpeed() * dt;
+			int fps = 0;
+			float fpsdtcount = 0;
+			int** mapsave1 = new int* [42];
+			for (int i = 0; i < 42; i++)
+				mapsave1[i] = new int[42];
+			
+
+			string line;
+			for (int linenumber = 0; getline(file, line);) {
+
+				if (linenumber >= 6) {
+
+					int columnline = 0;
+					int stack = -1;
+					for (int i = 0; i < line.size(); i++) {
+						if (line[i] == ',') {
+							mapsave1[linenumber - 6][columnline] = stack;
+
+							columnline++;
+							stack = -1;
+						}
+						else {
+							if (stack == -1) {
+								stack = line[i] - '0';
+							}
+							else {
+								stack = stack * 10 + (line[i] - '0');
+							}
+						}
+
+					}
+				}
+				linenumber++;
+
+			}
+			file.close();
+
+			
+			for (int i = 0; i < 42; i++) {
+				for (int j = 0; j < 42; j++) {
+
+					if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+						watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+					}
+					else {
+						watermap[i][j]->collision.SetCollision(0, 0, 0, 0);
+						watermap[i][j]->Active = false;
+					}
+				}
+			}
+
+		
+			
+			// Create a canvas window with dimensions 1024x768 and title “Tiles"
+
+
+
+			unsigned int planeX = 300;  // Initial x-coordinate for the plane image.
+			unsigned int planeY = 300;
+
+			
+
+			while (running)//infinity map stage 5
 			{
 
 				if (canvas.keyPressed('O') && !press) {
@@ -292,6 +325,9 @@ int main() {
 								if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
 									watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
 								}
+								else {
+									watermap[i][j]->Active = false;
+								}
 							}
 						}
 						continue;
@@ -316,7 +352,7 @@ int main() {
 					fps = 0;
 					fpsdtcount = 0;
 				}
-				if (canvas.keyPressed(VK_ESCAPE)) break;
+				
 				hero.shot(dt, hero);
 				enemymanager.updateall(dt);
 				move = hero.getMoveSpeed() * dt;
@@ -327,6 +363,12 @@ int main() {
 				gameobjectmanager.UpdateAll(dt);
 				if (hero.getHealth() < 0) {
 					stage = 2;
+					break;
+				}
+				if (canvas.keyPressed('M'))
+				{
+					stage = 2;
+					break;
 				}
 				// Check for input (key presses or window events)
 				// Clear the window for the next frame rendering
@@ -346,8 +388,135 @@ int main() {
 			}
 		}
 		else if (stage == 6) {//fixed map
+
+
+			gameobjectmanager.delatemyself();
+			bulletmanager.delatemyself();
+			enemymanager.delatemyself();
+
+			float presscount = 0.f;
+
+
+			Water*** watermap = new Water * *[42];
+			for (int i = 0; i < 42; i++) {
+				watermap[i] = new Water * [42];
+				for (int j = 0; j < 42; j++) {
+					watermap[i][j] = new Water; // 初始化为空指针
+					watermap[i][j]->positionmap_x = i;
+					watermap[i][j]->positionmap_y = j;
+				}
+			}
+			int** mapoffestx = new int* [100]();
+			for (int i = 0; i < 100; i++)
+				mapoffestx[i] = new int[100]();
+			int** mapoffesty = new int* [100]();
+			for (int i = 0; i < 100; i++)
+				mapoffesty[i] = new int[100]();
+
+
+			GamesEngineeringBase::Timer timer;
+
+			ifstream file("../Resources/tiles.txt");
+			Hero& hero = Hero::getInstance();
+			hero.transform.SetPosition(canvas.getWidth() / 2, canvas.getHeight() / 2);
+
+			camera.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY());
+
+			float dt = timer.dt();
+			int move = hero.getMoveSpeed() * dt;
+			int fps = 0;
+			float fpsdtcount = 0;
+			int** mapsave1 = new int* [42];
+			for (int i = 0; i < 42; i++)
+				mapsave1[i] = new int[42];
+
+
+			string line;
+			for (int linenumber = 0; getline(file, line);) {
+
+				if (linenumber >= 6) {
+
+					int columnline = 0;
+					int stack = -1;
+					for (int i = 0; i < line.size(); i++) {
+						if (line[i] == ',') {
+							mapsave1[linenumber - 6][columnline] = stack;
+
+							columnline++;
+							stack = -1;
+						}
+						else {
+							if (stack == -1) {
+								stack = line[i] - '0';
+							}
+							else {
+								stack = stack * 10 + (line[i] - '0');
+							}
+						}
+
+					}
+				}
+				linenumber++;
+
+			}
+			file.close();
+
+
+			for (int i = 0; i < 42; i++) {
+				for (int j = 0; j < 42; j++) {
+
+					if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+						watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+					}
+					else {
+						watermap[i][j]->Active=false;
+					}
+
+				}
+			}
+
+
+
+			// Create a canvas window with dimensions 1024x768 and title “Tiles"
+
+
+
+			unsigned int planeX = 300;  // Initial x-coordinate for the plane image.
+			unsigned int planeY = 300;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			while (running)//fixed map stage 6
 			{
+
+
 
 				if (canvas.keyPressed('O') && !press) {
 					ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
@@ -396,6 +565,9 @@ int main() {
 
 								if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
 									watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+								}
+								else {
+									watermap[i][j]->Active = false;
 								}
 							}
 						}
@@ -460,6 +632,12 @@ int main() {
 				gameobjectmanager.UpdateAll(dt);
 				if (hero.getHealth() < 0) {
 					stage = 2;
+					break;
+				}
+				if (canvas.keyPressed('M'))
+				{
+					stage = 2;
+					break;
 				}
 				// Check for input (key presses or window events)
 				// Clear the window for the next frame rendering
@@ -588,7 +766,7 @@ int main() {
 	}*/
 
 
-	while (running)//fixed map stage 6
+	/*while (running)//fixed map stage 6
 	{
 
 		if (canvas.keyPressed('O') && !press) {
@@ -715,7 +893,7 @@ int main() {
 		// Draw();
 		// Display the frame on the screen. This must be called once the frameis finished in order to display the frame.
 		canvas.present();
-	}
+	}*/
 
 
 	return 0;

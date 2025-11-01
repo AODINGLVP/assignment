@@ -22,7 +22,7 @@ public:
 	float getMoveSpeed() { return movespeed; }
 	float getProjectileSpeed() { return pojectilespeed; }
 	float getHealth() { return health; }
-	float setHealth(int damage) { return health -= damage; }
+	void setHealth(int hel) {  health =hel; }
 	float setMoveSpeed(float speed) { return movespeed = speed; }
 	float setProjectileSpeed(float speed) { return pojectilespeed = speed; }
 	void makedamage(float damage) override {

@@ -52,7 +52,7 @@ public:
 			if (objects[i]->Tag == "hero") {
 				for (int j = 0; j < count; j++) {
 					if (objects[j]->Tag == "water") {
-						if (objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
+						if (objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)&&objects[j]->Active) {
 							return true;
 						}
 					}
@@ -82,7 +82,6 @@ public:
 			}
 			for (int j = 0; j < count; j++) {
 				if (objects[j]->Tag == "water") {
-					continue;
 					continue;
 				}
 				if (objects[i]->Tag == "hero") {
@@ -162,6 +161,25 @@ public:
 			objects[i]->save(obj);
 		}
 		Camera::GetCamera().save(obj);
+	}
+	void delatemyself() {
+		for (int i = 0; i < count; i++) {
+
+			if (objects[i]->Tag == "hero") {
+				objects[0] = objects[i];
+				if (i != 0)
+					objects[i] = nullptr;
+
+			}
+			else {
+				objects[i] = nullptr;
+			}
+
+
+
+
+		}
+		count = 1;
 	}
 	void loadall(json& obj) {
 		
