@@ -46,7 +46,7 @@ void timecountthread() {
 	GamesEngineeringBase::Timer scv;
 	while (1) {
 		presscount -= scv.dt();
-		if (presscount <= -1.5f && press) {
+		if (presscount <= -0.8f && press) {
 			press = false;
 		}
 
