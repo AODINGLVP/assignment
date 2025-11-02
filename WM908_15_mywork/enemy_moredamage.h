@@ -3,10 +3,13 @@
 class enemy_moredamage :public enemy
 {
 public:
-	enemy_moredamage(float x, float y) :enemy(x, y, 50.f, 100, 20) {
+	enemy_moredamage(float x, float y) :enemy(x, y, 50.f, 100, 10.f) {
 		
 		image.load("../Resources/xixuegui.png");
 		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), image.width, image.height);
+	}
+	float getattack() override {
+		return 10.f;
 	}
 	void save(json& obj) override {
 		obj.push_back({

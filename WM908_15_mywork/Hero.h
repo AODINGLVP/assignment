@@ -26,12 +26,26 @@ public:
 	float setMoveSpeed(float speed) { return movespeed = speed; }
 	float setProjectileSpeed(float speed) { return pojectilespeed = speed; }
 	void makedamage(float damage) override {
-		health -= damage;
-
+		if (!invincible) {
+			health -= damage;
+			invincible = true;
+			invincibletimecount = -1.f;
+		}
+		
+	}
+	void reflashinvincible() {
+		invincible = false;
 	}
 	void updataability(float dt) {
 		abilitytimecount += dt;
 		
+		
+	}
+	void updateinvincible(float dt) {
+		invincibletimecount += dt;
+		if (invincibletimecount >= 0 && invincible) {
+			invincible = false;
+		}
 	}
 	int getabilitymax() { return abilitymax; }
 	void setabilitymax(int max) { abilitymax = max; }
@@ -65,7 +79,9 @@ public:
 			{"abilitycooldown",abilitycooldown },
 			{"bulletmovespeed",bulletmovespeed},
 			{"cooldown",cooldown},
-			{"shottimecount",shottimecount}
+			{"shottimecount",shottimecount},
+			{"invincible",invincible},
+			{"invincibletimecount",invincibletimecount}
 			
 			});
 	}
@@ -86,6 +102,8 @@ public:
 		bulletmovespeed = obj["bulletmovespeed"];
 		cooldown = obj["cooldown"];
 		shottimecount = obj["shottimecount"];
+		invincible = obj["invincible"];
+		invincibletimecount = obj["invincibletimecount"];
 	}
 private :
 	Hero() {
@@ -103,6 +121,7 @@ private :
 		bulletdamage = 30.f;
 
 	};
+	float invincibletimecount = 0.f;
 	float shottimecount;
 	float bulletdamage;
 	float cooldown;
@@ -115,6 +134,7 @@ private :
 	float abilitytimecount=0.f;
 	int abilitymax=5;
 	float bulletmovespeed = 300.f;
+	bool invincible = false;
 
 	
 	

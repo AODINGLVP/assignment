@@ -121,7 +121,7 @@ public:
 					}
 					if (objects[j]->Tag == "enemy") {
 						if (objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
-							objects[i]->makedamage(5);
+							objects[i]->makedamage(objects[j]->getattack());
 
 						}
 
@@ -181,7 +181,7 @@ public:
 		}
 		count = 1;
 	}
-	int loadall(json& obj,int &credit) {
+	int loadall(json& obj,int &credit,float &gametimecount) {
 		int mapchose;
 		
 		for (int i = 0; i < count; i++) {
@@ -252,6 +252,9 @@ public:
 			}
 			else if (e["Tag"] == "credit") {
 				credit = e["credit"];
+			}
+			else if (e["Tag"] == "gametimecount") {
+				gametimecount = e["gametimecount"];
 			}
 			
 			

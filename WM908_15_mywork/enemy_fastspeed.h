@@ -11,6 +11,9 @@ class enemy_fastspeed:public enemy
 			image.load("../Resources/goblin_100.png");
 			collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), image.width,image.height);
 		}
+		float getattack() override {
+			return 5.f;
+		}
 		void save(json& obj) override {
 			obj.push_back({
 				{"Tag","enemy_fastspeed"},

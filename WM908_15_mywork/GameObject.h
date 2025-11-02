@@ -50,7 +50,7 @@ public:
 
 	void registerobj (GameObject* obj);
 	void removeobj(GameObject* obj);
-	
+	virtual float getattack() { return 5.f; };
 	virtual void makedamage(float damage) {};
 	virtual void suicide() {};
 	virtual void save(json& obj) {
