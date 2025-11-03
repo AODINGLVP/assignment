@@ -1176,11 +1176,7 @@ void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas
 
 }
 void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles, int** offestmapx, int** offestmapy, Water*** watermap) {
-	for (int i = 0; i < canvas.getHeight(); i++) {
-		for (int j = 0; j < canvas.getWidth(); j++) {
-			canvas.draw(j, i, 0, 0, 0);
-		}
-	}
+	
 	//scvcount++;
 	for (int i = 0; i < 42; i++) {
 		for (int j = 0; j < 42; j++) {
