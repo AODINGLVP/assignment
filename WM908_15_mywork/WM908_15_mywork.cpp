@@ -303,7 +303,7 @@ int main() {
 				for (int i = 0; i < 42; i++) {
 					for (int j = 0; j < 42; j++) {
 
-						if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+						if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
 							watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
 						}
 						else {
@@ -345,7 +345,7 @@ int main() {
 				for (int i = 0; i < 42; i++) {
 					for (int j = 0; j < 42; j++) {
 
-						if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+						if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
 							watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
 						}
 						else {
@@ -592,7 +592,7 @@ int main() {
 								for (int i = 0; i < 42; i++) {
 									for (int j = 0; j < 42; j++) {
 
-										if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+										if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
 											watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
 										}
 										else {
@@ -698,7 +698,7 @@ int main() {
 								for (int i = 0; i < 42; i++) {
 									for (int j = 0; j < 42; j++) {
 
-										if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+										if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
 											watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
 										}
 										else {
@@ -806,7 +806,7 @@ int main() {
 								for (int i = 0; i < 42; i++) {
 									for (int j = 0; j < 42; j++) {
 
-										if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+										if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
 											watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
 										}
 										else {
@@ -857,7 +857,7 @@ int main() {
 						for (int i = 0; i < 42; i++) {
 							for (int j = 0; j < 42; j++) {
 
-								if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+								if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
 									watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
 								}
 								else {
@@ -1185,7 +1185,7 @@ void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas
 	for (int i = 0; i < 42; i++) {
 		for (int j = 0; j < 42; j++) {
 			if (mapsave1[i][j] > -1 && mapsave1[i][j] < 24) {
-				if (mapsave1[i][j] >= 14 && mapsave1[i][j] <= 22) {
+				if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
 					watermap[i][j]->transform.SetPosition((j * 32) + offestmapx[j][i], (i * 32) + offestmapy[j][i]);
 					watermap[i][j]->Update(0, Camera::GetCamera());
 
