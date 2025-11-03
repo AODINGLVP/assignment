@@ -125,7 +125,7 @@ public:
 
 						}
 
-						//something happed
+					
 					}
 				}
 				if (objects[i]->Tag == "bullet") {
@@ -141,9 +141,9 @@ public:
 								i--;
 							}
 
-							//something happed
+							
 						}
-						//something happed
+						
 					}
 				}
 			}

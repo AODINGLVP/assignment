@@ -118,7 +118,7 @@ private :
 		Tag = "hero";
 		cooldown = 0.5f;
 		shottimecount = 0.f;
-		bulletdamage = 30.f;
+		bulletdamage = 10.f;
 
 	};
 	float invincibletimecount = 0.f;
