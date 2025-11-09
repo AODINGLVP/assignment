@@ -1,7 +1,7 @@
 class Hero;
 #pragma once
 #include "Bullet.h"
-
+#include "json.hpp"
 class Bulletmanager
 {
 public:

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "json.hpp"
 class powerup_lineattack:public GameObject
 {public:
 	powerup_lineattack(float x,float y) {

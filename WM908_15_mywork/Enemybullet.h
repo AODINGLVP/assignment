@@ -1,5 +1,6 @@
 #pragma once
 #include "Bullet.h"
+#include "json.hpp"
 class Enemybullet:public Bullet
 {
 public:

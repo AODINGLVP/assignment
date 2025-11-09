@@ -1,4 +1,5 @@
 #pragma once
+#include "json.hpp"
 class Collision
 {
 public:

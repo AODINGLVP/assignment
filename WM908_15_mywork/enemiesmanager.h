@@ -10,6 +10,7 @@ class Hero;
 #include "enemy_morehealth.h"
 #include "enemy_moredamage.h"
 #include "Archr.h" 
+#include "json.hpp"
 using namespace std;
 using json = nlohmann::json;
 

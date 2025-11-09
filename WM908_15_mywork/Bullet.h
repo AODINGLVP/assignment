@@ -3,7 +3,7 @@ class Bulletmanager;
 #include<iostream>
 #include"GameObject.h"
 #include <random>
-
+#include "json.hpp"
 class Bullet:public GameObject
 {public:
 

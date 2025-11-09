@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "json.hpp"
 class Water :public GameObject
 {
 public:

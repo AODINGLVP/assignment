@@ -14,7 +14,7 @@
 #include "Hero.h"
 #include "powerup_lineattack.h"
 #include "powerup_maxnumber.h"
-
+#include "json.hpp"
 using json = nlohmann::json;
 using namespace std;
 

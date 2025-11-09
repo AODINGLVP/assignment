@@ -2,6 +2,7 @@
 #include "enemy.h"
 #include "Hero.h"
 #include "Enemybullet.h"
+#include "json.hpp"
 class Archr:public enemy
 {
 	//is archer,the spelling is not right but not convenience to chagne 

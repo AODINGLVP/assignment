@@ -1,5 +1,6 @@
 #pragma once
 #include "enemy.h"
+#include "json.hpp"
 class enemy_moredamage :public enemy
 {
 public:

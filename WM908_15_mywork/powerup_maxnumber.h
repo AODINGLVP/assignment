@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "json.hpp"
 class powerup_maxnumber:public GameObject
 {public:
 	powerup_maxnumber(float x, float y) {

@@ -6,6 +6,7 @@ using namespace std;
 #include "gameobject.h"
 #include "powerup_lineattack.h"
 #include "powerup_maxnumber.h"
+#include "json.hpp"
 class enemy: public GameObject
 {
 public:
