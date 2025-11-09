@@ -51,7 +51,7 @@ void timecountthread() {
 		if (presscount <= -0.3f && press) {
 			press = false;
 		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(10)); 
+		this_thread::sleep_for(chrono::milliseconds(10)); 
 	}
 
 
@@ -162,7 +162,7 @@ int main() {
 			if (canvas.keyPressed('W') && !press) {
 				presscount = 0.2f;
 				press = true;
-
+				gametimecount = 120.f;
 				stage = 5;
 				goload = true;
 				//go to load page
