@@ -4,10 +4,11 @@
 #include "Enemybullet.h"
 class Archr:public enemy
 {
+	//is archer,the spelling is not right but not convenience to chagne 
 public:
 	float cooldown =6.f;
 	float timecount = 0;
-	Archr(float x,float y) :enemy(x,x, 50, 100, 0) {
+	Archr(float x,float y) :enemy(x,y, 50, 100, 0) {
 		
 		Tag = "Archr";
 		image.load("../Resources/archr.png");
@@ -24,9 +25,11 @@ public:
 		if(timecount>=cooldown) {
 			timecount = 0;
 			Enemybullet* bullet = new Enemybullet();
+			//create new Enemybullet instance 
 			bullet->transform.SetPosition(transform.GetPositionX(),transform.GetPositionY());
+			//set bullet position as archer position
 			bullet->setdirection(getDirectionX(this, &Hero::getInstance()), getDirectionY(this, &Hero::getInstance()));
-
+			//set direction
 		}
 
 	}

@@ -21,24 +21,23 @@ using namespace std;
 
 class GameObjectManager {
 public:
-	int scvcount1 = 0;
+	
 	static GameObjectManager& getInstance() {
 		static GameObjectManager instance;
 		return instance;
 	}
 
 	void add(GameObject* obj) {
+		//registe GameObject
 		if (count >= capacity)
 			expand();
+		//auto expand
 		objects[count++] = obj;
 	}
 
 	void remove(GameObject* obj) {
 		for (int i = 0; i < count; i++) {
 			if (objects[i] == obj) {
-				// delete obj;
-				 //obj = nullptr;
-				 // 移动数组元素覆盖删除对象
 				for (int j = i; j < count - 1; j++)
 					objects[j] = objects[j + 1];
 				objects[count - 1] = nullptr;
@@ -46,13 +45,16 @@ public:
 				break;
 			}
 		}
-	}
+	}//remove GameObject
 	bool checkwater() {
+		//check collision between hero and water
 		for (int i = 0; i < count; i++) {
 			if (objects[i]->Tag == "hero") {
 				for (int j = 0; j < count; j++) {
 					if (objects[j]->Tag == "water") {
-						if (objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)&&objects[j]->Active) {
+						if (objects[i]->collision.isColliding
+						(objects[i]->collision, objects[j]->collision)
+							&&objects[j]->Active) {
 							return true;
 						}
 					}
@@ -62,17 +64,20 @@ public:
 
 		}
 		return false;
+		//if not colliding,return false so the hero will move 
 	}
 
 	void UpdateAll(float dt) {
-		scvcount1++;
+		
 
 		for (int i = 0; i < count; i++) {
 			if (objects[i]) {
 				objects[i]->Update(dt, camera);
+				//Update collision box position
 			}
 			if (objects[i]->Tag == "water") {
 				continue;
+				//continue some useless check
 			}
 			if (objects[i]->Tag == "Enemybullet") {
 				continue;
@@ -85,10 +90,12 @@ public:
 					continue;
 				}
 				if (objects[i]->Tag == "hero") {
-					if (objects[j]->Tag == "powerup_maxnumber" && objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
+					if (objects[j]->Tag == "powerup_maxnumber"&& objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
 						Hero::getInstance().changemax(1);
 						remove(objects[j]);
-						if (objects[j] == nullptr) {//在object被删除后判断他是不是最后一个obj，如过不是跳过这个循环并从原来的位置继续
+						if (objects[j] == nullptr) {
+							//After the powerup is deleted, determine if he is the last obj.
+							// If not, skip this loop and continue from the original position.
 							break;
 						}
 						else {
@@ -99,7 +106,9 @@ public:
 						Hero::getInstance().changecooldown(0.1);
 						Hero::getInstance().addbulletmovespeed(50);
 						remove(objects[j]);
-						if (objects[j] == nullptr) {//在object被删除后判断他是不是最后一个obj，如过不是跳过这个循环并从原来的位置继续
+						if (objects[j] == nullptr) {
+							//After the powerup is deleted, determine if he is the last obj.
+							// If not, skip this loop and continue from the original position.
 							break;
 						}
 						else {
@@ -108,9 +117,11 @@ public:
 					}
 					if (objects[j]->Tag == "Enemybullet") {
 						if (objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
-							objects[i]->makedamage(5);
-							objects[j]->suicide();
-							if (objects[j] == nullptr) {//在子弹被删除后判断他是不是最后一个obj，如过不是跳过这个循环并从原来的位置继续
+							objects[i]->makedamage(5);objects[j]->suicide();
+							//remove itself
+							if (objects[j] == nullptr) {
+								//After the bullet is deleted, determine if he is the last obj.
+							// If not, skip this loop and continue from the original position.
 								break;
 							}
 							else {
@@ -133,15 +144,15 @@ public:
 						if (objects[i]->collision.isColliding(objects[i]->collision, objects[j]->collision)) {
 							objects[j]->makedamage(Hero::getInstance().getdamage());
 							objects[i]->suicide();
-							if (objects[i] == nullptr) {//在子弹被删除后判断他是不是最后一个obj，如过不是跳过这个循环并从原来的位置继续
+							//remove itself from manager class and then delete ifself
+							if (objects[i] == nullptr) {
+								//After the bullet is deleted, determine if he is the last obj.
+								// If not, skip this loop and continue from the original position.
 								break;
-
 							}
 							else {
 								i--;
 							}
-
-							
 						}
 						
 					}
@@ -157,6 +168,7 @@ public:
 		return count;
 	}
 	void saveall(json& obj) {
+		//save every GameObject
 		for (int i = 0; i < count; i++) {
 			objects[i]->save(obj);
 		}
@@ -169,7 +181,7 @@ public:
 				objects[0] = objects[i];
 				if (i != 0)
 					objects[i] = nullptr;
-
+				//hero will be saved but data will be loaded
 			}
 			else {
 				objects[i] = nullptr;
@@ -179,14 +191,17 @@ public:
 
 
 		}
+		//clear itself to load new data
 		count = 1;
 	}
-	int loadall(json& obj,int &credit,float &gametimecount) {
+	int loadall(json& obj,int &credit,float &gametimecount,float &timecounttotal,float &cooldown,float & timecount) {
+		//variable is about data.json,game corces,remaing time, the timecounttotal in enemymanager,the cooldown of creat new enemy in enemymanager ,the timecount in enemymanager
 		int mapchose;
 		
 		for (int i = 0; i < count; i++) {
 
 			if (objects[i]->Tag == "hero") {
+				//hero will be saved but data will be loaded
 				objects[0] = objects[i];
 				if (i != 0)
 					objects[i] = nullptr;
@@ -201,8 +216,10 @@ public:
 
 		}
 		count = 1;
+		//clear itself to load new data
 		mapchose = 1;
 		for (json e : obj) {
+			//load data ,initialize units 
 			if (e["Tag"] == "Archr") {
 				GameObject* scv = new Archr(e["position_x"],e["position_y"]);
 				scv->load(e);
@@ -255,6 +272,11 @@ public:
 			}
 			else if (e["Tag"] == "gametimecount") {
 				gametimecount = e["gametimecount"];
+			}
+			else if (e["Tag"] == "enemiesmanager") {
+				timecounttotal = e["timecounttotal"];
+				cooldown = e["cooldown"];
+				timecount = e["timecount"];
 			}
 			
 			

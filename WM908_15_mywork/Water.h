@@ -3,8 +3,8 @@
 class Water :public GameObject
 {
 public:
-	int positionmap_x;
-	int positionmap_y;
+	int positionmap_x;//the position in Third-level pointer watermap
+	int positionmap_y;//the position in Third-level pointer watermap
 	Water() {
 		positionmap_x = 0;
 		positionmap_y = 0;

@@ -5,7 +5,7 @@ class Enemybullet:public Bullet
 public:
 	
 	Enemybullet() {
-		
+		//is enemy bullet,the direct will be set by archer
 		Tag = "Enemybullet";
 		image.load("../Resources/bulletenemy.png");
 		setdamage(5.f);

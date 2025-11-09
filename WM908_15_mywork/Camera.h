@@ -5,7 +5,7 @@ using json = nlohmann::json;
 class Camera
 {
 public:
-    // 获取唯一实例
+   
     
     
 
@@ -13,19 +13,18 @@ public:
     {
         static Camera camera; 
         return camera;
-    }
+    }//singleton pattern
 
-    Camera(const Camera&) = delete;
-    Camera& operator=(const Camera&) = delete;
+ 
 
-    // 移动摄像机
+    
     void Move(float dx, float dy)
     {
         offsetX += dx;
         offsetY += dy;
     }
 
-    // 设置位置
+    
     void SetPosition(float x, float y)
     {
         offsetX = x;
@@ -38,7 +37,7 @@ public:
         offsetY = x;
     }
 
-    // 获取位置
+  
     float GetX()  {
         return offsetX;
     }

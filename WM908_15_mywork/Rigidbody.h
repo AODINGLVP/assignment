@@ -1,6 +1,7 @@
 #pragma once
 class Rigidbody
 {public:
+	//not achieved 
 	Rigidbody() {
 		movespeed = 10.f;
 	};

@@ -4,7 +4,7 @@ class enemy_fastspeed:public enemy
 {
 	public:
 		enemy_fastspeed(float x,float y) : enemy(x,y,100.f,100,5.f) {
-			
+			//is the enemy with more move speed
 			setdamage(3.f);
 			setmovespeed(100.f);
 			sethealth(60.f);

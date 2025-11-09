@@ -20,6 +20,7 @@ public:
 		this->health = health;
 		this->damage = damage;
 		enemyregister(this);
+		//auto registe to enemiesmanager 
 	}
 	void setmovespeed(float speed) {
 		this->movespeed = speed;
@@ -36,16 +37,17 @@ public:
 	}
 	bool dead() {
 		if(health <= 0) {
-			std::random_device rd;  // 真随机种子（来自硬件）
-			std::mt19937 gen(rd()); // Mersenne Twister 伪随机数引擎
-			std::uniform_int_distribution<> dist(0, 10); // 均匀分布 [0,9]
+			std::random_device rd;  
+			std::mt19937 gen(rd()); 
+			std::uniform_int_distribution<> dist(0, 10); 
 			int r = dist(gen);
 			if (r == 3) {
 				powerup_lineattack* scv = new powerup_lineattack(transform.GetPositionX(), transform.GetPositionY());
-
+				//Random drop powerup 1
 			}
 			if (r == 4) {
 				powerup_maxnumber* scv = new powerup_maxnumber(transform.GetPositionX(), transform.GetPositionY());
+				//Random drop powerip 2
 			}
 			return true;
 		}
@@ -61,6 +63,7 @@ public:
 		return damage;
 	}
 	virtual void updatetime(float dt) {};
+	//is for all subclass to update
 	void enemyregister(enemy* scv);
 
 	

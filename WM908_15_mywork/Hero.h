@@ -24,7 +24,28 @@ public:
 	float getHealth() { return health; }
 	void setHealth(int hel) {  health =hel; }
 	float setMoveSpeed(float speed) { return movespeed = speed; }
-	float setProjectileSpeed(float speed) { return pojectilespeed = speed; }
+	void setProjectileSpeed(float speed) {  pojectilespeed = speed; }
+	void setbulletdamage(float x) {
+		bulletdamage = x;
+	}
+	void setbulletcooldown(float scv) {
+		cooldown = scv;
+	}
+	void cleartimecount() {
+		
+		
+		
+		
+		
+	
+		
+		abilitycooldown = 10.f;
+		 abilitytimecount = 0.f;
+		 abilitymax = 5;
+		 cooldown = 0.5f;
+		 bulletmovespeed = 300.f;
+		bool invincible = false;
+	}
 	void makedamage(float damage) override {
 		if (!invincible) {
 			health -= damage;
@@ -42,6 +63,7 @@ public:
 		
 	}
 	void updateinvincible(float dt) {
+		//hero will invincilbe when be attackes
 		invincibletimecount += dt;
 		if (invincibletimecount >= 0 && invincible) {
 			invincible = false;
@@ -124,15 +146,15 @@ private :
 	float invincibletimecount = 0.f;
 	float shottimecount;
 	float bulletdamage;
-	float cooldown;
+	float cooldown;//bullet cooldown
 	float health;
 	float movespeed;
-	float pojectilespeed;
-	int length;
-	int cloest;
-	float abilitycooldown=10.f;
-	float abilitytimecount=0.f;
-	int abilitymax=5;
+	float pojectilespeed;//useless
+	int length;//the distance of cloest enemy
+	int cloest;//the  cloest enemy
+	float abilitycooldown=10.f;//AOE cooldown
+	float abilitytimecount=0.f;//timecount about AOE
+	int abilitymax=5;//the max number of AOE
 	float bulletmovespeed = 300.f;
 	bool invincible = false;
 

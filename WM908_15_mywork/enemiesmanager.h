@@ -11,19 +11,39 @@ class Hero;
 #include "enemy_moredamage.h"
 #include "Archr.h" 
 using namespace std;
+using json = nlohmann::json;
 
 class enemiesmanager
 {
 public:
+    
     int credit = 0;
     static enemiesmanager& getInstance() {
         static enemiesmanager instance;
         return instance;
+    }//singleton pattern
+    void save(json& obj)  {
+        obj.push_back({
+            {"Tag","enemiesmanager"},
+            {"timecounttotal",timecounttotal},
+            {"cooldown",cooldown},
+            {"timecount",timecount }
+            });
     }
-    void changecodwon(float cd) {//随着时间减少敌人刷新cd
+    float& gettimecounttotalreference() {
+        return timecounttotal;
+    }
+    float& getcooldownreference() {
+        return cooldown;
+    }
+    float& gettimecountreference() {
+        return timecount;
+    }
+    //reduce enemy spawn interval with time flow
+    void changecodwon(float cd) {
         timecounttotal += cd;
-        if (timecounttotal >= 25.f) {
-            timecounttotal -= 25.f;
+        if (timecounttotal >= 18.f) {
+            timecounttotal -= 18.f;
 				cooldown -= 0.3f;
         }
 
@@ -31,14 +51,20 @@ public:
     void add(enemy* obj) {
         if (count >= capacity)
             expand();
+        //auto expand
         enemies[count++] = obj;
     }
-
+    void setcooldown(float scv) {
+        cooldown = scv;
+        timecounttotal = 0;
+    }
+    float getcooldown() {
+        return cooldown;
+    }
     void remove(enemy* obj) {
         credit += 5;
         for (int i = 0; i < count; i++) {
             if (enemies[i] == obj) {
-                // 移动数组元素覆盖删除对象
                 for (int j = i; j < count - 1; j++)
                     enemies[j] = enemies[j + 1];
                 enemies[count - 1] = nullptr;
@@ -46,13 +72,14 @@ public:
                 break;
             }
         }
-    }
+    }//remove dead enemies
     void createenemy(float x, float y, float speed, int health, int damage);
 	void createnemyfastmovespeed(float x, float y, float speed, int health, int damage);
 	void createnemymorehealth(float x, float y, float speed, int health, int damage);
 	void createnemymoredamage(float x, float y, float speed, int health, int damage);
     void createnemyarchr(float x, float y, float speed, int health, int damage);
     void killsomeenemies(int n) {
+        //Hero's AOE
         int maxhelath = -1;
         int beenkilled=-1;
         for (int i = 0; i < n; i++) {
@@ -64,6 +91,7 @@ public:
 				}
 
             }
+            //find the highest-NPCS
             if (beenkilled != -1) {
                 enemy* scv = enemies[beenkilled];
 
@@ -71,6 +99,7 @@ public:
                 remove(enemies[beenkilled]);
                 delete scv;
             }
+            //if have NPC in the game,kill the highest-NPCs
       }
 
     }
@@ -87,6 +116,7 @@ public:
         
     }
     void updateall(float dt) {
+        
 		changecodwon(dt);
 		timecount += dt;
         if (timecount >= cooldown) {
@@ -102,26 +132,26 @@ public:
                 createnemymoredamage(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 1, 1, 1);
             }
             else {
-                createnemyarchr(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 1, 1, 1);
+                createnemyarchr(Hero::getInstance().transform.GetPositionX() , Hero::getInstance().transform.GetPositionY(), 1, 1, 1);
             }
-
-
-           
-           // createenemy(Hero::getInstance().transform.GetPositionX() + 100, Hero::getInstance().transform.GetPositionY() + 100, 50.f, 100, 5);
+           //create different types enemy 
         }
         for (int i = 0; i < count; i++) {
-
+            //calculate the new position
 			if (enemies[i]->Tag != "Archr")
-            enemies[i]->transform.SetPosition(enemies[i]->transform.GetPositionX() +( getDirectionX(enemies[i], &Hero::getInstance())*dt*enemies[i]->getmovespeed()), enemies[i]->transform.GetPositionY() + (getDirectionY(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()));
+            enemies[i]->transform.SetPosition(enemies[i]->transform.GetPositionX() +( getDirectionX(enemies[i], &Hero::getInstance()) *dt*enemies[i]->getmovespeed()),  enemies[i]->transform.GetPositionY() + (getDirectionY(enemies[i], &Hero::getInstance()) * dt  * enemies[i]->getmovespeed()));
+            //the special rule for archer,it will move when hero beyond its range.
             else if(enemies[i]->Tag == "Archr") {
                 if (getDistance(enemies[i], &Hero::getInstance()) >= 800) {
-                    enemies[i]->transform.SetPosition(enemies[i]->transform.GetPositionX() + (getDirectionX(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()), enemies[i]->transform.GetPositionY() + (getDirectionY(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()));
+                    enemies[i]->transform.SetPosition(enemies[i]->transform.GetPositionX() + (getDirectionX(enemies[i], &Hero::getInstance()) * dt * enemies[i]->getmovespeed()), enemies[i]->transform.GetPositionY() +(getDirectionY(enemies[i], &Hero::getInstance())* dt * enemies[i]->getmovespeed()));
                 }
                 else {
                     enemies[i]->updatetime(dt);
+                    //update archer shot interval
                 }
             }
             enemies[i]->Update();
+            //update collision box
            for (int j = 0; j < count; j++) {
                 if (j != i) {
                     enemies[i]->Update();
@@ -147,7 +177,7 @@ private:
 	int count;
 	int capacity;
     float timecount=0.f;
-	float cooldown = 3.f;
+	float cooldown = 2.f;
     float timecounttotal = 0.f;
 	enemy** enemies;
 	enemiesmanager() {

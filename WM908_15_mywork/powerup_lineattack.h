@@ -3,6 +3,7 @@
 class powerup_lineattack:public GameObject
 {public:
 	powerup_lineattack(float x,float y) {
+		//powerup project about line attack
 		image.load("../Resources/powerup_lineattack.png");
 		transform.SetPosition(x, y);
 		collision.SetCollision(x, y, 25, 25);

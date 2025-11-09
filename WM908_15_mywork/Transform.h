@@ -2,6 +2,8 @@
 #include <string>
 using namespace std;
 class Transform
+    //just about position
+
 {
 public:
     Transform() {
@@ -50,8 +52,8 @@ public:
     // …Ë÷√Œª÷√
 private:
     float position[2] = {0,0};
-	float rotation[2]{ 0,0 };
-	float scale=1;
+	float rotation[2]{ 0,0 };//useless
+	float scale=1;//useless
 
 };
 

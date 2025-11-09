@@ -3,17 +3,17 @@
         "Tag": "hero",
         "abilitycooldown": 10.0,
         "abilitymax": 5,
-        "abilitytimecount": 59.80781555175781,
+        "abilitytimecount": 12.201237678527832,
         "bulletmovespeed": 300.0,
         "cooldown": 0.5,
         "health": 100.0,
         "invincible": false,
-        "invincibletimecount": 59.80781555175781,
+        "invincibletimecount": 12.201237678527832,
         "movespeed": 150.0,
         "pojectilespeed": 1.0,
-        "position_x": 742.0,
-        "position_y": 292.0,
-        "shottimecount": 0.05622519925236702
+        "position_x": 1062.0,
+        "position_y": 891.0,
+        "shottimecount": 0.384250283241272
     },
     {
         "Active": false,
@@ -1035,87 +1035,87 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1376.0,
-        "position_y": 96.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 1
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": 96.0,
+        "position_x": 1408.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 2
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": 96.0,
+        "position_x": 1440.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 3
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": 96.0,
+        "position_x": 1472.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 4
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 96.0,
+        "position_x": 1504.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 5
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 96.0,
+        "position_x": 1536.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 6
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 96.0,
+        "position_x": 1568.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 7
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 96.0,
+        "position_x": 1600.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 8
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 96.0,
+        "position_x": 1632.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 9
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": 96.0,
+        "position_x": 1664.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 10
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": 96.0,
+        "position_x": 1696.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 11
     },
@@ -1123,7 +1123,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 384.0,
-        "position_y": 96.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 12
     },
@@ -1131,7 +1131,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 416.0,
-        "position_y": 96.0,
+        "position_y": 1440.0,
         "positionmap_x": 3,
         "positionmap_y": 13
     },
@@ -1371,95 +1371,95 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1376.0,
-        "position_y": 128.0,
+        "position_y": 1472.0,
         "positionmap_x": 4,
         "positionmap_y": 1
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 2
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 3
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 10
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 11
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 384.0,
-        "position_y": 128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 4,
         "positionmap_y": 12
     },
@@ -1467,7 +1467,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 416.0,
-        "position_y": 128.0,
+        "position_y": 1472.0,
         "positionmap_x": 4,
         "positionmap_y": 13
     },
@@ -1707,95 +1707,95 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1376.0,
-        "position_y": 160.0,
+        "position_y": 1504.0,
         "positionmap_x": 5,
         "positionmap_y": 1
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 2
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 3
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 10
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 11
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 384.0,
-        "position_y": 160.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 5,
         "positionmap_y": 12
     },
@@ -1803,7 +1803,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 416.0,
-        "position_y": 160.0,
+        "position_y": 1504.0,
         "positionmap_x": 5,
         "positionmap_y": 13
     },
@@ -2048,90 +2048,90 @@
         "positionmap_y": 1
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 2
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 3
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 10
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 11
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 384.0,
-        "position_y": 192.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 6,
         "positionmap_y": 12
     },
@@ -2384,90 +2384,90 @@
         "positionmap_y": 1
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 2
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 3
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 10
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 11
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 384.0,
-        "position_y": 224.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 7,
         "positionmap_y": 12
     },
@@ -2720,90 +2720,90 @@
         "positionmap_y": 1
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 2
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 3
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 10
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 11
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 384.0,
-        "position_y": 256.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 8,
         "positionmap_y": 12
     },
@@ -3058,7 +3058,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 64.0,
+        "position_x": 1408.0,
         "position_y": 288.0,
         "positionmap_x": 9,
         "positionmap_y": 2
@@ -3066,7 +3066,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 96.0,
+        "position_x": 1440.0,
         "position_y": 288.0,
         "positionmap_x": 9,
         "positionmap_y": 3
@@ -3074,31 +3074,31 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
+        "position_x": 1472.0,
         "position_y": 288.0,
         "positionmap_x": 9,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 288.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 9,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 288.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 9,
         "positionmap_y": 6
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 224.0,
+        "position_x": 1568.0,
         "position_y": 288.0,
         "positionmap_x": 9,
         "positionmap_y": 7
@@ -3106,7 +3106,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 256.0,
+        "position_x": 1600.0,
         "position_y": 288.0,
         "positionmap_x": 9,
         "positionmap_y": 8
@@ -3114,7 +3114,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 288.0,
+        "position_x": 1632.0,
         "position_y": 288.0,
         "positionmap_x": 9,
         "positionmap_y": 9
@@ -3122,7 +3122,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 320.0,
+        "position_x": 1664.0,
         "position_y": 288.0,
         "positionmap_x": 9,
         "positionmap_y": 10
@@ -3130,7 +3130,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 352.0,
+        "position_x": 1696.0,
         "position_y": 288.0,
         "positionmap_x": 9,
         "positionmap_y": 11
@@ -3280,42 +3280,42 @@
         "positionmap_y": 29
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 960.0,
-        "position_y": 288.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 9,
         "positionmap_y": 30
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 992.0,
-        "position_y": 288.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 9,
         "positionmap_y": 31
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1024.0,
-        "position_y": 288.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 9,
         "positionmap_y": 32
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1056.0,
-        "position_y": 288.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 9,
         "positionmap_y": 33
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1088.0,
-        "position_y": 288.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 9,
         "positionmap_y": 34
     },
@@ -3418,7 +3418,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
+        "position_x": 1504.0,
         "position_y": 320.0,
         "positionmap_x": 10,
         "positionmap_y": 5
@@ -3426,7 +3426,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
+        "position_x": 1536.0,
         "position_y": 320.0,
         "positionmap_x": 10,
         "positionmap_y": 6
@@ -3616,42 +3616,42 @@
         "positionmap_y": 29
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 960.0,
-        "position_y": 320.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 10,
         "positionmap_y": 30
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 992.0,
-        "position_y": 320.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 10,
         "positionmap_y": 31
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1024.0,
-        "position_y": 320.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 10,
         "positionmap_y": 32
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1056.0,
-        "position_y": 320.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 10,
         "positionmap_y": 33
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1088.0,
-        "position_y": 320.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 10,
         "positionmap_y": 34
     },
@@ -3754,7 +3754,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
+        "position_x": 1504.0,
         "position_y": 352.0,
         "positionmap_x": 11,
         "positionmap_y": 5
@@ -3762,7 +3762,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
+        "position_x": 1536.0,
         "position_y": 352.0,
         "positionmap_x": 11,
         "positionmap_y": 6
@@ -3952,42 +3952,42 @@
         "positionmap_y": 29
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 960.0,
-        "position_y": 352.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 11,
         "positionmap_y": 30
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 992.0,
-        "position_y": 352.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 11,
         "positionmap_y": 31
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1024.0,
-        "position_y": 352.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 11,
         "positionmap_y": 32
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1056.0,
-        "position_y": 352.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 11,
         "positionmap_y": 33
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1088.0,
-        "position_y": 352.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 11,
         "positionmap_y": 34
     },
@@ -4090,7 +4090,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
+        "position_x": 1504.0,
         "position_y": 384.0,
         "positionmap_x": 12,
         "positionmap_y": 5
@@ -4098,7 +4098,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
+        "position_x": 1536.0,
         "position_y": 384.0,
         "positionmap_x": 12,
         "positionmap_y": 6
@@ -4426,7 +4426,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
+        "position_x": 1504.0,
         "position_y": 416.0,
         "positionmap_x": 13,
         "positionmap_y": 5
@@ -4434,7 +4434,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
+        "position_x": 1536.0,
         "position_y": 416.0,
         "positionmap_x": 13,
         "positionmap_y": 6
@@ -4762,7 +4762,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
+        "position_x": 1504.0,
         "position_y": 448.0,
         "positionmap_x": 14,
         "positionmap_y": 5
@@ -4770,7 +4770,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
+        "position_x": 1536.0,
         "position_y": 448.0,
         "positionmap_x": 14,
         "positionmap_y": 6
@@ -5098,7 +5098,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
+        "position_x": 1504.0,
         "position_y": 480.0,
         "positionmap_x": 15,
         "positionmap_y": 5
@@ -5106,7 +5106,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
+        "position_x": 1536.0,
         "position_y": 480.0,
         "positionmap_x": 15,
         "positionmap_y": 6
@@ -5434,7 +5434,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
+        "position_x": 1504.0,
         "position_y": 512.0,
         "positionmap_x": 16,
         "positionmap_y": 5
@@ -5442,7 +5442,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
+        "position_x": 1536.0,
         "position_y": 512.0,
         "positionmap_x": 16,
         "positionmap_y": 6
@@ -5762,33 +5762,33 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
+        "position_x": 1472.0,
         "position_y": 544.0,
         "positionmap_x": 17,
         "positionmap_y": 4
     },
     {
+        "Active": false,
+        "Tag": "water",
+        "position_x": 0.0,
+        "position_y": 0.0,
+        "positionmap_x": 17,
+        "positionmap_y": 5
+    },
+    {
+        "Active": false,
+        "Tag": "water",
+        "position_x": 0.0,
+        "position_y": 0.0,
+        "positionmap_x": 17,
+        "positionmap_y": 6
+    },
+    {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
+        "position_x": 1568.0,
         "position_y": 544.0,
         "positionmap_x": 17,
-        "positionmap_y": 5
-    },
-    {
-        "Active": true,
-        "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 544.0,
-        "positionmap_x": 17,
-        "positionmap_y": 6
-    },
-    {
-        "Active": true,
-        "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 544.0,
-        "positionmap_x": 17,
         "positionmap_y": 7
     },
     {
@@ -6098,39 +6098,39 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
+        "position_x": 1472.0,
         "position_y": 576.0,
         "positionmap_x": 18,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 576.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 18,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 576.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 18,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 576.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 18,
         "positionmap_y": 7
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 256.0,
+        "position_x": 1600.0,
         "position_y": 576.0,
         "positionmap_x": 18,
         "positionmap_y": 8
@@ -6434,47 +6434,47 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
+        "position_x": 1472.0,
         "position_y": 608.0,
         "positionmap_x": 19,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 608.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 19,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 608.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 19,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 608.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 19,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 608.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 19,
         "positionmap_y": 8
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 288.0,
+        "position_x": 1632.0,
         "position_y": 608.0,
         "positionmap_x": 19,
         "positionmap_y": 9
@@ -6770,55 +6770,55 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
+        "position_x": 1472.0,
         "position_y": 640.0,
         "positionmap_x": 20,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 640.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 20,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 640.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 20,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 640.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 20,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 640.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 20,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 640.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 20,
         "positionmap_y": 9
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 320.0,
+        "position_x": 1664.0,
         "position_y": 640.0,
         "positionmap_x": 20,
         "positionmap_y": 10
@@ -7106,63 +7106,63 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
+        "position_x": 1472.0,
         "position_y": 672.0,
         "positionmap_x": 21,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 672.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 21,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 672.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 21,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 672.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 21,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 672.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 21,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 672.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 21,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": 672.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 21,
         "positionmap_y": 10
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 352.0,
+        "position_x": 1696.0,
         "position_y": 672.0,
         "positionmap_x": 21,
         "positionmap_y": 11
@@ -7442,63 +7442,63 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
+        "position_x": 1472.0,
         "position_y": 704.0,
         "positionmap_x": 22,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 704.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 22,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 704.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 22,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 704.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 22,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 704.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 22,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 704.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 22,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": 704.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 22,
         "positionmap_y": 10
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 352.0,
+        "position_x": 1696.0,
         "position_y": 704.0,
         "positionmap_x": 22,
         "positionmap_y": 11
@@ -7778,63 +7778,63 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
+        "position_x": 1472.0,
         "position_y": 736.0,
         "positionmap_x": 23,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": 736.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 23,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": 736.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 23,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": 736.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 23,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": 736.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 23,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": 736.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 23,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": 736.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 23,
         "positionmap_y": 10
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 352.0,
+        "position_x": 1696.0,
         "position_y": 736.0,
         "positionmap_x": 23,
         "positionmap_y": 11
@@ -8114,7 +8114,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
+        "position_x": 1472.0,
         "position_y": 768.0,
         "positionmap_x": 24,
         "positionmap_y": 4
@@ -8122,7 +8122,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
+        "position_x": 1504.0,
         "position_y": 768.0,
         "positionmap_x": 24,
         "positionmap_y": 5
@@ -8130,7 +8130,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
+        "position_x": 1536.0,
         "position_y": 768.0,
         "positionmap_x": 24,
         "positionmap_y": 6
@@ -8138,7 +8138,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 224.0,
+        "position_x": 1568.0,
         "position_y": 768.0,
         "positionmap_x": 24,
         "positionmap_y": 7
@@ -8146,7 +8146,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 256.0,
+        "position_x": 1600.0,
         "position_y": 768.0,
         "positionmap_x": 24,
         "positionmap_y": 8
@@ -8154,7 +8154,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 288.0,
+        "position_x": 1632.0,
         "position_y": 768.0,
         "positionmap_x": 24,
         "positionmap_y": 9
@@ -8162,7 +8162,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 320.0,
+        "position_x": 1664.0,
         "position_y": 768.0,
         "positionmap_x": 24,
         "positionmap_y": 10
@@ -8170,7 +8170,7 @@
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 352.0,
+        "position_x": 1696.0,
         "position_y": 768.0,
         "positionmap_x": 24,
         "positionmap_y": 11
@@ -12451,7 +12451,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1344.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 0
     },
@@ -12459,87 +12459,87 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1376.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 1
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": -160.0,
+        "position_x": 1408.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 2
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": -160.0,
+        "position_x": 1440.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 3
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": -160.0,
+        "position_x": 1472.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 4
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": -160.0,
+        "position_x": 1504.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 5
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": -160.0,
+        "position_x": 1536.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 6
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": -160.0,
+        "position_x": 1568.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 7
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": -160.0,
+        "position_x": 1600.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 8
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": -160.0,
+        "position_x": 1632.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 9
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": -160.0,
+        "position_x": 1664.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 10
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": -160.0,
+        "position_x": 1696.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 11
     },
@@ -12547,7 +12547,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 384.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 12
     },
@@ -12555,7 +12555,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 416.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 13
     },
@@ -12563,7 +12563,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 448.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 14
     },
@@ -12571,7 +12571,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 480.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 15
     },
@@ -12579,7 +12579,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 512.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 16
     },
@@ -12587,7 +12587,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 544.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 17
     },
@@ -12707,7 +12707,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1024.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 32
     },
@@ -12715,7 +12715,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1056.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 33
     },
@@ -12723,7 +12723,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1088.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 34
     },
@@ -12731,7 +12731,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1120.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 35
     },
@@ -12739,7 +12739,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1152.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 36
     },
@@ -12747,7 +12747,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1184.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 37
     },
@@ -12755,7 +12755,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1216.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 38
     },
@@ -12763,7 +12763,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1248.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 39
     },
@@ -12771,7 +12771,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1280.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 40
     },
@@ -12779,143 +12779,143 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1312.0,
-        "position_y": -160.0,
+        "position_y": 1184.0,
         "positionmap_x": 37,
         "positionmap_y": 41
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1344.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 0
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1376.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 1
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 2
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 3
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 10
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 11
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 384.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 12
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 416.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 13
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 448.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 14
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 480.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 15
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 512.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 16
     },
@@ -12923,7 +12923,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 544.0,
-        "position_y": -128.0,
+        "position_y": 1216.0,
         "positionmap_x": 38,
         "positionmap_y": 17
     },
@@ -13043,223 +13043,223 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1024.0,
-        "position_y": -128.0,
+        "position_y": 1216.0,
         "positionmap_x": 38,
         "positionmap_y": 32
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1056.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 33
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1088.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 34
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1120.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 35
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1152.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 36
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1184.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 37
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1216.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 38
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1248.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 39
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1280.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 40
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1312.0,
-        "position_y": -128.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 38,
         "positionmap_y": 41
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1344.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 0
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1376.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 1
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 2
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 3
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 4
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 5
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 6
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 7
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 8
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 9
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 10
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 11
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 384.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 12
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 416.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 13
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 448.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 14
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 480.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 15
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 512.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 16
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 544.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 17
     },
@@ -13267,7 +13267,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 576.0,
-        "position_y": -96.0,
+        "position_y": 1248.0,
         "positionmap_x": 39,
         "positionmap_y": 18
     },
@@ -13379,79 +13379,79 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1024.0,
-        "position_y": -96.0,
+        "position_y": 1248.0,
         "positionmap_x": 39,
         "positionmap_y": 32
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1056.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 33
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1088.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 34
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1120.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 35
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1152.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 36
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1184.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 37
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1216.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 38
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1248.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 39
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1280.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 40
     },
     {
-        "Active": true,
+        "Active": false,
         "Tag": "water",
-        "position_x": 1312.0,
-        "position_y": -96.0,
+        "position_x": 0.0,
+        "position_y": 0.0,
         "positionmap_x": 39,
         "positionmap_y": 41
     },
@@ -13459,7 +13459,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1344.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 0
     },
@@ -13467,87 +13467,87 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1376.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 1
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 64.0,
-        "position_y": -64.0,
+        "position_x": 1408.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 2
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 96.0,
-        "position_y": -64.0,
+        "position_x": 1440.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 3
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 128.0,
-        "position_y": -64.0,
+        "position_x": 1472.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 4
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 160.0,
-        "position_y": -64.0,
+        "position_x": 1504.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 5
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 192.0,
-        "position_y": -64.0,
+        "position_x": 1536.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 6
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 224.0,
-        "position_y": -64.0,
+        "position_x": 1568.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 7
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 256.0,
-        "position_y": -64.0,
+        "position_x": 1600.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 8
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 288.0,
-        "position_y": -64.0,
+        "position_x": 1632.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 9
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 320.0,
-        "position_y": -64.0,
+        "position_x": 1664.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 10
     },
     {
         "Active": true,
         "Tag": "water",
-        "position_x": 352.0,
-        "position_y": -64.0,
+        "position_x": 1696.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 11
     },
@@ -13555,7 +13555,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 384.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 12
     },
@@ -13563,7 +13563,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 416.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 13
     },
@@ -13571,7 +13571,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 448.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 14
     },
@@ -13579,7 +13579,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 480.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 15
     },
@@ -13587,7 +13587,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 512.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 16
     },
@@ -13595,7 +13595,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 544.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 17
     },
@@ -13603,7 +13603,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 576.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 18
     },
@@ -13715,7 +13715,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1024.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 32
     },
@@ -13723,7 +13723,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1056.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 33
     },
@@ -13731,7 +13731,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1088.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 34
     },
@@ -13739,7 +13739,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1120.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 35
     },
@@ -13747,7 +13747,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1152.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 36
     },
@@ -13755,7 +13755,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1184.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 37
     },
@@ -13763,7 +13763,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1216.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 38
     },
@@ -13771,7 +13771,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1248.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 39
     },
@@ -13779,7 +13779,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1280.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 40
     },
@@ -13787,7 +13787,7 @@
         "Active": true,
         "Tag": "water",
         "position_x": 1312.0,
-        "position_y": -64.0,
+        "position_y": 1280.0,
         "positionmap_x": 40,
         "positionmap_y": 41
     },
@@ -14130,104 +14130,68 @@
     {
         "Tag": "enemy_morehealth",
         "health": 200.0,
-        "position_x": -837.9363403320313,
-        "position_y": -1092.646484375
-    },
-    {
-        "Tag": "Archr",
-        "health": 70.0,
-        "position_x": 116.28038787841797,
-        "position_y": -372.3504638671875,
-        "timecount": 0.0
-    },
-    {
-        "Tag": "powerup_lineattack",
-        "position_x": 1954.52392578125,
-        "position_y": 583.004150390625
-    },
-    {
-        "Tag": "enemy_morehealth",
-        "health": 200.0,
-        "position_x": -27.702823638916016,
-        "position_y": 270.1846618652344
+        "position_x": -1566.021484375,
+        "position_y": 1359.5875244140625
     },
     {
         "Tag": "Archr",
         "health": 100.0,
-        "position_x": 1514.7548828125,
-        "position_y": 1125.62255859375,
-        "timecount": 0.0
-    },
-    {
-        "Tag": "enemy_morehealth",
-        "health": 200.0,
-        "position_x": -96.97389221191406,
-        "position_y": -1040.7674560546875
-    },
-    {
-        "Tag": "enemy_moredamage",
-        "health": 10.0,
-        "position_x": 1134.811279296875,
-        "position_y": -34.097129821777344
-    },
-    {
-        "Tag": "Archr",
-        "health": 100.0,
-        "position_x": -978.8200073242188,
-        "position_y": -1077.5185546875,
+        "position_x": -1436.2359619140625,
+        "position_y": 1976.14111328125,
         "timecount": 0.0
     },
     {
         "Tag": "enemy_fastspeed",
         "health": 60.0,
-        "position_x": -9.277612686157227,
-        "position_y": 577.5264892578125
-    },
-    {
-        "Tag": "powerup_lineattack",
-        "position_x": 488.60693359375,
-        "position_y": -178.55308532714844
+        "position_x": -241.4231719970703,
+        "position_y": 2411.006591796875
     },
     {
         "Tag": "enemy_morehealth",
         "health": 200.0,
-        "position_x": -1361.91796875,
-        "position_y": -205.3166961669922
+        "position_x": -1791.772216796875,
+        "position_y": 2192.373291015625
     },
     {
         "Tag": "bullet",
         "damage": 20.0,
-        "direction_y": 0.46458566188812256,
-        "dirextion_x": -0.8855282068252563,
-        "lifetime": 1.8323768377304077,
+        "direction_y": 0.196058452129364,
+        "dirextion_x": 0.9805921912193298,
+        "lifetime": 1.555503487586975,
         "movespeed": 300.0,
-        "position_x": 471.81103515625,
-        "position_y": 368.7383117675781
+        "position_x": 1642.9388427734375,
+        "position_y": 1140.9617919921875
     },
     {
         "Tag": "bullet",
         "damage": 20.0,
-        "direction_y": -0.5438350439071655,
-        "dirextion_x": 0.8391921520233154,
-        "lifetime": 2.358271360397339,
+        "direction_y": 0.27669814229011536,
+        "dirextion_x": 0.9609569311141968,
+        "lifetime": 2.0613269805908203,
         "movespeed": 300.0,
-        "position_x": 943.56005859375,
-        "position_y": 173.30169677734375
+        "position_x": 1422.6070556640625,
+        "position_y": 1073.918701171875
     },
     {
         "Tag": "bullet",
         "damage": 20.0,
-        "direction_y": -0.6387433409690857,
-        "dirextion_x": 0.7694198489189148,
-        "lifetime": 2.8855702877044678,
+        "direction_y": 0.7591183185577393,
+        "dirextion_x": -0.6509526371955872,
+        "lifetime": 2.5772359371185303,
         "movespeed": 300.0,
-        "position_x": 808.4132690429688,
-        "position_y": 330.0726623535156
+        "position_x": 1019.440185546875,
+        "position_y": 1047.2783203125
+    },
+    {
+        "Tag": "enemy_moredamage",
+        "health": 100.0,
+        "position_x": -1442.3822021484375,
+        "position_y": 2436.080078125
     },
     {
         "Tag": "camera",
-        "offestX": 102.0,
-        "offestY": -348.0
+        "offestX": 422.0,
+        "offestY": 251.0
     },
     {
         "Tag": "mapchose",
@@ -14235,10 +14199,16 @@
     },
     {
         "Tag": "credit",
-        "credit": 60
+        "credit": 5
     },
     {
         "Tag": "gametimecount",
-        "gametimecount": 60.192108154296875
+        "gametimecount": 107.79876708984375
+    },
+    {
+        "Tag": "enemiesmanager",
+        "cooldown": 2.0,
+        "timecount": 0.20123282074928284,
+        "timecounttotal": 12.201237678527832
     }
 ]

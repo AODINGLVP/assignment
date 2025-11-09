@@ -3,6 +3,7 @@
 class powerup_maxnumber:public GameObject
 {public:
 	powerup_maxnumber(float x, float y) {
+		//power poject about AOE max number
 		image.load("../Resources/powerup_maxnumber.png");
 		transform.SetPosition(x, y);
 		collision.SetCollision(x, y, 25, 25);

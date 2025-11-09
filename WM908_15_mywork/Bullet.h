@@ -14,11 +14,13 @@ class Bullet:public GameObject
 		collision.SetCollision(transform.GetPositionX(), transform.GetPositionY(), 30, 30);
 	
 		collision.setistrigger(true);
+		//it not be used,I tried do something like unity's trigger but in fact I don't need it in this project
 		Tag = "bullet";
 		lifetime = 3.f;
 		regisetbulletmanager(this);
 		directX = 1.f;
 		directY = 1.f;
+		//Hero will reset direct then create it 
 		
 		
 		image.load("../resources/bullet.png");
@@ -55,6 +57,7 @@ class Bullet:public GameObject
 	}
 	 
 	void updatelifetime(float dt) {
+		//update time and delate bullet when the time is end
 		lifetime -= dt;
 		if(lifetime <= 0) {
 			removed(this);

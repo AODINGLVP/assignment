@@ -8,10 +8,11 @@ public:
 	static Bulletmanager& getInstance() {
 		static Bulletmanager instance;
 		return instance;
-	}
+	}//singleton pattern
 	void add(Bullet* bullet) {
 		if (count >= capacity) {
 			expand();
+			//check capacity and auto expand
 			
 		}
 		bullets[count++] = bullet;
@@ -29,7 +30,7 @@ public:
 				return;
 			}
 		}
-	}
+	}//remove bullet 
 	void expand() {
 		capacity *= 2;
 		Bullet** newBullets = new Bullet * [capacity]();
@@ -38,14 +39,14 @@ public:
 		}
 		delete[] bullets;
 		bullets = newBullets;
-	}
-		//~Bulletmanager();
+	}//expand capacity
+		
 
 		void updateAll(float dt) {
 			for (int i = 0; i < count; i++) {
 				bullets[i]->move(dt);
 				bullets[i]->updatelifetime(dt);
-				
+				//update position and remaing time for every bullet
 			}
 			
 		}

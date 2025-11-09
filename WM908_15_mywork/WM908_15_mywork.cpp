@@ -43,13 +43,14 @@ using json = nlohmann::json;
 float presscount = 0.f;
 bool press = false;
 void timecountthread() {
+	//is for avoid the Keyboard mis-click
 	GamesEngineeringBase::Timer scv;
 	while (1) {
 		presscount -= scv.dt();
-		if (presscount <= -0.8f && press) {
+		if (presscount <= -0.3f && press) {
 			press = false;
 		}
-
+		std::this_thread::sleep_for(std::chrono::milliseconds(10)); 
 	}
 
 
@@ -77,7 +78,8 @@ int main() {
 	int stage = 1;
 	json data;
 
-	HRESULT hr = CoInitialize(NULL); //  初始化 COM
+	HRESULT hr = CoInitialize(NULL);
+	//  initialize COM ,in fact ,pictures will disappera if I don't do that
 
 
 	GameObjectManager& gameobjectmanager = GameObjectManager::getInstance();
@@ -87,12 +89,13 @@ int main() {
 
 	enemiesmanager& enemymanager = enemiesmanager::getInstance();
 	Camera& camera = Camera::GetCamera();
-	camera.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY());
+	
 	GamesEngineeringBase::Image tiles[24];
 	for (int i = 0; i < 24; i++) {
 		tiles[i].load("../Resources/" + to_string(i) + ".png");
 
 	}
+	//load tiles
 
 
 	GamesEngineeringBase::Image image;
@@ -113,16 +116,14 @@ int main() {
 	GamesEngineeringBase::Window canvas;
 
 	image.load("../Resources/A.png");
-	// Create a canvas window with dimensions 1024x768 and title “Tiles"
+	
 
 
 
-	unsigned int planeX = 300;  // Initial x-coordinate for the plane image.
-	unsigned int planeY = 300;
-
+	
 	canvas.create(1280, 1280, "Tiles");
 
-	bool running = true; // Variable to control the main loop's running state.
+	bool running = true; 
 	cout << canvas.getWidth() << "   " << canvas.getHeight();
 	welcome_page.load("../Resources/welcome_page.png");
 	lose_page.load("../Resources/lose_page.png");
@@ -154,6 +155,7 @@ int main() {
 				presscount = 0.2f;
 				press = true;
 				stage = 7;
+				//go to chosen map page
 
 			}
 			if (canvas.keyPressed('W') && !press) {
@@ -162,6 +164,7 @@ int main() {
 
 				stage = 5;
 				goload = true;
+				//go to load page
 
 			}
 			if (canvas.keyPressed('E')) {
@@ -182,12 +185,14 @@ int main() {
 			else {
 				draw_title(0, 0, canvas, lose_page);
 			}
+			//show different string to show win or lose
 			
 			if (canvas.keyPressed('Q') && !press) {
 				gametimecount = 120.f;
 				presscount = 0.2f;
 				press = true;
 				stage = 7;
+				//to chosen map page
 
 			}
 			if (canvas.keyPressed('W') && !press) {
@@ -197,6 +202,7 @@ int main() {
 				goload = true;
 
 			}
+			//to load page
 			if (canvas.keyPressed('E') && !press) {
 				presscount = 0.2f;
 				press = true;
@@ -205,78 +211,48 @@ int main() {
 			canvas.present();
 
 		}
-		else if (stage == 3) {//load page
-			canvas.clear();
-			draw_title(0, 0, canvas, load_page);
-			if (canvas.keyPressed('Q')) {
-
-
-			}
-			if (canvas.keyPressed('W')) {
-
-			}
-			if (canvas.keyPressed('E')) {
-
-			}
-			if (canvas.keyPressed('R')) {
-				ExitProcess(0);
-			}
-			canvas.present();
-
-		}
-		else if (stage == 4) {//save page useless
-			canvas.clear();
-			draw_title(0, 0, canvas, save_page);
-			if (canvas.keyPressed('Q')) {
-
-			}
-			if (canvas.keyPressed('W')) {
-
-			}
-			if (canvas.keyPressed('E')) {
-
-			}
-			if (canvas.keyPressed('R')) {
-				ExitProcess(0);
-			}
-			canvas.present();
-		}
-		else if (stage == 5) {//infinity map 
+		
+		else if (stage == 5) {// game page
 
 			gameobjectmanager.delatemyself();
 			bulletmanager.delatemyself();
 			enemymanager.delatemyself();
-			
+			enemymanager.setcooldown(2.f);
+			hero.cleartimecount();
 			int showfps = 20;
 			hero.setHealth(100);
+			//initialize data
 			Water*** watermap = new Water * *[42];
 			for (int i = 0; i < 42; i++) {
 				watermap[i] = new Water * [42];
 				for (int j = 0; j < 42; j++) {
-					watermap[i][j] = new Water; // 初始化为空指针
+					watermap[i][j] = new Water; 
 					watermap[i][j]->positionmap_x = i;
 					watermap[i][j]->positionmap_y = j;
 				}
 			}
+			//initialize water
 			int** mapoffestx = new int* [100]();
 			for (int i = 0; i < 100; i++)
 				mapoffestx[i] = new int[100]();
 			int** mapoffesty = new int* [100]();
 			for (int i = 0; i < 100; i++)
 				mapoffesty[i] = new int[100]();
+			//initialize offset about map
 			int** mapsave1 = new int* [42];
 			for (int i = 0; i < 42; i++)
 				mapsave1[i] = new int[42];
-
+			//initialize the data about map
 			GamesEngineeringBase::Timer timer;
 
 
 			if (loadpagechose == 1 || loadpagechose == 3) {
 				ifstream file("../Resources/tiles.txt");
-				
+				//load map1
 				string line;
 				for (int linenumber = 0; getline(file, line);) {
 					if (linenumber >= 6) {
+						//lins between 0-5 is other is the introduce of map
 						int columnline = 0;
 						int stack = -1;
 						for (int i = 0; i < line.size(); i++) {
@@ -286,6 +262,7 @@ int main() {
 								stack = -1;
 							}
 							else {
+								//calculate the number from string
 								if (stack == -1) {
 									stack = line[i] - '0';
 								}
@@ -305,6 +282,7 @@ int main() {
 
 						if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
 							watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
+							//active water
 						}
 						else {
 							watermap[i][j]->collision.SetCollision(0, 0, 0, 0);
@@ -315,7 +293,7 @@ int main() {
 			}
 			else {
 				ifstream file("../Resources/tiles1.txt");
-				
+				//load map2
 				string line;
 				for (int linenumber = 0; getline(file, line);) {
 					if (linenumber >= 6) {
@@ -359,8 +337,8 @@ int main() {
 			Hero& hero = Hero::getInstance();
 			hero.transform.SetPosition(canvas.getWidth() / 2, canvas.getHeight() / 2);
 
-			camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
-
+			camera.SetPosition(hero.transform.GetPositionX()- (canvas.getWidth() / 2), hero.transform.GetPositionY()- (canvas.getHeight() / 2));
+			//set position while subtracting the hero's initial position
 			float dt = timer.dt();
 			int move = hero.getMoveSpeed() * dt;
 			int fps = 0;
@@ -372,20 +350,13 @@ int main() {
 
 
 
-			// Create a canvas window with dimensions 1024x768 and title “Tiles"
-
-
-
-			unsigned int planeX = 300;  // Initial x-coordinate for the plane image.
-			unsigned int planeY = 300;
-
-
-
-			while (running)//infinity map stage 5
+			while (running)//game staet
 			{
 				if (canvas.keyPressed('T') && !press) {
+					//to save page
 					press = true;
 					presscount = 0.2f;
+					//is about avoid mistake press keyboard
 					while (1) {
 
 						dt = timer.dt();
@@ -394,79 +365,95 @@ int main() {
 						if (canvas.keyPressed('Q') && !press) {
 							press = true;
 							presscount = 0.2f;
+							//is about avoid mistake press keyboard
 							ofstream loadfile("../load/sava1.json", std::ios::out | std::ios::trunc);
-
+							//save to file 1
 							GameObjectManager::getInstance().saveall(data);
+							//save all gameobjects data
 							data.push_back({
 								{"Tag","mapchose"},
 								{"loadpagechose",loadpagechose}
 								});
+							//save the screen that be chosed
 							data.push_back({
 								{"Tag","credit"},
 								{"credit",enemymanager.credit}
 								});
+							//save sorces of the game
 							data.push_back({
 								{"Tag","gametimecount"},
 								{"gametimecount",gametimecount}
 								});
-							
+							//save remaing time
+							enemymanager.save(data);
+							//save data about enemymanage,such as the cooldown of creat enemy
 							loadfile << data.dump(4);
 							loadfile.close();
 							data = json();
+							//clear data
 							break;
 						}
 						if (canvas.keyPressed('W') && !press) {
 							press = true;
 							presscount = 0.2f;
+							//is about avoid mistake press keyboard
 							ofstream loadfile("../load/sava2.json", std::ios::out | std::ios::trunc);
-
+							//save to file 2
 							GameObjectManager::getInstance().saveall(data);
+							//save all gameobjects data
 							data.push_back({
 								{"Tag","mapchose"},
 								{"loadpagechose",loadpagechose}
-
-
 								});
+							//save the screen that be chosed
 							data.push_back({
 								{"Tag","credit"},
 								{"credit",enemymanager.credit}
 								});
+							//save sorces of the game
 							data.push_back({
 								{"Tag","gametimecount"},
 								{"gametimecount",gametimecount}
 								});
+							//save remaing time
+							enemymanager.save(data);
+							//save data about enemymanage,such as the cooldown of creat enemy
 							loadfile << data.dump(4);
 							loadfile.close();
 							data = json();
+							//clear data
 							break;
-
 						}
 						if (canvas.keyPressed('E') && !press) {
 							press = true;
 							presscount = 0.2f;
+							//is about avoid mistake press keyboard
 							ofstream loadfile("../load/sava3.json", std::ios::out | std::ios::trunc);
-
-
+							//save to file 3
 							GameObjectManager::getInstance().saveall(data);
+							//save all gameobjects data
 							data.push_back({
 								{"Tag","mapchose"},
 								{"loadpagechose",loadpagechose}
-
-
 								});
+							//save the screen that be chosed
 							data.push_back({
 								{"Tag","credit"},
 								{"credit",enemymanager.credit}
 								});
+							//save sorces of the game
 							data.push_back({
 								{"Tag","gametimecount"},
 								{"gametimecount",gametimecount}
 								});
+							//save remaing time
+							enemymanager.save(data);
+							//save data about enemymanage,such as the cooldown of creat enemy
 							loadfile << data.dump(4);
 							loadfile.close();
 							data = json();
+							//clear data
 							break;
-
 						}
 						if (canvas.keyPressed('R')) {
 							ExitProcess(0);
@@ -475,28 +462,16 @@ int main() {
 					}
 
 				}
-				if (canvas.keyPressed('O') && !press) {
-					ofstream loadfile("../load/sava.json", std::ios::out | std::ios::trunc);
-					press = true;
-					presscount = 0.5f;
-					GameObjectManager::getInstance().saveall(data);
-					loadfile << data.dump(4);
-					loadfile.close();
-					data = json();
-
-				}
-				if (canvas.keyPressed('I')) {
-					for (int i = 0; i < 42; i++) {
-						for (int j = 0; j < 42; j++) {
-
-						}
-					}
-				}
+				
+				
 				if (canvas.keyPressed('Y') || goload) {
+					//go to load page
 					goload = false;
+					//it is about from welcome page or gamevoer page to here
 					while (1) {
 						canvas.clear();
 						draw_title(0, 0, canvas, load_page);
+						//draw the page
 						if (canvas.keyPressed('Q') && !press) {
 							presscount = 0.2f;
 							press = true;
@@ -504,22 +479,22 @@ int main() {
 
 							std::ifstream in("../load/sava1.json");
 							if (!in) {
-								std::cerr << "无法打开读取文件 ../load/sava.json\n";
+								std::cerr << "error ../load/sava.json\n";
 							}
 							else {
-								try {
-									in >> data; // 从文件反序列化到内存 json 对象
-								}
-								catch (nlohmann::json::parse_error& e) {
-									std::cerr << "JSON 解析错误: " << e.what() << '\n';
-									data = nlohmann::json(); // 可选：重置为空 json
-								}
+								
+									in >> data;
+									//load data
+								
+								
 								in.close();
 								enemiesmanager::getInstance().delatemyself();
 								Bulletmanager::getInstance().delatemyself();
-								
-								loadpagechose = GameObjectManager::getInstance().loadall(data,enemymanager.credit,gametimecount);
+								//make count to zero
+								loadpagechose = GameObjectManager::getInstance().loadall(data,enemymanager.credit,gametimecount,enemymanager.gettimecounttotalreference(),enemymanager.getcooldownreference(),enemymanager.gettimecountreference());
+								//clear gameobjects and load 
 								if (loadpagechose == 1 || loadpagechose == 3) {
+									//chose map from load and load to mapsave1
 									ifstream file("../Resources/tiles.txt");
 									
 									string line;
@@ -552,6 +527,7 @@ int main() {
 									file.close();
 								}
 								else if (loadpagechose == 2 || loadpagechose == 4) {
+									//chose map from load and load to mapsave1
 									ifstream file("../Resources/tiles1.txt");
 									
 									string line;
@@ -589,6 +565,7 @@ int main() {
 
 									}
 								}
+								//load Water to watermap
 								for (int i = 0; i < 42; i++) {
 									for (int j = 0; j < 42; j++) {
 
@@ -599,7 +576,7 @@ int main() {
 											watermap[i][j]->Active = false;
 										}
 									}
-								}
+								}//avtive Water which is real water tile
 
 							}
 
@@ -609,25 +586,28 @@ int main() {
 						if (canvas.keyPressed('W') && !press) {
 							presscount = 0.2f;
 							press = true;
+
+
 							std::ifstream in("../load/sava2.json");
 							if (!in) {
-								std::cerr << "无法打开读取文件 ../load/sava.json\n";
+								std::cerr << "error ../load/sava.json\n";
 							}
 							else {
-								try {
-									in >> data; // 从文件反序列化到内存 json 对象
-								}
-								catch (nlohmann::json::parse_error& e) {
-									std::cerr << "JSON 解析错误: " << e.what() << '\n';
-									data = nlohmann::json(); // 可选：重置为空 json
-								}
+
+								in >> data;
+								//load data
+
+
 								in.close();
 								enemiesmanager::getInstance().delatemyself();
 								Bulletmanager::getInstance().delatemyself();
-								loadpagechose = GameObjectManager::getInstance().loadall(data, enemymanager.credit,gametimecount);
+								//make count to zero
+								loadpagechose = GameObjectManager::getInstance().loadall(data, enemymanager.credit, gametimecount, enemymanager.gettimecounttotalreference(), enemymanager.getcooldownreference(), enemymanager.gettimecountreference());
+								//clear gameobjects and load 
 								if (loadpagechose == 1 || loadpagechose == 3) {
+									//chose map from load and load to mapsave1
 									ifstream file("../Resources/tiles.txt");
-									
+
 									string line;
 									for (int linenumber = 0; getline(file, line);) {
 
@@ -658,8 +638,9 @@ int main() {
 									file.close();
 								}
 								else if (loadpagechose == 2 || loadpagechose == 4) {
+									//chose map from load and load to mapsave1
 									ifstream file("../Resources/tiles1.txt");
-									
+
 									string line;
 									for (int linenumber = 0; getline(file, line);) {
 
@@ -695,6 +676,7 @@ int main() {
 
 									}
 								}
+								//load Water to watermap
 								for (int i = 0; i < 42; i++) {
 									for (int j = 0; j < 42; j++) {
 
@@ -705,7 +687,7 @@ int main() {
 											watermap[i][j]->Active = false;
 										}
 									}
-								}
+								}//avtive Water which is real water tile
 
 							}
 
@@ -716,26 +698,27 @@ int main() {
 							presscount = 0.2f;
 							press = true;
 
+
 							std::ifstream in("../load/sava3.json");
 							if (!in) {
-								std::cerr << "无法打开读取文件 ../load/sava.json\n";
+								std::cerr << "error ../load/sava.json\n";
 							}
 							else {
-								try {
-									in >> data; // 从文件反序列化到内存 json 对象
-								}
-								catch (nlohmann::json::parse_error& e) {
-									std::cerr << "JSON 解析错误: " << e.what() << '\n';
-									data = nlohmann::json(); // 可选：重置为空 json
-								}
+
+								in >> data;
+								//load data
+
+
 								in.close();
 								enemiesmanager::getInstance().delatemyself();
 								Bulletmanager::getInstance().delatemyself();
-								
-								loadpagechose = GameObjectManager::getInstance().loadall(data, enemymanager.credit,gametimecount);
+								//make count to zero
+								loadpagechose = GameObjectManager::getInstance().loadall(data, enemymanager.credit, gametimecount, enemymanager.gettimecounttotalreference(), enemymanager.getcooldownreference(), enemymanager.gettimecountreference());
+								//clear gameobjects and load 
 								if (loadpagechose == 1 || loadpagechose == 3) {
+									//chose map from load and load to mapsave1
 									ifstream file("../Resources/tiles.txt");
-									
+
 									string line;
 									for (int linenumber = 0; getline(file, line);) {
 
@@ -766,8 +749,9 @@ int main() {
 									file.close();
 								}
 								else if (loadpagechose == 2 || loadpagechose == 4) {
+									//chose map from load and load to mapsave1
 									ifstream file("../Resources/tiles1.txt");
-									
+
 									string line;
 									for (int linenumber = 0; getline(file, line);) {
 
@@ -803,6 +787,7 @@ int main() {
 
 									}
 								}
+								//load Water to watermap
 								for (int i = 0; i < 42; i++) {
 									for (int j = 0; j < 42; j++) {
 
@@ -813,7 +798,7 @@ int main() {
 											watermap[i][j]->Active = false;
 										}
 									}
-								}
+								}//avtive Water which is real water tile
 
 							}
 
@@ -826,72 +811,39 @@ int main() {
 						canvas.present();
 					}
 				}
-				if (canvas.keyPressed('P') && !press) {
-
-
-
-					std::ifstream in("../load/sava.json");
-					if (!in) {
-						std::cerr << "无法打开读取文件 ../load/sava.json\n";
-					}
-					else {
-						try {
-							in >> data; // 从文件反序列化到内存 json 对象
-						}
-						catch (nlohmann::json::parse_error& e) {
-							std::cerr << "JSON 解析错误: " << e.what() << '\n';
-							data = nlohmann::json(); // 可选：重置为空 json
-						}
-						in.close();
-						enemiesmanager::getInstance().delatemyself();
-						Bulletmanager::getInstance().delatemyself();
-						press = true;
-						presscount = 0.5f;
-						GameObjectManager::getInstance().loadall(data, enemymanager.credit,gametimecount);
-						for (int i = 0; i < gameobjectmanager.GetCount(); i++) {
-							if (gameobjectmanager.getobjects()[i]->Tag == "water") {
-								watermap[gameobjectmanager.getobjects()[i]->getmapx()][gameobjectmanager.getobjects()[i]->getmapy()] = dynamic_cast<Water*>(gameobjectmanager.getobjects()[i]);
-
-							}
-						}
-						for (int i = 0; i < 42; i++) {
-							for (int j = 0; j < 42; j++) {
-
-								if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
-									watermap[i][j]->collision.SetCollision(0, 0, 32, 32);
-								}
-								else {
-									watermap[i][j]->Active = false;
-								}
-							}
-						}
-						continue;
-					}
-				}
+		
 
 				dt = timer.dt();
 				gametimecount -= dt;
 				hero.updataability(dt);
+				//update AOE cooldown
 				hero.updateinvincible(dt);
+				//update invincible tiem
 				fpsdtcount += dt;
 				fps++;
 				if (fpsdtcount >= 1.0f) {
+					
 					cout << "FPS: " << fps << endl;
-					cout << "FPS: " << fps << endl;
-					cout << "hero.max" << hero.getabilitymax() << endl;
-					cout << "hero.cooldown" << hero.getabilitycooldown() << endl;
+					cout << "hero.ability max number" << hero.getabilitymax() << endl;
 					cout << "hero.bulletspeed" << hero.getbulletmovespeed() << endl;
-					cout << "cooldown" << hero.getcooldown() << endl;
+					cout << "bullet cooldown" << hero.getcooldown() << endl;
+					cout << "enemy creat cooldown" << enemymanager.getcooldown() << endl;
 					showfps = fps;
+					//showfps will show in game
 					fps = 0;
 					fpsdtcount = 0;
+					//show some information in terminal
 				}
 
 				hero.shot(dt, hero);
+				//update cooldown and shot bullet
 				enemymanager.updateall(dt);
+				//make enemies move
 				move = hero.getMoveSpeed() * dt;
 				controlHero(hero, canvas, move);
+				//control hero move
 				if (canvas.keyPressed('N')) {
+					//use AOE
 					if (Hero::getInstance().getabilitytimecount() >= 10.f) {
 						enemiesmanager::getInstance().killsomeenemies(Hero::getInstance().getabilitymax());
 						Hero::getInstance().setabilitytimecount(0.f);
@@ -899,6 +851,7 @@ int main() {
 
 				}
 				if (loadpagechose == 3 || loadpagechose == 4) {
+					//fixed map need to restrict hero's position and camera's position
 					if (hero.transform.GetPositionX() <= -10) {
 						hero.transform.SetPositionX(-10);
 					}
@@ -931,18 +884,22 @@ int main() {
 
 				}
 				else if (loadpagechose == 1 || loadpagechose == 2) {
+					//infinite map
 					changemao(hero, mapoffestx, mapoffesty);
 					camera.SetPosition(hero.transform.GetPositionX() - (canvas.getWidth() / 2), hero.transform.GetPositionY() - (canvas.getHeight() / 2));
 				}
 
 				bulletmanager.updateAll(dt);
+				//move bullets
 				gameobjectmanager.UpdateAll(dt);
+				//update collision box position to the object's position and check for collision
 				if (hero.getHealth() < 0) {
 					stage = 2;
 					gametimecount = 120.f;
 					winorlose = false;
 					break;
 				}
+				//check hero die
 				if (gametimecount <= 0) {
 					presscount = 0.2f;
 					press = true;
@@ -951,13 +908,8 @@ int main() {
 					gametimecount = 120.f;
 					break;
 				}
-				if (canvas.keyPressed('M'))
-				{
-					stage = 2;
-					break;
-				}
-				// Check for input (key presses or window events)
-				// Clear the window for the next frame rendering
+				//check time over
+				
 				canvas.clear();
 
 				draw_entire_background(mapsave1, canvas, tiles, mapoffestx, mapoffesty, watermap);
@@ -965,32 +917,31 @@ int main() {
 				draw_object(canvas, gameobjectmanager.getobjects(), gameobjectmanager.GetCount());
 				draw_title(0, 10, canvas, healthshow);
 				draw_numbers(healthshow.width + 10, 10, canvas,number,hero.getHealth());
+				//show health
 				draw_title(0, 60, canvas, Creditsshow);
 				draw_numbers(Creditsshow.width + 10, 60, canvas, number, enemymanager.credit);
+				//show scores
 				draw_title(0, 110, canvas, FPSshow);
 				draw_numbers(FPSshow.width + 10, 110, canvas, number, showfps);
+				//show FPS
 				draw_title(0, 160, canvas, TIMEshow);
 				draw_numbers(TIMEshow.width + 10, 160, canvas, number, gametimecount);
+				//show remaing time
 				if (Hero::getInstance().getabilitytimecount() >= 10.f) {
 					draw_title(450, 10, canvas, aoeshow);
 				}
+				//show the situation of AOE
 				draw_title(900, 10, canvas, Tshow);
 				draw_title(900, 60, canvas, Yshow);
+				//show information about save and load
+				
 
-				//draw_collision(hero, canvas);
 
-
-				// Update game logic
-				// Draw();
-				// Display the frame on the screen. This must be called once the frameis finished in order to display the frame.
+				
 				canvas.present();
 			}
 		}
-		else if (stage == 6) {//fixed map
-
-
-			
-		}
+		
 		else if (stage == 7) {//chose map page
 			
 			canvas.clear();
@@ -1000,27 +951,28 @@ int main() {
 					press = true;
 					loadpagechose = 1;
 					stage = 5;
-
+					//map1 infinite
 				}
 				if (canvas.keyPressed('W') && !press) {
 					presscount = 0.2f;
 					press = true;
 					loadpagechose = 2;
 					stage = 5;
+					//map2 infinite
 				}
 				if (canvas.keyPressed('E') && !press) {
 					presscount = 0.2f;
 					press = true;
 					loadpagechose = 3;
 					stage = 5;
-
+					//map1 fixed
 				}
 				if (canvas.keyPressed('R') && !press) {
 					presscount = 0.2f;
 					press = true;
 					loadpagechose = 4;
 					stage = 5;
-
+					//map2 fixed
 				}
 				canvas.present();
 			}
@@ -1042,12 +994,13 @@ void changemao(Hero& hero, int** mapmapoffestx, int** mapmapoffesty) {//change m
 
 	for (int i = 0; i < 42; i++) {
 		for (int j = 0; j < 42; j++) {
+			//clean its
 			mapmapoffestx[i][j] = 0;
 			mapmapoffesty[i][j] = 0;
 		}
 	}
 	if (offestx < 0 || countx < 0) {
-
+		//hero in the left
 		for (int i = 41; i >= 0; i--) {
 			for (int j = 41; j >= 0; j--) {
 				if (j > 41 + offestx) {
@@ -1060,6 +1013,7 @@ void changemao(Hero& hero, int** mapmapoffestx, int** mapmapoffesty) {//change m
 		}
 	}
 	if (offestx >= 0 || countx > 0) {
+		//hero in the right
 		for (int i = 0; i < 42; i++) {
 			for (int j = 0; j < 42; j++) {
 
@@ -1072,6 +1026,7 @@ void changemao(Hero& hero, int** mapmapoffestx, int** mapmapoffesty) {//change m
 		}
 	}
 	if (offesty >= 0 || county > 0) {
+		//hero in the top
 		for (int i = 0; i < 42; i++) {
 			for (int j = 0; j < 42; j++) {
 				if (j < offesty) {
@@ -1084,6 +1039,7 @@ void changemao(Hero& hero, int** mapmapoffestx, int** mapmapoffesty) {//change m
 		}
 	}
 	if (offesty < 0 || county < 0) {
+		//hero in the down
 		for (int i = 0; i < 42; i++) {
 			for (int j = 41; j >= 0; j--) {
 				if (j > 41 + offesty) {
@@ -1098,11 +1054,13 @@ void changemao(Hero& hero, int** mapmapoffestx, int** mapmapoffesty) {//change m
 	}
 
 }
-void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image) {//draw a pixil image at (x,y) position on the canvas
+void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image) {
+	//draw a image with the window coordinate
 
 	for (int i = 0; i < image.height; i++) {
 		for (int j = 0; j < image.width; j++) {
 			if (x + j >= 0 && i + y >= 0 && x + j < canvas.getWidth() && i + y < canvas.getHeight()) {
+				//check the pixil is in the camera
 				if (image.alphaAt(j, i)) {
 					canvas.draw(x + j, y + i, image.at(j, i));
 				}
@@ -1114,7 +1072,8 @@ void draw_title(int x, int y, GamesEngineeringBase::Window& canvas, GamesEnginee
 	}
 
 }
-void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int count) {//draw a pixil image at (x,y) position on the canvas
+void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int count) {
+	//draw a GameObject 
 
 	for (int o = 0; o < count; o++) {
 		if (obj[o]) {
@@ -1125,7 +1084,7 @@ void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int cou
 					if (true) {
 						if (obj[o]->image.alphaAt(j, i)) {
 							camera_draw(j, i, obj[o]->image, canvas, obj[o]);
-							//canvas.draw(obj[o]->transform.GetPositionX() + j-Camera::GetCamera().GetX(), obj[o]->transform.GetPositionY() + i - Camera::GetCamera().GetY(), obj[o]->image.at(j, i));
+							//it will calculate the offset about camera
 						}
 
 
@@ -1139,12 +1098,15 @@ void draw_object(GamesEngineeringBase::Window& canvas, GameObject** obj, int cou
 
 
 }
-void camera_draw(float x, float y, GamesEngineeringBase::Image& image, GamesEngineeringBase::Window& canvas, GameObject* obj) {
-	if (obj->transform.GetPositionX() + x - Camera::GetCamera().GetX() >= 0 && obj->transform.GetPositionX() + x - Camera::GetCamera().GetX() < canvas.getWidth() && obj->transform.GetPositionY() + y - Camera::GetCamera().GetY() >= 0 && obj->transform.GetPositionY() + y - Camera::GetCamera().GetY() < canvas.getHeight())
+//correction position with camera offset
+void camera_draw(float x, float y, GamesEngineeringBase::Image& image,GamesEngineeringBase::Window& canvas, GameObject* obj) {
+
+	if (obj->transform.GetPositionX() + x - Camera::GetCamera().GetX() >= 0 && obj->transform.GetPositionX() + x - Camera::GetCamera().GetX() < canvas.getWidth()&& obj->transform.GetPositionY() + y - Camera::GetCamera().GetY() >= 0 &&obj->transform.GetPositionY() + y - Camera::GetCamera().GetY() < canvas.getHeight())
+		//if the new position in the canvs
 		canvas.draw(obj->transform.GetPositionX() + x - Camera::GetCamera().GetX(), obj->transform.GetPositionY() + y - Camera::GetCamera().GetY(), obj->image.at(x, y));
 }
 
-void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas) {
+void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas) {//draw the collision box
 	for (int i = gameobject.collision.getcollisionX() - Camera::GetCamera().GetX(); i < gameobject.collision.getcollisionX() + gameobject.collision.getcollisionW() - Camera::GetCamera().GetX(); i++) {
 		if (i >= 0 && gameobject.collision.getcollisionY() - Camera::GetCamera().GetY() >= 0 && i < canvas.getWidth() && gameobject.collision.getcollisionY() - Camera::GetCamera().GetY() < canvas.getHeight()) {
 			canvas.draw(i, gameobject.collision.getcollisionY() - Camera::GetCamera().GetY(), 0, 0, 225);
@@ -1171,35 +1133,36 @@ void draw_collision(GameObject& gameobject, GamesEngineeringBase::Window& canvas
 		}
 
 	}
-
-	scvtest = false;
+	//the 4 for is about 4 line of the box
+	
 
 }
-void draw_entire_background(int** mapsave1, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image* tiles, int** offestmapx, int** offestmapy, Water*** watermap) {
+void draw_entire_background(int** mapsave1,GamesEngineeringBase::Window& canvas,GamesEngineeringBase::Image* tiles, int** offestmapx, int** offestmapy, Water*** watermap) {
 	
-	//scvcount++;
+	//draw background and update water collision box
 	for (int i = 0; i < 42; i++) {
 		for (int j = 0; j < 42; j++) {
 			if (mapsave1[i][j] > -1 && mapsave1[i][j] < 24) {
 				if (mapsave1[i][j] >= 15 && mapsave1[i][j] <= 22) {
-					watermap[i][j]->transform.SetPosition((j * 32) + offestmapx[j][i], (i * 32) + offestmapy[j][i]);
-					watermap[i][j]->Update(0, Camera::GetCamera());
+					//update water position and water collision box position
+					watermap[i][j]->transform.SetPosition((j * 32) +offestmapx[j][i], (i * 32) + offestmapy[j][i]);watermap[i][j]->Update(0, Camera::GetCamera());
 
 				}
 
 				draw_title((j * 32) - Camera::GetCamera().GetX() + offestmapx[j][i], (i * 32) - Camera::GetCamera().GetY() + offestmapy[j][i], canvas, tiles[mapsave1[i][j]]);
-
+				//draw every tile with right offset,the function camera_draw is suit for gameobject,so correction offset and then use draw_title draw it in window
 			}
 		}
 
 
 	}
 }
-void draw_numbers(float x, float y, GamesEngineeringBase::Window& canvas, GamesEngineeringBase::Image& image, int number) {
+void draw_numbers(float x, float y, GamesEngineeringBase::Window& canvas,GamesEngineeringBase::Image& image, int number) {
 	int numbernow;
 	int count = 0;
 	int numbers[10];
 	if (number == 0) {
+		//draw 0 when the number is 0
 		for (int i = 0; i < 39; i++) {
 			for (int j = 0; j < 50; j++) {
 				if (image.alphaAt(i , j)) {
@@ -1209,8 +1172,11 @@ void draw_numbers(float x, float y, GamesEngineeringBase::Window& canvas, GamesE
 		}
 	}
 	while (number >0) {
+		
 		numbers[count] = number % 10;
+		//save the number in different digits
 		count++;
+		//count the The number of digits
 		number = number / 10;
 		
 	}
@@ -1218,7 +1184,9 @@ void draw_numbers(float x, float y, GamesEngineeringBase::Window& canvas, GamesE
 		for (int i = 0; i < 39; i++) {
 			for (int j = 0; j < 50; j++) {
 				if (image.alphaAt(i + (numbers[u] * 39), j)) {
-					canvas.draw(i + (count - u) * 39 + x, j + y, image.at(i + (numbers[u] * 39), j));
+					canvas.draw(i + (count - u) * 39 + x, 
+						//draw the number based on digits 
+					j + y, image.at(i + (numbers[u] * 39), j));
 				}
 			}
 		}
@@ -1238,6 +1206,7 @@ void controlHero(Hero& hero, GamesEngineeringBase::Window& canvas, float move) {
 		hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() - move);
 		hero.Update();
 		if (GameObjectManager::getInstance().checkwater()) {
+			//check hero is collision with water or not
 			hero.transform.SetPosition(hero.transform.GetPositionX(), hero.transform.GetPositionY() + move);
 			hero.Update();
 
