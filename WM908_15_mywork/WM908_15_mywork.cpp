@@ -51,7 +51,7 @@ void timecountthread() {
 		if (presscount <= -0.3f && press) {
 			press = false;
 		}
-		this_thread::sleep_for(chrono::milliseconds(10)); 
+		
 	}
 
 
@@ -467,6 +467,8 @@ int main() {
 				
 				if (canvas.keyPressed('Y') || goload) {
 					//go to load page
+					press = true;
+					presscount = 0.2f;
 					goload = false;
 					//it is about from welcome page or gamevoer page to here
 					while (1) {
