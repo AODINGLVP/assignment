@@ -23,6 +23,7 @@
 /x64/
 /x86/
 /ipch/
+!/exe file/WM908_15_mywork.exe
 
 # 忽略其他 IDE 的配置
 *.VC.db
