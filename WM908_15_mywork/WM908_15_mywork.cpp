@@ -70,6 +70,7 @@ void changemao(Hero& hero, int** mapmapoffestx, int** mapoffesty);
 using namespace std;
 
 int main() {
+	
 	thread t(timecountthread);
 	float gametimecount=120.f;
 	bool winorlose=true;
@@ -214,7 +215,7 @@ int main() {
 		}
 		
 		else if (stage == 5) {// game page
-
+			
 			gameobjectmanager.delatemyself();
 			bulletmanager.delatemyself();
 			enemymanager.delatemyself();
@@ -340,7 +341,10 @@ int main() {
 
 			camera.SetPosition(hero.transform.GetPositionX()- (canvas.getWidth() / 2), hero.transform.GetPositionY()- (canvas.getHeight() / 2));
 			//set position while subtracting the hero's initial position
+			
 			float dt = timer.dt();
+			;
+			
 			int move = hero.getMoveSpeed() * dt;
 			int fps = 0;
 			float fpsdtcount = 0;

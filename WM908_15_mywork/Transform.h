@@ -52,8 +52,8 @@ public:
 
     // …Ë÷√Œª÷√
 private:
-    float position[2] = {0,0};
-	float rotation[2]{ 0,0 };//useless
+    float position[2] = {0.f,0.f};
+	float rotation[2]{ 0.f,0.f };//useless
 	float scale=1;//useless
 
 };
